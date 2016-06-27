@@ -1,0 +1,12 @@
+.idea
+node_modules
+dist
+*.log
+.DS_Store
+sauce-tunnel-ready
+mb.log
+xvfb-run.*
+.env
+*.tmp
+minigun_*.json
+minigun_*.json.html
