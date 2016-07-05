@@ -48,7 +48,7 @@ const config = {
                 'localIdentName=[name]__[local]___[hash:base64:7]' +
                 '!postcss' +
                 '!less')
-            },
+            }
         ]
     },
 

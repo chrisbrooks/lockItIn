@@ -1,3 +1,4 @@
+import styles from './App.less';
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -12,6 +13,7 @@ class App extends React.Component {
         this.state = {
             amount: null,
             invoiceNumber: null,
+            customerNumber: null,
         };
 
         this.onFormSubmit = this.onFormSubmit.bind(this);
@@ -31,6 +33,7 @@ class App extends React.Component {
         const payment = {
             amount,
             invoiceNumber,
+            customerNumber
         };
 
         this.props.actions.makePayment(payment);
@@ -40,7 +43,12 @@ class App extends React.Component {
         return (
             <div>
                 <Header />
-                <PaymentForm onFormSChange={this.onFormChange} onFormSubmit={this.onFormSubmit} invoiceNumber={this.props.invoiceNumber} amount={this.props.amount} loading={this.props.loading} />
+                <div className={styles.pageContainer}>
+                    <PaymentForm onFormChange={this.onFormChange} onFormSubmit={this.onFormSubmit} invoiceNumber={this.props.invoiceNumber} amount={this.props.amount} customerNumber={this.props.customerNumber} loading={this.props.loading} />
+                    <div className={styles.paymentButtonContainer}>
+                        <input type="submit" value="Confirm payment" className={styles.paymentButton}></input>
+                    </div>
+                </div>
                 <Footer />
             </div>);
     }

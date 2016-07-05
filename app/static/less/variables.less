@@ -1,0 +1,92 @@
+//== Seek Colours
+//
+//## Seek color swatches
+@sk-link-text:              #0066cc;    //Interactive text only
+@sk-link-visited:           #5d227b;
+
+@sk-pink:                   #e60278;    //Primary actions & key graphical elements
+@sk-light-pink:             #f0d9e5;    //Used for error backgrounds
+@sk-dark-pink:              #b20a61;    //Hover pink on grey background
+@sk-blue:                   #336892;
+@sk-white:                  #ffffff;    //Pure white
+
+@sk-status-green:           #158e0f;    //Success indication only
+@sk-status-red:             #ad1300;    //Failure indication only
+@sk-notification-yellow:    #fffeec;    //Undo prompt, Scott's favourite colour
+
+//## Greys  - 10 Greys defined by designers, do not use any others!!!
+//There should be 10 greys here, no more. Count the greys.
+//If there are 11, demand UX remove one.
+//If a designer asks you to add one, say no.
+//Tell them that there should be at most 10 greys, and of greys, there should be at most 10.
+@sk-black:                  #212121;    //Body copy
+@sk-charcoal:               #404040;
+@sk-dark-mid-grey:          #747474;    //Lightest type colour
+@sk-medium-mid-grey:        #898989;
+@sk-mid-grey:               #a8a8a8;
+@sk-light-mid-grey:         #d6d6d6;
+@sk-dark-light-grey:        #e1e1e1;
+@sk-light-grey:             #eeeeee;    //Background canvas
+@sk-lightest-grey:          #f7f7f7;
+@sk-off-white:              #fbfbfb;    //Panel backgrounds
+@sk-dark-yellow:            #a98838;
+
+//## Secondary colour palette
+@sk-secondary-green:        #053619;
+@sk-secondary-blue:         #003c5f;
+@sk-secondary-light-blue:   #c3e5f3;
+@sk-secondary-purple:       #24274e;
+@sk-secondary-mid-blue:     #4869A0;
+
+
+//##Jobseeker/Commercial/Mobile colours - Used for global nav and previews only
+@sk-premium-callout:        #fffde1;
+@sk-jobseeker-blue:         #0d3880;
+@sk-learning-brand:         #4aa15d;
+@sk-learning-hover:         #316C3E;
+@sk-commercial-brand:       #00a9e0;
+@sk-commercial-hover:       #006C8F;
+@sk-volunteer-brand:       @sk-pink;
+
+
+//##Font sizes
+@sk-rem-base-size:             62.5%; //equiv 10px used as base for logical rem values. eg. 14px = 1.4rem etc.
+
+@sk-xl-page-heading-font:      4.0rem;
+@sk-page-heading-font:         2.8rem;
+@sk-section-heading-font:      2.1rem;
+@sk-nav-and-title-font:        1.8rem;
+@sk-standard-font-size:        1.4rem;
+@sk-small-font-size:           1.2rem; //to be used sparingly, only adding this as a var since there are instances of it's use already. Avoid for new stuff
+@sk-tiny-font-size:            1.0rem; //to be used sparingly for fine print etc.
+
+@icon-font-size-small:         1.6rem; //Icons are designed at 16px x 16px so this the the default size
+@icon-font-size-medium:        2.4rem;
+@icon-font-size-large:         3.2rem;
+@icon-font-size-x-large:       4.4rem;
+@icon-font-size-huge:          6.4rem;
+
+@device-input-font-size:       1.6rem;
+
+//##Font Weights
+@sk-font-light:   300;
+@sk-font-regular: 400;
+@sk-font-medium:  500;
+@sk-font-bold:    700;
+
+
+//##Layout variables
+@main-content-max-width:      990px;
+@device-fixed-header-height:   45px;
+@default-spacer:                9px;
+@small-device-margin:           9px;
+@medium-device-margin:         18px;
+@btn-side-padding:             15px;
+@functions-header-offset:      -62px;
+
+//##Responsive breakpoints
+@small-device-min-width:      320px;
+@small-device-max-width:      600px;
+@medium-device-min-width:     601px;
+@medium-device-max-width:     @main-content-max-width;
+@large-device-min-width:      (@main-content-max-width + 1);

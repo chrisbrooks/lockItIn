@@ -1,0 +1,89 @@
+@import (reference) "../static/less/base";
+
+//layout
+html {
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+    font: @sk-rem-base-size 'Roboto', Helvetica, Arial, sans-serif;
+}
+
+body,
+button,
+input,
+select,
+textarea,
+button,
+input[type="button"],
+input[type="reset"],
+input[type="submit"] {
+    font-size: @sk-standard-font-size;
+    font-family: 'Roboto', Helvetica, Arial, sans-serif;
+    color: @sk-black;
+    background:@sk-light-grey;
+    margin:0;
+}
+
+//icons
+
+@font-face {
+    font-family: 'SeeksIcons-Regular';
+    src: url('../static/Fonts/SeekIcons.eot');
+    src: url('../static/Fonts/SeekIcons.eot') format('embedded-opentype'),
+    url('../static/Fonts/SeekIcons.woff') format('woff'),
+    url('../static/Fonts/SeekIcons.ttf') format('truetype'),
+    url('../static/Fonts/SeekIcons.svg#seeksiconsregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+i {
+    font-style: normal;
+    font-size: @icon-font-size-small;
+    display: inline-block;
+    text-align: center;
+    position: relative;
+    width: 18px;
+    height: 18px;
+    line-height: 18px;
+    font-weight: normal !important;
+    top: 1px;
+}
+[data-icon]:before {
+    font-family: 'SeeksIcons-Regular';
+    content: attr(data-icon);
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+
+    //Better Font Rendering
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+
+
+.pageContainer {
+    max-width: @main-content-max-width;
+    height:500px;
+    margin:@default-spacer * 8 auto;
+    background:@sk-off-white;
+    border:1px solid @sk-light-mid-grey;
+}
+
+.paymentButtonContainer {
+    background:@sk-charcoal;
+    padding:@default-spacer * 3 @default-spacer * 3;
+
+    .paymentButton {
+        background: @sk-pink;
+        color: white;
+        border: none;
+        font-size: 18px;
+        line-height: 45px;
+        padding: 0 @default-spacer * 3;
+        border-radius: 2px;
+    }
+}

@@ -1,5 +1,44 @@
-@import (reference) "~seek-style-guide/theme";
+@import (reference) "../../static/less/base";
 
-h1 {
-    color: @sk-pink;
+.header {
+    background: @sk-white;
 }
+
+.headerInnerContainer {
+    max-width: @main-content-max-width;
+    margin:0 auto;
+    padding:@default-spacer * 2;
+    display: flex;
+    align-items: center;
+}
+
+.seekLogoContainer {
+    display:flex;
+    text-decoration: none;
+    color:@sk-black;
+
+    .seekLogo {
+        background:url('../../static/images/seek-logo.svg');
+        width: 159px;
+        height: 63px;
+        display: block;
+    }
+
+    .seekLogoText {
+        font-size: 3.6rem;
+        font-weight: @sk-font-light;
+        margin-left: @default-spacer * 2;
+        line-height: 6.0rem;
+    }
+}
+
+.headerNumberContainer {
+    margin-left:auto;
+
+    .headerNumber {
+        text-decoration: none;
+        color: @sk-link-text;
+    }
+}
+
+

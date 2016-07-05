@@ -1,0 +1,41 @@
+@import (reference) "../../static/less/base";
+
+.paymentForm {
+    width: @default-spacer * 35;
+
+    h2 {
+        font-size: @sk-nav-and-title-font;
+        font-weight: @sk-font-regular;
+        margin: 0 0 @default-spacer * 3;
+    }
+
+    .formFieldContainer {
+        display: flex;
+        margin-bottom: @default-spacer * 3;
+
+        label {
+            font-weight: @sk-font-medium;
+        }
+
+        input {
+            margin-left:auto;
+            border:none;
+            background:none;
+            text-align: right;
+            color:@sk-dark-mid-grey;
+        }
+    }
+
+    .formTotalContainer {
+        margin-top: @default-spacer * 4;
+        .formFieldContainer {
+            margin-bottom: @default-spacer;
+
+            label {
+                font-weight: @sk-font-regular;
+            }
+
+        }
+    }
+
+}
