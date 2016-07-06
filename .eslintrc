@@ -23,8 +23,10 @@
     "mocha": true
   },
   "rules": {
+    "import/no-unresolved": 0,
+    "global-require": 0,
     "quotes": 0,
-    "indent": [2,4],
+    "indent": [2, 4],
     "no-console": 1,
     "no-debugger": 1,
     "no-var": 1,
@@ -52,6 +54,7 @@
         ]
       }
     ],
+    "react/jsx-indent": [2, 4],
     "react/jsx-boolean-value": 0,
     "react/jsx-closing-bracket-location": 0,
     "react/jsx-curly-spacing": 1,

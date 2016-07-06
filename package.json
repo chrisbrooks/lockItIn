@@ -1,5 +1,5 @@
 {
-  "name": "Adcentre-invoice-payment-ui",
+  "name": "adcentre-invoice-payment-ui",
   "version": "0.0.0",
   "description": "UI for paying AdCentre invoices.",
   "scripts": {

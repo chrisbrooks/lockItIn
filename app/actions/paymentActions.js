@@ -12,7 +12,7 @@ export function submitPaymentSuccess(response) {
 export function makePayment(payment) {
     const { amount, invoiceNumber } = payment;
 
-    return function (dispatch) {
+    return dispatch => {
         dispatch(beginAjaxCall());
 
         const data = { amount, invoiceNumber };
