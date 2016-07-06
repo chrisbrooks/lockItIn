@@ -5,9 +5,13 @@ import webpack from 'webpack';
 import config from '../webpack.config.prod';
 import { chalkError, chalkSuccess, chalkWarning, chalkProcessing } from './chalkConfig';
 
-process.env.NODE_ENV = 'production'; // this assures React is built in prod mode and that the Babel dev config doesn't apply.
+// this ensures React is built in prod mode
+// and that the Babel dev config doesn't apply.
+process.env.NODE_ENV = 'production';
 
-console.log(chalkProcessing('Generating minified bundle for production via Webpack. This will take a moment...'));
+console.log(
+    chalkProcessing(
+        'Generating minified bundle for production via Webpack. This will take a moment...'));
 
 webpack(config).run((error, stats) => {
     if (error) { // so a fatal error occurred. Stop here.
@@ -18,7 +22,7 @@ webpack(config).run((error, stats) => {
     const jsonStats = stats.toJson();
 
     if (jsonStats.hasErrors) {
-        return jsonStats.errors.map(error => console.log(chalkError(error)));
+        return jsonStats.errors.map(statError => console.log(chalkError(statError)));
     }
 
     if (jsonStats.hasWarnings) {

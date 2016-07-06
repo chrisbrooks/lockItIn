@@ -10,9 +10,16 @@ describe('<Header />', () => {
         wrapper = shallow(<Header />);
     });
 
-    it('renders a welcome message', () => {
-        const actual = wrapper.find('h1').text();
-        const expected = 'Would you like to make a payment?';
+    it('renders a link to home page', () => {
+        const actual = wrapper.find({ href: '/' }).length;
+        const expected = 1;
+
+        expect(actual).to.equal(expected);
+    });
+
+    it('renders a link to contact us page', () => {
+        const actual = wrapper.find({ href: '/ContactUs' }).length;
+        const expected = 1;
 
         expect(actual).to.equal(expected);
     });

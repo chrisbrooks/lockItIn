@@ -25,15 +25,14 @@ class App extends React.Component {
         this.submitInput(this.state.amount, this.state.invoiceNumber);
     }
 
-    onFormChange(event) {
-        //this.submitInput(this.state.amount, this.state.invoiceNumber);
+    onFormChange() {
     }
 
-    submitInput(amount, invoiceNumber) {
+    submitInput(amount, invoiceNumber, customerNumber) {
         const payment = {
             amount,
             invoiceNumber,
-            customerNumber
+            customerNumber,
         };
 
         this.props.actions.makePayment(payment);
@@ -44,9 +43,18 @@ class App extends React.Component {
             <div>
                 <Header />
                 <div className={styles.pageContainer}>
-                    <PaymentForm onFormChange={this.onFormChange} onFormSubmit={this.onFormSubmit} invoiceNumber={this.props.invoiceNumber} amount={this.props.amount} customerNumber={this.props.customerNumber} loading={this.props.loading} />
+                    <PaymentForm
+                        onFormChange={this.onFormChange}
+                        onFormSubmit={this.onFormSubmit}
+                        invoiceNumber={this.props.invoiceNumber}
+                        amount={this.props.amount}
+                        customerNumber={this.props.customerNumber}
+                        loading={this.props.loading} />
                     <div className={styles.paymentButtonContainer}>
-                        <input type="submit" value="Confirm payment" className={styles.paymentButton}></input>
+                        <input
+                            type="submit"
+                            value="Confirm payment"
+                            className={styles.paymentButton} />
                     </div>
                 </div>
                 <Footer />
@@ -54,8 +62,18 @@ class App extends React.Component {
     }
 }
 
+App.propTypes = {
+    actions: PropTypes.object,
+    onFormSubmit: PropTypes.func.isRequired,
+    customerNumber: PropTypes.string,
+    invoiceNumber: PropTypes.string,
+    amount: PropTypes.number,
+    loading: PropTypes.bool,
+};
+
 function mapStateToProps(state) {
     return {
+        customerNumber: state.payment.customerNumber,
         invoiceNumber: state.payment.invoiceNumber,
         amount: state.payment.amount,
         loading: state.ajaxCallsInProgress,

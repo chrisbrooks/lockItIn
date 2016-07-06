@@ -3,6 +3,7 @@ export default {
     payment: {
         complete: false,
         amount: null,
+        customerNumber: null,
         invoiceNumber: null,
     },
 };

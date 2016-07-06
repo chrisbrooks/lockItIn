@@ -9,7 +9,9 @@ import fs from 'fs';
 import { chalkSuccess, chalkError, chalkWarning } from './chalkConfig';
 import cheerio from 'cheerio';
 
-const useRaygun = true; // If you choose not to use Raygun, just set this to false and the build warning will go away.
+// If you choose not to use Raygun, just set this to false
+// and the build warning will go away.
+const useRaygun = true;
 const raygunToken = 'cu/2xo1uNrUlwdyd77yBnA==';
 
 fs.readFile('app/index.html', 'utf8', (readError, markup) => {
@@ -19,7 +21,8 @@ fs.readFile('app/index.html', 'utf8', (readError, markup) => {
 
     const $ = cheerio.load(markup);
 
-    // since a separate spreadsheet is only utilized for the production build, need to dynamically add this here.
+    // since a separate spreadsheet is only utilized for the
+    // production build, need to dynamically add this here.
     $('head').append('<link rel="stylesheet" href="/styles.css">');
 
     if (useRaygun) {
@@ -28,7 +31,8 @@ fs.readFile('app/index.html', 'utf8', (readError, markup) => {
 
             $('head').append(raygunCode); // add Raygun tracking code to the bottom of <head>
         } else {
-            console.log(chalkWarning('To track JavaScript errors, enter your token in /tools/build.html on line 15.'));
+            console.log(chalkWarning(
+                'To track JavaScript errors, enter your token in /tools/build.html on line 15.'));
         }
     }
 
