@@ -1,5 +1,4 @@
 import styles from './Header.less';
-import seekLogo from '../../static/images/seek-logo.svg';
 
 import React from 'react';
 

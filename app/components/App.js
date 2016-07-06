@@ -33,7 +33,7 @@ class App extends React.Component {
         const payment = {
             amount,
             invoiceNumber,
-            customerNumber
+            customerNumber,
         };
 
         this.props.actions.makePayment(payment);
@@ -44,12 +44,18 @@ class App extends React.Component {
             <div>
                 <Header />
                 <div className={styles.pageContainer}>
-                    <PaymentForm onFormChange={this.onFormChange} onFormSubmit={this.onFormSubmit} invoiceNumber={this.props.invoiceNumber} amount={this.props.amount} customerNumber={this.props.customerNumber} loading={this.props.loading} />
+                    <div className={styles.paymentFormContainer}>
+                        <h1>Make a payment</h1>
+                        <div className={styles.paymentFormInnerContainer}>
+                            <PaymentForm onFormChange={this.onFormChange} onFormSubmit={this.onFormSubmit} invoiceNumber={this.props.invoiceNumber} amount={this.props.amount} customerNumber={this.props.customerNumber} loading={this.props.loading} />
+                            <Footer />
+                        </div>
+                    </div>
                     <div className={styles.paymentButtonContainer}>
                         <input type="submit" value="Confirm payment" className={styles.paymentButton}></input>
                     </div>
                 </div>
-                <Footer />
+
             </div>);
     }
 }

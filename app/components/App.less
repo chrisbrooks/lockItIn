@@ -63,14 +63,33 @@ i {
     -moz-osx-font-smoothing: grayscale;
 }
 
+//typo styles
 
+h1 {
+    font-size: @sk-page-heading-font;
+    font-weight: @sk-font-light;
+    margin: 0 0 @default-spacer * 4;
+}
+
+h2 {
+    font-size: @sk-nav-and-title-font;
+    font-weight: @sk-font-regular;
+    margin: 0 0 @default-spacer * 3;
+}
 
 .pageContainer {
     max-width: @main-content-max-width;
-    height:500px;
     margin:@default-spacer * 8 auto;
     background:@sk-off-white;
     border:1px solid @sk-light-mid-grey;
+}
+
+.paymentFormContainer {
+    padding: @default-spacer * 4 @default-spacer * 3 @default-spacer * 7;
+}
+
+.paymentFormInnerContainer {
+    display: flex;
 }
 
 .paymentButtonContainer {

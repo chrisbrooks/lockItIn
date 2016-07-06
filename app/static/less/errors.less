@@ -1,0 +1,21 @@
+@import (reference) "../../static/less/base";
+
+.errorMessage {
+    display: block;
+    color: @sk-pink;
+    padding: 1px 0 3px 0;
+
+    &:before {
+        content: '\E918'; // icon-notice on the new font
+        margin-right: 4px;
+        top: 2px;
+        font-family: SeeksIcons-Regular;
+        font-weight: 400;
+        font-style: normal;
+        font-size: @icon-font-size-small;
+        text-decoration: none;
+        cursor: inherit;
+        text-rendering: optimizeLegibility;
+        -webkit-font-smoothing: antialiased;
+    }
+}

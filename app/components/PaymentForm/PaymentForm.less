@@ -2,12 +2,9 @@
 
 .paymentForm {
     width: @default-spacer * 35;
-
-    h2 {
-        font-size: @sk-nav-and-title-font;
-        font-weight: @sk-font-regular;
-        margin: 0 0 @default-spacer * 3;
-    }
+    border-left: 1px solid @sk-light-mid-grey;
+    margin-left: @default-spacer * 8;
+    padding:0 0 @default-spacer * 4 @default-spacer * 8;
 
     .formFieldContainer {
         display: flex;
@@ -28,11 +25,18 @@
 
     .formTotalContainer {
         margin-top: @default-spacer * 4;
+
         .formFieldContainer {
             margin-bottom: @default-spacer;
 
             label {
                 font-weight: @sk-font-regular;
+            }
+
+            &:last-child {
+                label {
+                    font-weight: @sk-font-medium;
+                }
             }
 
         }

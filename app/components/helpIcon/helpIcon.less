@@ -1,0 +1,84 @@
+.helpIcon {
+    position: absolute;
+    margin-top: -42px;
+    margin-left: 30px;
+    width: 302px;
+    display: none;
+
+    @media only screen and (min-width: @small-device-max-width) {
+        display: block;
+    }
+
+    &__content {
+        display: block;
+        z-index: 10;
+        color: @sk-charcoal;
+        border: 1px solid @sk-light-mid-grey;
+        background-color: @sk-white;
+        position: relative;
+        padding: (@default-spacer * 3) (@default-spacer * 3);
+        border-radius: @sk-border-radius;
+    }
+    &__arrowLeft {
+        width: 0;
+        height: 0;
+        border: 5px solid transparent;
+        border-color: rgba(0, 0, 0, 0); //Required for Firefox
+        display: inline-block;
+        border-right-color: @sk-light-mid-grey;
+        border-width: 10px;
+        margin-right: 10px;
+        position: absolute;
+        top: 22px;
+        left: -21px;
+    }
+    &__arrowLeftInner {
+        width: 0;
+        height: 0;
+        border: 5px solid transparent;
+        border-color: rgba(0, 0, 0, 0); //Required for Firefox
+        display: inline-block;
+        border-right-color: @sk-white;
+        border-width: 14px;
+        position: relative;
+        left: -12px;
+        top: -14px;
+    }
+    &__closeIcon {
+        color: @sk-dark-mid-grey;
+        position: absolute;
+        top: 0;
+        right: 0;
+        padding: @default-spacer;
+        z-index: 20;
+        cursor: pointer;
+
+        &:hover {
+            color: @sk-pink;
+        }
+    }
+
+    &.HelpImageContainer {
+        display: flex;
+
+        &.HelpImage {
+            min-width: 143px;
+            height: 72px;
+            background: url('../../static/images/ccv-example.png') no-repeat 0 -72px;
+        }
+
+        &.HelpImageAmex {
+            &:extend(.credit-card-payment__help-image);
+            background-position: 0 0;
+        }
+
+        &.HelpImageDescription {
+            margin-top: (@default-spacer * 3);
+        }
+
+        &.HelpImageDescriptionAmex {
+            margin-top: @default-spacer;
+        }
+    }
+
+}
