@@ -1,45 +1,121 @@
-@import (reference) "../../static/less/base";
+@import "../../static/less/styles";
 
-.paymentForm {
-    width: @default-spacer * 35;
-    border-left: 1px solid @sk-light-mid-grey;
-    margin-left: @default-spacer * 8;
-    padding:0 0 @default-spacer * 4 @default-spacer * 8;
+.creditCardPayment {
+    order: -1;
 
-    .formFieldContainer {
-        display: flex;
-        margin-bottom: @default-spacer * 3;
-
-        label {
-            font-weight: @sk-font-medium;
-        }
-
-        input {
-            margin-left:auto;
-            border:none;
-            background:none;
-            text-align: right;
-            color:@sk-dark-mid-grey;
-        }
+    input {
+        border: 1px solid #d6d6d6;
+        padding: @default-spacer;
+        font-size: @sk-standard-font-size;
+        box-sizing: border-box;
+        background: @sk-white;
     }
 
-    .formTotalContainer {
-        margin-top: @default-spacer * 4;
-
-        .formFieldContainer {
-            margin-bottom: @default-spacer;
-
-            label {
-                font-weight: @sk-font-regular;
-            }
-
-            &:last-child {
-                label {
-                    font-weight: @sk-font-medium;
-                }
-            }
-
-        }
+    label {
+        font-weight: 500;
+        margin-bottom: @default-spacer;
+        display: block;
     }
 
+    .cardPaymentError {
+        &:extend(.errorMessage all);
+        display: none;
+    }
 }
+
+/* accept cards text */
+
+.acceptText {
+    margin:0 0 5px;
+}
+
+/* card logos */
+
+.issuer {
+    width: 46px;
+    height: (@default-spacer * 3);
+    display: inline-block;
+    margin-right: 5px;
+    background: url('../../static/images/credit-card-issuer.png') no-repeat;
+}
+
+.issuerContainer {
+    margin-bottom: (@default-spacer * 5);
+
+    .issuerSurcharge {
+        font-size: @sk-tiny-font-size;
+        color: @sk-dark-mid-grey;
+        position: relative;
+        left: -50px;
+        top: @default-spacer * 2;
+    }
+
+    .issuerVisa {
+        &:extend(.issuer);
+        background-position: -53px 0;
+    }
+
+    .issuerMastercard {
+        &:extend(.issuer);
+        background-position: 0 0;
+    }
+
+    .issuerAmex {
+        &:extend(.issuer);
+        background-position: -106px 0;
+    }
+
+    .logoOtherIssuer {
+        opacity: 0.2;
+    }
+}
+
+/* card number */
+
+.cardNumberContainer {
+    margin-bottom: @default-spacer * 2;
+
+    .cardNumberInput {
+        width: 100%;
+
+        @media only screen and (min-width: @small-device-max-width) {
+            width: 198px;
+        }
+    }
+}
+
+/* expiry code */
+
+.expiryContainer {
+    width: 48%;
+    display: inline-block;
+    margin-bottom: @default-spacer * 2;
+
+    @media only screen and (min-width: @small-device-max-width) {
+        width: @default-spacer * 10;
+    }
+
+    .expiryInput {
+        width: 100%;
+    }
+}
+
+/* security code */
+
+.securityCodeContainer {
+    width: 48%;
+    display: inline-block;
+    margin-left: 4%;
+    margin-bottom: @default-spacer * 2;
+
+    @media only screen and (min-width: @small-device-max-width) {
+        width: @default-spacer * 10;
+        margin-left: @default-spacer * 2;
+    }
+
+    .securityCodeInput {
+        width: 100%;
+    }
+}
+
+

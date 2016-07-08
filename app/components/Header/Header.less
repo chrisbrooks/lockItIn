@@ -1,4 +1,4 @@
-@import (reference) "../../static/less/base";
+@import "../../static/less/styles";
 
 .header {
     background: @sk-white;
@@ -7,33 +7,56 @@
 .headerInnerContainer {
     max-width: @main-content-max-width;
     margin: 0 auto;
-    padding: @default-spacer * 2;
+    padding: @default-spacer * 2 @default-spacer * 3;
     display: flex;
     align-items: center;
+
+    @media only screen and (min-width: @small-device-max-width) {
+        padding: @default-spacer * 2 0;
+    }
 }
 
-.seekLogoContainer {
+.headerLogoContainer {
     display: flex;
     text-decoration: none;
     color: @sk-black;
 
-    .seekLogo {
-        background: url('./logo.svg');
-        width: 159px;
-        height: 63px;
+    .headerLogo {
+        background: url('../../static/images/seek-logo.svg');
+        width: 100px;
+        height: 39px;
         display: block;
+        background-size: 100px;
+
+        @media only screen and (min-width: @small-device-max-width) {
+            width: 159px;
+            height: 63px;
+            background-size: auto;
+        }
     }
 
-    .seekLogoText {
-        font-size: 3.6rem;
+    .headerLogoText {
+        font-size: 2.0rem;
         font-weight: @sk-font-light;
-        margin-left: @default-spacer * 2;
-        line-height: 6.0rem;
+        margin-left: 6px;
+        line-height: 3.8rem;
+
+        @media only screen and (min-width: @small-device-max-width) {
+            font-size: 3.6rem;
+            font-weight: @sk-font-light;
+            margin-left: @default-spacer * 2;
+            line-height: 6.0rem;
+        }
     }
 }
 
 .headerNumberContainer {
     margin-left: auto;
+    display: none;
+
+    @media only screen and (min-width: @small-device-max-width) {
+        display: block;
+    }
 
     .headerNumber {
         text-decoration: none;

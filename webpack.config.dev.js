@@ -23,7 +23,7 @@ const config = {
 
     // more info:https://webpack.github.io/docs/build-performance.html#sourcemaps
     // and https://webpack.github.io/docs/configuration.html#devtool
-    devtool: 'cheap-module-eval-source-map',
+    //devtool: 'cheap-module-eval-source-map',
     noInfo: true, // set to false to see a list of every file being bundled.
     entry: [
         'webpack-hot-middleware/client?reload=true',
@@ -75,7 +75,7 @@ const config = {
             {
                 test: /\.svg(\?v=\d+.\d+.\d+)?$/,
                 include: srcPaths,
-                loader: `url?limit=${String(1024 * 1024)}&mimetype=image/svg+xml!svgo`,
+                loader: 'file-loader?limit=10000&mimetype=image/svg+xml',
             },
             { test: /\.(jpe?g|png|gif)$/i, include: srcPaths, loaders: ['file'] },
             { test: /\.ico$/, include: srcPaths, loader: 'file-loader?name=[name].[ext]' },
