@@ -4,18 +4,11 @@ import path from 'path';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 
 const GLOBALS = {
-    'process.env': Object.keys(process.env)
-        .reduce((object, key) => {
-            const newObject = { ...object };
-            newObject[key] = JSON.stringify(process.env[key]); return newObject;
-        }, {}),
-    'process.env.NODE_ENV': JSON.stringify('development'),
     __DEV__: true,
 };
 
 const srcPaths = [
     path.resolve(__dirname, './app'),
-    path.resolve(__dirname, './config'),
 ];
 
 const config = {
@@ -58,6 +51,12 @@ const config = {
                 loader: 'babel',
             },
             {
+                test: /\.json$/,
+                include: srcPaths,
+                exclude: /node_modules/,
+                loader: 'babel',
+            },
+            {
                 test: /\.eot(\?v=\d+.\d+.\d+)?$/,
                 include: srcPaths,
                 loader: 'file',
@@ -82,6 +81,7 @@ const config = {
             {
                 test: /\.less$/,
                 include: srcPaths,
+                exclude: /node_modules\/(?!seek-style-guide)/,
                 loader: ExtractTextPlugin.extract('style',
                     'css?localIdentName=[name]__[local]___[hash:base64:7]!postcss!less'),
             },
@@ -92,6 +92,8 @@ const config = {
         require('autoprefixer'),
         require('postcss-local-scope'),
     ],
+
+    configEnvironment: 'development',
 
     externals: {
         'react/addons': true,
