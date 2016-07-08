@@ -16,6 +16,8 @@ class App extends React.Component {
             customerNumber: null,
         };
 
+        console.log(props.location.query);
+
         this.onFormSubmit = this.onFormSubmit.bind(this);
     }
 

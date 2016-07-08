@@ -54,4 +54,6 @@ export default {
             },
         ],
     },
+
+    configEnvironment: 'production',
 };

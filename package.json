@@ -69,7 +69,9 @@
     "eslint-watch": "2.1.11",
     "extract-text-webpack-plugin": "1.0.1",
     "file-loader": "0.8.5",
+    "getconfig": "3.0.0",
     "isparta": "4.0.0",
+    "json-loader": "0.5.4",
     "less": "2.7.1",
     "less-loader": "2.2.3",
     "mocha": "2.4.5",
@@ -84,6 +86,7 @@
     "sinon-chai": "2.8.0",
     "style-loader": "0.13.1",
     "webpack": "1.12.12",
+    "webpack-config-loader": "0.1.0",
     "webpack-dev-middleware": "1.6.1",
     "webpack-hot-middleware": "2.10.0",
     "webpack-node-externals": "1.0.0"
