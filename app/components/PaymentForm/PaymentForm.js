@@ -4,7 +4,6 @@ import HelpIcon from '../HelpIcon/HelpIcon';
 
 const PaymentForm = ({
     onCardNumberChange,
-    getCardData,
     invoiceNumber,
     customerNumber,
     amount,
@@ -40,7 +39,7 @@ const PaymentForm = ({
 
                 <div className={styles.securityCodeContainer}>
                     <label for="SecurityCode" className={styles.securityCodeLabel}>CCV <HelpIcon /></label>
-                    <input type="number" name="SecurityCode" maxlength="4" autocomplete="off" className={styles.securityCodeInput} onChange={getCardData}></input>
+                    <input type="number" name="SecurityCode" maxlength="4" autocomplete="off" className={styles.securityCodeInput}></input>
                     <div className={styles.cardPaymentError}>Invalid</div>
                 </div>
             </form>
@@ -51,7 +50,6 @@ const PaymentForm = ({
 
 PaymentForm.propTypes = {
     onCardNumberChange: React.PropTypes.number,
-    getCardData: React.PropTypes.number,
     invoiceNumber: React.PropTypes.number,
     customerNumber: React.PropTypes.number,
     amount: React.PropTypes.number,

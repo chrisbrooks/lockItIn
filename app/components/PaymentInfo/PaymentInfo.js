@@ -13,9 +13,6 @@ const PaymentInfo = ({
     const surCharge = (surcharge / 100) * amount;
     const total = gst + surCharge + Number(amount);
 
-    console.log(surcharge);
-    console.log(invoiceNumber)
-
     return (
         <div className={styles.paymentInfo}>
             <h2>Your Payment information</h2>

@@ -59,17 +59,13 @@ class App extends React.Component {
 
     }
 
-    onSubmitForm(cardNumber, cvv, expiry) {
+    /* onSubmitForm(cardNumber, cvv, expiry) {
 
         const {cardNumber, cvv, expiry} = this.props;
 
         this.props.actions.createToken(cardNumber, cvv, expiry);
 
-    }
-
-
-
-
+     */
 
     render() {
 
