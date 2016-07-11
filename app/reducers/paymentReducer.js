@@ -1,7 +1,7 @@
-import { PAYMENT_SUCCESS, STORE_QUERY } from '../actions/actionTypes';
+import { PAYMENT_SUCCESS, STORE_QUERY, SURCHARGE_UPDATED } from '../actions/actionTypes';
 import initialState from './initialState';
 
-export default function paymentReducer(state = initialState, action) {
+export default function paymentReducer(state = initialState.payment, action) {
     switch (action.type) {
 
     case STORE_QUERY:
@@ -10,7 +10,15 @@ export default function paymentReducer(state = initialState, action) {
         const amount = action.payload.amount;
 
         return { ...state, customerNumber, invoiceNumber, amount };
-    default:
+
+        case SURCHARGE_UPDATED:
+            const surcharge = action.payload.surcharge;
+            const surchargeName = action.payload.surchargeName;
+
+            return { ...state, surcharge, surchargeName};
+
+        default:
         return state;
     }
+
 }

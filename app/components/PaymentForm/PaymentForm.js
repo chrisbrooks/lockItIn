@@ -3,18 +3,16 @@ import React from 'react';
 import HelpIcon from '../HelpIcon/HelpIcon';
 
 const PaymentForm = ({
-    onFormChange,
-    onFormSubmit,
+    onCardNumberChange,
+    getCardData,
     invoiceNumber,
     customerNumber,
     amount,
-    loading
+    loading,
     }) => {
+
     return (
         <div className={styles.creditCardPayment}>
-
-            <h2>Credit card payment is currently unavailable</h2>
-            <p>you can either pay by invoice or come back later to pay by credit card</p>
 
             <h2>Credit card details</h2>
 
@@ -30,7 +28,7 @@ const PaymentForm = ({
             <form autocomplete="on">
                 <div className={styles.cardNumberContainer}>
                     <label for="CardNo" className={styles.cardNumberLabel}>Card number</label>
-                    <input type="number" name="CardNo" className={styles.cardNumberInput}></input>
+                    <input type="number" name="CardNo" className={styles.cardNumberInput} onChange={(e)=> {e.preventDefault(); onCardNumberChange(e.target.value)}}></input>
                     <div className={styles.cardPaymentError}>Required</div>
                 </div>
 
@@ -42,7 +40,7 @@ const PaymentForm = ({
 
                 <div className={styles.securityCodeContainer}>
                     <label for="SecurityCode" className={styles.securityCodeLabel}>CCV <HelpIcon /></label>
-                    <input type="number" name="SecurityCode" maxlength="4" autocomplete="off" className={styles.securityCodeInput}></input>
+                    <input type="number" name="SecurityCode" maxlength="4" autocomplete="off" className={styles.securityCodeInput} onChange={getCardData}></input>
                     <div className={styles.cardPaymentError}>Invalid</div>
                 </div>
             </form>
@@ -52,8 +50,9 @@ const PaymentForm = ({
 };
 
 PaymentForm.propTypes = {
-    onFormSubmit: React.PropTypes.func.isRequired,
-    invoiceNumber: React.PropTypes.string,
+    onCardNumberChange: React.PropTypes.number,
+    getCardData: React.PropTypes.number,
+    invoiceNumber: React.PropTypes.number,
     customerNumber: React.PropTypes.number,
     amount: React.PropTypes.number,
     loading: React.PropTypes.bool,
