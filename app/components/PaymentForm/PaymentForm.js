@@ -4,15 +4,14 @@ import HelpIcon from '../HelpIcon/HelpIcon';
 
 const PaymentForm = ({
     onCardNumberChange,
-    invoiceNumber,
-    customerNumber,
-    amount,
-    loading,
+    onExpiryChange,
+    onCvvChange,
+    onHandleToggle,
+    cardType,
     }) => {
 
     return (
         <div className={styles.creditCardPayment}>
-
             <h2>Credit card details</h2>
 
             <p className={styles.acceptText}>We accept</p>
@@ -27,19 +26,19 @@ const PaymentForm = ({
             <form autocomplete="on">
                 <div className={styles.cardNumberContainer}>
                     <label for="CardNo" className={styles.cardNumberLabel}>Card number</label>
-                    <input type="number" name="CardNo" className={styles.cardNumberInput} onChange={(e)=> {e.preventDefault(); onCardNumberChange(e.target.value)}}></input>
+                    <input type="number" name="CardNo" className={styles.cardNumberInput} data-stripe='number' onChange={(e)=> {e.preventDefault(); onCardNumberChange(e.target.value)}}></input>
                     <div className={styles.cardPaymentError}>Required</div>
                 </div>
 
                 <div className={styles.expiryContainer}>
                     <label for="ExpiryDate" className={styles.expiryLabel}>Expiry</label>
-                    <input type="text" name="ExpiryDate" placeholder="MM/YY" className={styles.expiryInput}></input>
+                    <input type="text" name="ExpiryDate" placeholder="MM/YY" data-stripe='exp' className={styles.expiryInput} onChange={(e)=> {e.preventDefault(); onExpiryChange(e.target.value)}}></input>
                     <div className={styles.cardPaymentError}>Invalid</div>
                 </div>
 
                 <div className={styles.securityCodeContainer}>
-                    <label for="SecurityCode" className={styles.securityCodeLabel}>CCV <HelpIcon /></label>
-                    <input type="number" name="SecurityCode" maxlength="4" autocomplete="off" className={styles.securityCodeInput}></input>
+                    <label for="SecurityCode" className={styles.securityCodeLabel}>CCV</label><HelpIcon cardType={cardType} onHandleToggle={onHandleToggle} />
+                    <input type="number" name="SecurityCode" maxlength="4" autocomplete="off" data-stripe='cvc' className={styles.securityCodeInput} onChange={(e)=> {e.preventDefault(); onCvvChange(e.target.value)}}></input>
                     <div className={styles.cardPaymentError}>Invalid</div>
                 </div>
             </form>
@@ -49,11 +48,9 @@ const PaymentForm = ({
 };
 
 PaymentForm.propTypes = {
-    onCardNumberChange: React.PropTypes.number,
-    invoiceNumber: React.PropTypes.number,
-    customerNumber: React.PropTypes.number,
-    amount: React.PropTypes.number,
-    loading: React.PropTypes.bool,
+    cardNumber: React.PropTypes.number,
+    cvv: React.PropTypes.number,
+    expiry: React.PropTypes.number,
 };
 
 export default PaymentForm;

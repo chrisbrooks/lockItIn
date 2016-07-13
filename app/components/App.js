@@ -6,6 +6,7 @@ import * as actions from '../actions/paymentActions';
 import Header from './Header/Header';
 import PaymentInfo from './PaymentInfo/PaymentInfo';
 import PaymentForm from './PaymentForm/PaymentForm';
+const { stripePublishableKey } = require('webpack-config-loader!../../config.js');
 
 class App extends React.Component {
     constructor(props, context) {
@@ -15,6 +16,13 @@ class App extends React.Component {
         this.props.actions.storeQuery(query);
 
         this.onCardNumberChange = this.onCardNumberChange.bind(this);
+        this.onExpiryChange = this.onExpiryChange.bind(this);
+        this.onCvvChange = this.onCvvChange.bind(this);
+        this.onSubmitForm = this.onSubmitForm.bind(this);
+    }
+
+    componentDidMount(){
+        Stripe.setPublishableKey(stripePublishableKey); // set your test public key
     }
 
     getSurcharge(cardNumber) {
@@ -44,11 +52,11 @@ class App extends React.Component {
 
         for(let prop in cardIssuer) {
             if (cardIssuer[prop].IS_TYPE && cardIssuer[prop].IS_TYPE.test(cardNumber)) {
-                return {surchargeName: cardIssuer[prop].NAME, surcharge: cardIssuer[prop].SURCHARGE_PERCENTAGE}
+                return {cardType: cardIssuer[prop].NAME, surcharge: cardIssuer[prop].SURCHARGE_PERCENTAGE}
             }
         }
 
-        return {surcharge: 0, surchargeName: 'Surcharge'};
+        return {surcharge: 0, cardType: ''};
     }
 
     onCardNumberChange(value) {
@@ -56,16 +64,34 @@ class App extends React.Component {
         const surcharge = this.getSurcharge(value);
 
         this.props.actions.setSurcharge(surcharge);
-
+        this.props.actions.setCardNumber(value);
     }
 
-    /* onSubmitForm(cardNumber, cvv, expiry) {
+    onCvvChange(value) {
+        this.props.actions.setCvv(value);
+    }
 
-        const {cardNumber, cvv, expiry} = this.props;
+    onExpiryChange(value) {
 
-        this.props.actions.createToken(cardNumber, cvv, expiry);
+        const valLength = value.length;
 
-     */
+        if(valLength === 2){
+            let newInput = value;
+            newInput += '/';
+
+        }
+
+        this.props.actions.setExpiry(value);
+    }
+
+    onSubmitForm() {
+        const {cardType, cardNumber, cvv, expiry, amount} = this.props;
+        this.props.actions.createToken(cardType, cardNumber, cvv, expiry, amount);
+    }
+
+    onHandleToggle() {
+        console.log(this);
+    }
 
     render() {
 
@@ -76,21 +102,25 @@ class App extends React.Component {
                     <div className={styles.paymentFormContainer}>
                         <h1>Make a payment</h1>
                         <div className={styles.paymentFormInnerContainer}>
-                            <PaymentInfo invoiceNumber={this.props.invoiceNumber} surcharge={this.props.surcharge} surchargeName={this.props.surchargeName} amount={this.props.amount} customerNumber={this.props.customerNumber} loading={this.props.loading} />
-                            <PaymentForm onCardNumberChange={this.onCardNumberChange} onFormSubmit={this.onFormSubmit} invoiceNumber={this.props.invoiceNumber} amount={this.props.amount} customerNumber={this.props.customerNumber} loading={this.props.loading}/>
+                            <PaymentInfo invoiceNumber={this.props.invoiceNumber} surcharge={this.props.surcharge} cardType={this.props.cardType} amount={this.props.amount} customerNumber={this.props.customerNumber} loading={this.props.loading} />
+                            <PaymentForm onCardNumberChange={this.onCardNumberChange} onExpiryChange={this.onExpiryChange} onCvvChange={this.onCvvChange} onHandleToggle={this.onHandleToggle} cardType={this.props.cardType} />
                         </div>
                     </div>
                     <div className={styles.paymentButtonContainer}>
-                        <input type="submit" value="Confirm payment" className={styles.paymentButton}></input>
+                        <button className={styles.paymentButton} onClick={this.onSubmitForm}>Confirm payment</button>
                     </div>
                 </div>
-            </div>);
+            </div>
+        );
     }
 }
 
 function mapStateToProps(state) {
     return {
-        surchargeName: state.payment.surchargeName,
+        cvv: state.payment.cvv,
+        expiry: state.payment.expiry,
+        cardNumber: state.payment.cardNumber,
+        cardType: state.payment.cardType,
         surcharge: state.payment.surcharge,
         customerNumber: state.payment.customerNumber,
         invoiceNumber: state.payment.invoiceNumber,

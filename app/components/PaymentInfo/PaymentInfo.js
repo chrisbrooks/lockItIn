@@ -6,7 +6,7 @@ const PaymentInfo = ({
     customerNumber,
     amount,
     surcharge,
-    surchargeName,
+    cardType,
 }) => {
 
     const gst = amount * 10 / 100;
@@ -38,7 +38,7 @@ const PaymentInfo = ({
                     <div className={styles.paymentInfoValue}><span>$</span>{gst}</div>
                 </div>
                 { surcharge > 0 && <div className={styles.paymentInfoContainer} >
-                    <div className={styles.paymentInfoTitle}>{surchargeName}</div>
+                    <div className={styles.paymentInfoTitle}>{cardType}</div>
                     <div className={styles.paymentInfoValue}><span>$</span>{surCharge}</div>
                 </div> }
                 <div className={styles.paymentInfoContainer}>
@@ -55,7 +55,7 @@ PaymentInfo.propTypes = {
     customerNumber: React.PropTypes.number,
     amount: React.PropTypes.number,
     surcharge: React.PropTypes.number,
-    surchargeName: React.PropTypes.string,
+    cardType: React.PropTypes.string,
 };
 
 export default PaymentInfo;

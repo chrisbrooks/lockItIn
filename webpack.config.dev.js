@@ -74,7 +74,7 @@ const config = {
             {
                 test: /\.svg(\?v=\d+.\d+.\d+)?$/,
                 include: srcPaths,
-                loader: `url?limit=${String(1024 * 1024)}&mimetype=image/svg+xml!svgo`,
+                loader: 'file-loader?limit=10000&mimetype=image/svg+xml',
             },
             { test: /\.(jpe?g|png|gif)$/i, include: srcPaths, loaders: ['file'] },
             { test: /\.ico$/, include: srcPaths, loader: 'file-loader?name=[name].[ext]' },
