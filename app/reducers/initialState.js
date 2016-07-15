@@ -1,6 +1,9 @@
 export default {
     ajaxCallsInProgress: 0,
     payment: {
+        paymentApiActive: true,
+        paymentSuccess: false,
+        paymentError: false,
         surcharge: 0,
         cardType: '',
         complete: false,
@@ -9,6 +12,11 @@ export default {
         invoiceNumber: null,
         cvv: null,
         cardNumber: null,
-        expiry: null
+        expiry: null,
+        formTouched: false,
+        toggle: false,
+        cardNumberValid: true,
+        expiryValid: true,
+        cvvValid: true,
     },
 };

@@ -19,7 +19,6 @@
 
     .cardPaymentError {
         &:extend(.errorMessage all);
-        display: none;
     }
 }
 
@@ -90,6 +89,7 @@
     width: 48%;
     display: inline-block;
     margin-bottom: @default-spacer * 2;
+    vertical-align: top;
 
     @media only screen and (min-width: @small-device-max-width) {
         width: @default-spacer * 10;
@@ -107,6 +107,7 @@
     display: inline-block;
     margin-left: 4%;
     margin-bottom: @default-spacer * 2;
+    vertical-align: top;
 
     @media only screen and (min-width: @small-device-max-width) {
         width: @default-spacer * 10;
