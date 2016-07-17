@@ -1,7 +1,7 @@
-import styles from './HelpIcon.less';
+import styles from './helpIcon.less';
 import React from 'react';
 
-const HelpIcon = ({
+const helpIcon = ({
     cardType,
     onToggle,
     toggle,
@@ -31,10 +31,6 @@ const HelpIcon = ({
     );
 };
 
-HelpIcon.propTypes = {
-    toggle: React.PropTypes.boolean
-};
-
-export default HelpIcon;
+export default helpIcon;
 
 

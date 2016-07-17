@@ -1,12 +1,13 @@
 import React, { PropTypes } from 'react';
-import styles from './App.less';
+import styles from './app.less';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import axios from 'axios';
-import * as actions from '../actions/paymentActions';
-import Header from './Header/Header';
-import PaymentInfo from './PaymentInfo/PaymentInfo';
-import PaymentForm from './PaymentForm/PaymentForm';
+import * as constants from '../constants';
+import * as actions from '../actions/paymentFormActions';
+import Header from '../components/header/header';
+import PaymentInfo from '../components/paymentInfo/paymentInfo';
+import PaymentForm from '../components/paymentForm/paymentForm';
 const { stripePublishableKey } = require('webpack-config-loader!../../config.js');
 
 class App extends React.Component {
@@ -56,7 +57,7 @@ class App extends React.Component {
                 is_type: /^3[47]/, //starting with 34 or 37
                 surcharge_percentage: 3.06
             },
-            diners: {  //Used to show unsupported message
+            diners: {
                 name: 'Diners',
                 isType: /^3(?:0[0-5]|[68][0-9])/, //starting with 300 through 305, 36 or 38,
                 surcharge_percentage: 0
@@ -74,17 +75,17 @@ class App extends React.Component {
 
     onFormChange(name, value) {
 
-        if (name === 'CardNumber') {
+        if (name === constants.inputs.cardNumber) {
             const surcharge = this.getSurcharge(value);
             this.props.actions.setSurcharge(surcharge);
             this.props.actions.setCardNumber(value);
         }
 
-        if (name === 'ExpiryDate') {
+        if (name === constants.inputs.expiryDate) {
             this.props.actions.setExpiry(value);
         }
 
-        if (name === 'SecurityCode') {
+        if (name === constants.inputs.securityCode) {
             this.props.actions.setCvv(value);
         }
     }
@@ -93,17 +94,18 @@ class App extends React.Component {
 
         this.props.actions.setFormTouched(active);
 
-        if (name === 'CardNumber') {
+        if (name === constants.inputs.cardNumber) {
+            console.log('sdsdsd');
             const cardValidate = Stripe.card.validateCardNumber(value);
             this.props.actions.setCardNumberValid(cardValidate);
         }
 
-        if (name === 'ExpiryDate') {
+        if (name === constants.inputs.expiryDate) {
             const expiryValidate = Stripe.card.validateExpiry(value);
             this.props.actions.setExpiryValid(expiryValidate);
         }
 
-        if (name === 'SecurityCode') {
+        if (name === constants.inputs.securityCode) {
             const cvvValidate = Stripe.card.validateCVC(value);
             this.props.actions.setCvvValid(cvvValidate);
         }
@@ -168,8 +170,8 @@ class App extends React.Component {
                             </div>
                         </div>
 
-                        <div className={ styles.paymentButtonContainer }>
-                            <button className={ styles.paymentButton } onClick={ this.onSubmitForm }>Confirm payment</button>
+                        <div className={styles.paymentButtonContainer}>
+                            <button className={styles.paymentButton} onClick={this.onSubmitForm}>Confirm payment</button>
                         </div>
                     </div>}
 

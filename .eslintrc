@@ -23,6 +23,11 @@
     "mocha": true
   },
   "rules": {
+    "max-len": [
+        1,
+        {"code": 150}
+    ],
+    "padded-blocks": 0,
     "import/no-unresolved": 0,
     "global-require": 0,
     "quotes": 0,

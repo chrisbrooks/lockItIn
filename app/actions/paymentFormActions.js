@@ -1,10 +1,10 @@
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as types from './actionTypes';
-import { beginAjaxCall, ajaxCallError } from './ajaxStatusActions';
 import axios from 'axios';
+
 const {
-    paymentUrl
+    paymentUrl,
     } = require('webpack-config-loader!../../config.js');
 
 

@@ -1,4 +1,4 @@
-import styles from './PaymentInfo.less';
+import styles from './paymentInfo.less';
 import React from 'react';
 
 const PaymentInfo = ({
@@ -15,17 +15,17 @@ const PaymentInfo = ({
 
     return (
         <div className={styles.paymentInfo}>
-            <h2>Your Payment information</h2>
+            <h2>Your payment information</h2>
             <div className={styles.paymentInfoContainer}>
                 <div className={styles.paymentInfoTitle}>Invoice number</div>
                 <div className={styles.paymentInfoValue}>{invoiceNumber}</div>
             </div>
             <div className={styles.paymentInfoContainer}>
-                <div className={styles.paymentInfoTitle}>Customer Number</div>
+                <div className={styles.paymentInfoTitle}>Customer number</div>
                 <div className={styles.paymentInfoValue}>{customerNumber}</div>
             </div>
             <div className={styles.paymentInfoContainer}>
-                <div className={styles.paymentInfoTitle}>Invoice Amount</div>
+                <div className={styles.paymentInfoTitle}>Invoice amount</div>
                 <div className={styles.paymentInfoValue}><span>$</span> {amount}</div>
             </div>
             <div className={styles.paymentInfoTotalContainer}>
@@ -37,10 +37,10 @@ const PaymentInfo = ({
                     <div className={styles.paymentInfoTitle}>GST</div>
                     <div className={styles.paymentInfoValue}><span>$</span>{gst}</div>
                 </div>
-                { surcharge > 0 && <div className={styles.paymentInfoContainer} >
+                {surcharge > 0 && <div className={styles.paymentInfoContainer} >
                     <div className={styles.paymentInfoTitle}>{cardType}</div>
                     <div className={styles.paymentInfoValue}><span>$</span>{surCharge}</div>
-                </div> }
+                </div>}
                 <div className={styles.paymentInfoContainer}>
                     <div className={styles.paymentInfoTitle}>Total</div>
                     <div className={styles.paymentInfoValue}><span>$</span>{total}</div>
@@ -51,9 +51,9 @@ const PaymentInfo = ({
 };
 
 PaymentInfo.propTypes = {
-    invoiceNumber: React.PropTypes.number,
-    customerNumber: React.PropTypes.number,
-    amount: React.PropTypes.number,
+    invoiceNumber: React.PropTypes.string,
+    customerNumber: React.PropTypes.string,
+    amount: React.PropTypes.string,
     surcharge: React.PropTypes.number,
     cardType: React.PropTypes.string,
 };
