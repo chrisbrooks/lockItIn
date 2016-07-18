@@ -1,14 +1,34 @@
 @import "../../static/less/styles";
 
+
+h1 {
+    &:extend(.errorMessage all);
+    color:@sk-black;
+    font-size:@sk-section-heading-font;
+    padding-left:@default-spacer * 6;
+
+    &:before {
+        content: '\E914';
+        color: @sk-status-green;
+        font-size: 5.5rem;
+        font-weight: @sk-font-bold;
+        margin-left:-@default-spacer * 6;
+        margin-right: @default-spacer * 2;
+    }
+
+}
+
+
+.paymentSuccessContainer {
+       padding: @default-spacer * 4 @default-spacer * 17;
+}
+
 .paymentInfo {
     padding:0 0 @default-spacer * 4;
 
-
     @media only screen and (min-width: @small-device-max-width) {
-        padding:0 0 @default-spacer * 4 @default-spacer * 8;
+        padding:0 0 0 @default-spacer * 8;
         width: @default-spacer * 40;
-        border-left: 1px solid @sk-light-mid-grey;
-        margin-left: @default-spacer * 3;
     }
 
     .paymentInfoContainer {
@@ -24,10 +44,6 @@
             text-align: right;
             color:@sk-dark-mid-grey;
             width:100px;
-
-            span {
-                float:left;
-            }
         }
     }
 

@@ -5,14 +5,19 @@ import * as constants from '../../constants';
 
 const PaymentForm = ({
     paymentApiActive,
+    paymentError,
+    paymentErrorMessage,
     onFormChange,
     onFormValidate,
     cardNumber,
     expiry,
     cvv,
     cardNumberValid,
+    cardNumberTouched,
     expiryValid,
+    expiryTouched,
     cvvValid,
+    cvvTouched,
     cardType,
     onToggle,
     toggle,
@@ -37,9 +42,7 @@ const PaymentForm = ({
                 <div className={styles.issuerContainer}>
 
                     <i className={styles.issuerVisa} aria-label="Visa"></i>
-
                     <i className={styles.issuerMastercard} aria-label="MasterCard"></i>
-
                     <i className={styles.issuerAmex} aria-label="Amex"></i>
 
                     <span className={styles.issuerSurcharge}>+ 3.06%</span>
@@ -49,20 +52,20 @@ const PaymentForm = ({
                     <div className={styles.cardNumberContainer}>
 
                         <label
-                            htmlFor={constants.inputs.cardNumber}
+                            htmlFor={constants.inputs.CARD_NUMBER}
                             className={styles.cardNumberLabel}>Card number
                         </label>
 
                         <input
                             type="number"
-                            name={constants.inputs.cardNumber}
+                            name={constants.inputs.CARD_NUMBER}
                             className={styles.cardNumberInput}
                             data-stripe="number"
                             onBlur={formValidation}
                             onChange={formChange}>
                         </input>
 
-                        {!cardNumberValid && <div className={styles.cardPaymentError}>
+                        {!cardNumberValid && cardNumberTouched && <div className={styles.cardPaymentError}>
                             {cardNumber === null || cardNumber === '' ? 'Required' : 'Invalid card number'}
                         </div>}
                     </div>
@@ -70,13 +73,13 @@ const PaymentForm = ({
                     <div className={styles.expiryContainer}>
 
                         <label
-                        htmlFor={constants.inputs.expiryDate}
+                        htmlFor={constants.inputs.EXPIRY_DATE}
                         className={styles.expiryLabel}>Expiry
                         </label>
 
                         <input
                             type="text"
-                            name={constants.inputs.expiryDate}
+                            name={constants.inputs.EXPIRY_DATE}
                             placeholder="MM/YY"
                             data-stripe="exp"
                             className={styles.expiryInput}
@@ -84,7 +87,7 @@ const PaymentForm = ({
                             onChange={formChange}>
                         </input>
 
-                        {!expiryValid && <div className={styles.cardPaymentError}>
+                        {!expiryValid && expiryTouched && <div className={styles.cardPaymentError}>
                             {expiry === null || expiry === '' ? 'Required' : 'Invalid'}
                         </div>}
                     </div>
@@ -92,7 +95,7 @@ const PaymentForm = ({
                     <div className={styles.securityCodeContainer}>
 
                         <label
-                        htmlFor={constants.inputs.securityCode}
+                        htmlFor={constants.inputs.SECURITY_CODE}
                         className={styles.securityCodeLabel}>CCV
                         </label>
 
@@ -100,7 +103,7 @@ const PaymentForm = ({
 
                         <input
                             type="number"
-                            name={constants.inputs.securityCode}
+                            name={constants.inputs.SECURITY_CODE}
                             maxLength="4"
                             autoComplete="off"
                             data-stripe="cvc"
@@ -109,10 +112,14 @@ const PaymentForm = ({
                             onChange={formChange}>
                         </input>
 
-                        {!cvvValid && <div className={styles.cardPaymentError}>
+                        {!cvvValid && cvvTouched && <div className={styles.cardPaymentError}>
                             {cvv === null || cvv === '' ? 'Required' : 'Invalid'}
                         </div>}
                     </div>
+
+                    {paymentError && <div className={styles.cardPaymentError}>
+                        {paymentErrorMessage}
+                    </div>}
                 </form>
             </div>
             }
