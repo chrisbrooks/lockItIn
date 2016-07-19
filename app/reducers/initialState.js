@@ -1,8 +1,8 @@
 export default {
     ajaxCallsInProgress: 0,
-    payment: {
-        paymentApiActive: true,
-        paymentSuccess: true,
+    actions: {
+        loading: false,
+        paymentSuccess: false,
         paymentError: false,
         paymentErrorMessage: '',
         surcharge: 0,

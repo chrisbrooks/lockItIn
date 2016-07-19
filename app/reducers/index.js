@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
-import payment from './paymentReducer';
+import actions from './reducer';
 
 const rootReducer = combineReducers({
-    payment,
+    actions,
 });
 
 export default rootReducer;

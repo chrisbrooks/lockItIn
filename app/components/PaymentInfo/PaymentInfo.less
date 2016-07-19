@@ -1,10 +1,10 @@
 @import "../../static/less/styles";
 
 .paymentInfo {
-    padding:0 0 @default-spacer * 4;
+    padding:0 0 @default-spacer * 2;
 
 
-    @media only screen and (min-width: @small-device-max-width) {
+    @media only screen and (min-width: @medium-device-max-width) {
         padding:0 0 @default-spacer * 4 @default-spacer * 8;
         width: @default-spacer * 40;
         border-left: 1px solid @sk-light-mid-grey;
@@ -13,7 +13,12 @@
 
     .paymentInfoContainer {
         display: flex;
-        margin-bottom: @default-spacer * 3;
+        margin-bottom: @default-spacer * 2;
+
+        @media only screen and (min-width: @medium-device-max-width) {
+            margin-bottom: @default-spacer * 3;
+        }
+
 
         .paymentInfoTitle {
             font-weight: @sk-font-medium;
@@ -33,6 +38,11 @@
 
     .paymentInfoTotalContainer {
         margin-top: @default-spacer * 4;
+        display: none;
+
+        @media only screen and (min-width: @medium-device-max-width) {
+            display: block;
+        }
 
         .paymentInfoContainer {
             margin-bottom: @default-spacer;
@@ -45,8 +55,12 @@
                 .paymentInfoTitle {
                     font-weight: @sk-font-medium;
                 }
+
+                .paymentInfoValue {
+                    font-weight: @sk-font-medium;
+                    color:@sk-black;
+                }
             }
         }
     }
-
 }

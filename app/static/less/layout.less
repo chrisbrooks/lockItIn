@@ -23,3 +23,18 @@ input[type="submit"] {
 * {
     box-sizing: border-box;
 }
+
+p, label {
+    margin:0px;
+    font-size: @sk-nav-and-title-font;
+
+    @media only screen and (min-width: @medium-device-max-width) {
+        font-size: @sk-standard-font-size;
+    }
+}
+
+a {
+    cursor: pointer;
+    text-decoration: none;
+    color:@sk-link-text;
+}

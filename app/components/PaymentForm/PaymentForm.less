@@ -4,8 +4,16 @@
     order: -1;
     width: auto;
 
-    @media only screen and (min-width: @small-device-max-width) {
+    @media only screen and (min-width: @medium-device-max-width) {
         width:300px;
+    }
+
+    .paymentHeader {
+        margin-bottom: @default-spacer * 2;
+
+        @media only screen and (min-width: @medium-device-max-width) {
+            margin-bottom: @default-spacer * 4;
+        }
     }
 
     input {
@@ -31,6 +39,8 @@
 
 .acceptText {
     margin:0 0 5px;
+    font-size: @sk-standard-font-size;
+    color:@sk-dark-mid-grey;
 }
 
 /* card logos */
@@ -69,7 +79,7 @@
         background-position: -106px 0;
     }
 
-    .logoOtherIssuer {
+    .issuerOther {
         opacity: 0.2;
     }
 }
@@ -82,7 +92,7 @@
     .cardNumberInput {
         width: 100%;
 
-        @media only screen and (min-width: @small-device-max-width) {
+        @media only screen and (min-width: @medium-device-max-width) {
             width: 198px;
         }
     }
@@ -96,7 +106,7 @@
     margin-bottom: @default-spacer * 2;
     vertical-align: top;
 
-    @media only screen and (min-width: @small-device-max-width) {
+    @media only screen and (min-width: @medium-device-max-width) {
         width: @default-spacer * 10;
     }
 
@@ -114,7 +124,7 @@
     margin-bottom: @default-spacer * 2;
     vertical-align: top;
 
-    @media only screen and (min-width: @small-device-max-width) {
+    @media only screen and (min-width: @medium-device-max-width) {
         width: @default-spacer * 10;
         margin-left: @default-spacer * 2;
     }
@@ -128,4 +138,49 @@
     }
 }
 
+//taken from the payment info component just for mobile view
+.paymentInfo {
 
+    .paymentInfoContainer {
+        display: flex;
+        margin-bottom: @default-spacer * 2;
+
+        .paymentInfoValue {
+            margin-left:auto;
+            text-align: right;
+            color:@sk-dark-mid-grey;
+            width:100px;
+
+            span {
+                float:left;
+            }
+        }
+    }
+
+    .paymentInfoTotalContainer {
+        margin-top: @default-spacer * 2;
+        display: block;
+
+        @media only screen and (min-width: @medium-device-max-width) {
+            display: none;
+        }
+
+        .paymentInfoContainer {
+            margin-bottom: @default-spacer;
+
+            .paymentInfoTitle {
+                font-weight: @sk-font-regular;
+            }
+
+            &:last-child {
+                .paymentInfoTitle {
+                    font-weight: @sk-font-medium;
+                }
+                .paymentInfoValue {
+                    font-weight: @sk-font-medium;
+                    color:@sk-black;
+                }
+            }
+        }
+    }
+}

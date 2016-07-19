@@ -1,68 +1,113 @@
 @import "../../static/less/styles";
 
 
-h1 {
-    &:extend(.errorMessage all);
-    color:@sk-black;
-    font-size:@sk-section-heading-font;
-    padding-left:@default-spacer * 6;
+.paymentSuccessPage {
+    padding: @default-spacer * 2;
 
-    &:before {
-        content: '\E914';
-        color: @sk-status-green;
-        font-size: 5.5rem;
-        font-weight: @sk-font-bold;
-        margin-left:-@default-spacer * 6;
-        margin-right: @default-spacer * 2;
+    @media only screen and (min-width: @medium-device-max-width) {
+        padding: @default-spacer * 5 @default-spacer * 17;
     }
 
-}
+    .paymentSuccessHeader {
+        &:extend(.errorMessage all);
+        color:@sk-black;
+        font-size: @sk-page-heading-font;
+        text-align: center;
+        padding-left:0;
+        line-height: @sk-page-heading-font;
 
-
-.paymentSuccessContainer {
-       padding: @default-spacer * 4 @default-spacer * 17;
-}
-
-.paymentInfo {
-    padding:0 0 @default-spacer * 4;
-
-    @media only screen and (min-width: @small-device-max-width) {
-        padding:0 0 0 @default-spacer * 8;
-        width: @default-spacer * 40;
-    }
-
-    .paymentInfoContainer {
-        display: flex;
-        margin-bottom: @default-spacer * 3;
-
-        .paymentInfoTitle {
-            font-weight: @sk-font-medium;
+        @media only screen and (min-width: @medium-device-max-width) {
+            padding-left:@default-spacer * 6;
+            text-align: left;
+            font-size:@sk-section-heading-font;
+            line-height: @sk-section-heading-font;
+            margin-bottom: @default-spacer * 4;
+            height:@default-spacer * 3;
         }
 
-        .paymentInfoValue {
-            margin-left:auto;
-            text-align: right;
-            color:@sk-dark-mid-grey;
-            width:100px;
+        &:before {
+            content: '\E914';
+            color: @sk-status-green;
+            font-size: 5.5rem;
+            font-weight: @sk-font-bold;
+            margin:@default-spacer * 3 auto @default-spacer * 4;
+            display: block;
+
+            @media only screen and (min-width: @medium-device-max-width) {
+                display: inline-block;
+                position: relative;
+                top: -@default-spacer * 4;
+                margin-left:-@default-spacer * 6;
+                margin-right: @default-spacer * 2;
+                vertical-align: top;
+            }
         }
     }
 
-    .paymentInfoTotalContainer {
-        margin-top: @default-spacer * 4;
+    .paymentSuccess {
+        padding:0 0 @default-spacer;
+        max-width:400px;
+        margin:0 auto;
 
-        .paymentInfoContainer {
-            margin-bottom: @default-spacer;
+        @media only screen and (min-width: @medium-device-max-width) {
+            padding:0 0 @default-spacer @default-spacer * 8;
+            width: @default-spacer * 40;
+            margin:0px;
+        }
 
-            .paymentInfoTitle {
-                font-weight: @sk-font-regular;
+        .paymentSuccessContainer {
+            display: flex;
+            margin-bottom: @default-spacer * 3;
+
+            .paymentSuccessTitle {
+                font-weight: @sk-font-medium;
             }
 
-            &:last-child {
-                .paymentInfoTitle {
-                    font-weight: @sk-font-medium;
+            .paymentSuccessValue {
+                margin-left: auto;
+                text-align: right;
+                color:@sk-dark-mid-grey;
+                width:@default-spacer * 12;
+            }
+        }
+
+        .paymentSuccessTotalContainer {
+            margin-top: @default-spacer * 4;
+
+            .paymentSuccessContainer {
+                margin-bottom: @default-spacer;
+
+                .paymentSuccessTitle {
+                    font-weight: @sk-font-regular;
+                }
+
+                &:last-child {
+                    .paymentSuccessTitle {
+                        font-weight: @sk-font-medium;
+                    }
                 }
             }
         }
     }
 
+    .paymentSuccessPrint {
+        margin-left: @default-spacer * 8;
+        display: none;
+
+        @media only screen and (min-width: @medium-device-max-width) {
+            display: block;
+        }
+    }
+
+    .paymentSuccessPrintMobile {
+        font-size: @sk-standard-font-size;
+        max-width: 400px;
+        margin:0 auto @default-spacer * 3;
+
+        @media only screen and (min-width: @medium-device-max-width) {
+            display: none;
+        }
+    }
 }
+
+

@@ -13,16 +13,29 @@
     }
 
     .helpIconContent {
-        position: absolute;
-        margin-top: -42px;
-        margin-left: 30px;
-        width: 302px;
+
         z-index: 10;
         color: @sk-charcoal;
-        border: 1px solid @sk-light-mid-grey;
+        position: fixed;
+        top: 0px;
+        left: 0px;
+        height: 100%;
+        z-index: 100;
+        width: 100%;
         background-color: @sk-white;
         padding: (@default-spacer * 3) (@default-spacer * 3);
         border-radius: @sk-border-radius;
+
+        @media only screen and (min-width: @medium-device-max-width) {
+            position: absolute;
+            margin-top: -42px;
+            margin-left: 30px;
+            height:auto;
+            width: 302px;
+            border: 1px solid @sk-light-mid-grey;
+            top:auto;
+            left:auto;
+        }
     }
 
     .helpIconArrowLeft {
@@ -98,7 +111,6 @@
     }
 
 }
-
 
 .issuerVisa {
     background:red;

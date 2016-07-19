@@ -1,0 +1,22 @@
+.paymentButtonContainer {
+    padding:@default-spacer * 3 @default-spacer * 3;
+
+    @media only screen and (min-width: @medium-device-max-width) {
+        background:@sk-charcoal;
+    }
+
+    .paymentButton {
+        background: @sk-pink;
+        color: white;
+        border: none;
+        font-size: @sk-nav-and-title-font;
+        line-height: 45px;
+        padding: 0 @default-spacer * 3;
+        border-radius: 2px;
+    }
+
+    .paymentButtonProccessing {
+        &:extend(.paymentButtonContainer .paymentButton);
+        padding-left: @default-spacer *7;
+    }
+}

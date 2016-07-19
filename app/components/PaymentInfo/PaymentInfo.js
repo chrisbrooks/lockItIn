@@ -17,33 +17,33 @@ const PaymentInfo = ({
         <div className={styles.paymentInfo}>
             <h2>Your payment information</h2>
             <div className={styles.paymentInfoContainer}>
-                <div className={styles.paymentInfoTitle}>Invoice number</div>
-                <div className={styles.paymentInfoValue}>{invoiceNumber}</div>
+                <p className={styles.paymentInfoTitle}>Invoice number</p>
+                <p className={styles.paymentInfoValue}>{invoiceNumber}</p>
             </div>
             <div className={styles.paymentInfoContainer}>
-                <div className={styles.paymentInfoTitle}>Customer number</div>
-                <div className={styles.paymentInfoValue}>{customerNumber}</div>
+                <p className={styles.paymentInfoTitle}>Customer number</p>
+                <p className={styles.paymentInfoValue}>{customerNumber}</p>
             </div>
             <div className={styles.paymentInfoContainer}>
-                <div className={styles.paymentInfoTitle}>Invoice amount</div>
-                <div className={styles.paymentInfoValue}><span>$</span> {amount}</div>
+                <p className={styles.paymentInfoTitle}>Invoice amount</p>
+                <p className={styles.paymentInfoValue}><span>$</span> {amount}</p>
             </div>
             <div className={styles.paymentInfoTotalContainer}>
                 <div className={styles.paymentInfoContainer}>
-                    <div className={styles.paymentInfoTitle}>Subtotal</div>
-                    <div className={styles.paymentInfoValue}><span>$</span> {amount}</div>
+                    <p className={styles.paymentInfoTitle}>Subtotal</p>
+                    <p className={styles.paymentInfoValue}><span>$</span> {amount}</p>
                 </div>
                 <div className={styles.paymentInfoContainer}>
-                    <div className={styles.paymentInfoTitle}>GST</div>
-                    <div className={styles.paymentInfoValue}><span>$</span>{gst}</div>
+                    <p className={styles.paymentInfoTitle}>GST</p>
+                    <p className={styles.paymentInfoValue}><span>$</span>{gst}</p>
                 </div>
                 {surcharge > 0 && <div className={styles.paymentInfoContainer} >
-                    <div className={styles.paymentInfoTitle}>{cardType}</div>
-                    <div className={styles.paymentInfoValue}><span>$</span>{surCharge}</div>
+                    <p className={styles.paymentInfoTitle}>{cardType}</p>
+                    <p className={styles.paymentInfoValue}><span>$</span>{surCharge}</p>
                 </div>}
                 <div className={styles.paymentInfoContainer}>
-                    <div className={styles.paymentInfoTitle}>Total</div>
-                    <div className={styles.paymentInfoValue}><span>$</span>{total}</div>
+                    <p className={styles.paymentInfoTitle}>Total</p>
+                    <p className={styles.paymentInfoValue}><span>$</span>{total}</p>
                 </div>
             </div>
         </div>

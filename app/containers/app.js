@@ -3,8 +3,9 @@ import styles from './app.less';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import axios from 'axios';
+import Spinner from 'react-spin';
 import * as constants from '../constants';
-import * as actions from '../actions/paymentFormActions';
+import * as actions from '../actions/actions';
 import Header from '../components/header/header';
 import PaymentInfo from '../components/paymentInfo/paymentInfo';
 import PaymentForm from '../components/paymentForm/paymentForm';
@@ -27,16 +28,6 @@ class App extends React.Component {
     }
 
     componentDidMount(){
-
-        const {
-            paymentUrl
-            } = require('webpack-config-loader!../../config.js');
-
-        axios.get(paymentUrl + '/health').then(function(response){
-            if(response === 'OK') {
-                this.props.actions.paymentApiActive(true);
-            }
-        });
 
         Stripe.setPublishableKey(stripePublishableKey); // set your test public key
     }
@@ -75,6 +66,10 @@ class App extends React.Component {
         return {surcharge: 0, cardType: ''};
     }
 
+    getInitialAmounts(value) {
+
+    }
+
     getTotalAmount(value) {
 
         const { amount } = this.props;
@@ -86,7 +81,7 @@ class App extends React.Component {
         const surChargeTotal = (surcharge / 100) * amount;
         const total = gst + surChargeTotal + Number(amount);
 
-        return total;
+        return total
     }
 
     onFormChange(name, value) {
@@ -149,10 +144,26 @@ class App extends React.Component {
     }
 
     onToggle() {
-        this.props.toggle ? this.props.actions.setToggle(false) : this.props.actions.setToggle(true);
+        if(this.props.toggle) {
+            this.props.actions.setToggle(false);
+        } else {
+            this.props.actions.setToggle(true);
+        }
     }
 
     render() {
+
+        const spinConfig = {
+            lines: 5,
+            length: 0,
+            width: 7,
+            radius: 7,
+            color: '#fff',
+            left: '-30px',
+            className: 'spinner',
+            position: 'relative',
+            top: '21px',
+        }
 
         return (
             <div>
@@ -168,9 +179,14 @@ class App extends React.Component {
                                     amount={this.props.amount}
                                     surcharge={this.props.surcharge}
                                     cardType={this.props.cardType}
+                                    paymentError={this.props.paymentError}
                                 />
 
                                 <PaymentForm
+                                    customerNumber={this.props.customerNumber}
+                                    invoiceNumber={this.props.invoiceNumber}
+                                    amount={this.props.amount}
+                                    surcharge={this.props.surcharge}
                                     paymentApiActive={this.props.paymentApiActive}
                                     paymentError={this.props.paymentError}
                                     paymentErrorMessage={this.props.paymentErrorMessage}
@@ -192,18 +208,24 @@ class App extends React.Component {
                             </div>
                         </div>
 
-                        <div className={styles.paymentButtonContainer}>
-                            <button className={styles.paymentButton} onClick={this.onSubmitForm}>Confirm payment</button>
-                        </div>
+                        {!this.props.paymentError && <div className={styles.paymentButtonContainer}>
+                            {!this.props.loading && <button className={styles.paymentButton} onClick={this.onSubmitForm}>
+                                Confirm Payment
+                            </button>}
+                            {this.props.loading && <button className={styles.paymentButtonProccessing} onClick={this.onSubmitForm}>
+                                <Spinner config={spinConfig}></Spinner>
+                                Proccessing
+                            </button>}
+                        </div>}
                     </div>}
 
                     {this.props.paymentSuccess &&
-                    <PaymentSuccess
+                        <PaymentSuccess
                         customerNumber={this.props.customerNumber}
                         invoiceNumber={this.props.invoiceNumber}
                         paymentRef={this.props.paymentRef}
                         totalAmount={this.props.totalAmount}>
-                    </PaymentSuccess>}
+                        </PaymentSuccess>}
 
                 </div>
             </div>
@@ -213,29 +235,28 @@ class App extends React.Component {
 
 function mapStateToProps(state) {
     return {
-        paymentApiActive: state.payment.paymentApiActive,
-        paymentSuccess: state.payment.paymentSuccess,
-        paymentError: state.payment.paymentError,
-        paymentErrorMessage: state.payment.paymentErrorMessage,
-        customerNumber: state.payment.customerNumber,
-        invoiceNumber: state.payment.invoiceNumber,
-        amount: state.payment.amount,
-        totalAmount: state.payment.totalAmount,
-        surcharge: state.payment.surcharge,
-        cardNumber: state.payment.cardNumber,
-        expiry: state.payment.expiry,
-        cvv: state.payment.cvv,
-        paymentRef: state.payment.paymentRef,
-        formTouched: state.payment.formTouched,
-        cardNumberValid: state.payment.cardNumberValid,
-        cardNumberTouched: state.payment.cardNumberTouched,
-        expiryValid: state.payment.expiryValid,
-        expiryTouched: state.payment.expiryTouched,
-        cvvValid: state.payment.cvvValid,
-        cvvTouched: state.payment.cvvTouched,
-        cardType: state.payment.cardType,
-        toggle: state.payment.toggle,
-        loading: state.ajaxCallsInProgress,
+        loading: state.actions.loading,
+        actionsSuccess: state.actions.actionsSuccess,
+        actionsError: state.actions.actionsError,
+        actionsErrorMessage: state.actions.actionsErrorMessage,
+        customerNumber: state.actions.customerNumber,
+        invoiceNumber: state.actions.invoiceNumber,
+        amount: state.actions.amount,
+        totalAmount: state.actions.totalAmount,
+        surcharge: state.actions.surcharge,
+        cardNumber: state.actions.cardNumber,
+        expiry: state.actions.expiry,
+        cvv: state.actions.cvv,
+        actionsRef: state.actions.actionsRef,
+        formTouched: state.actions.formTouched,
+        cardNumberValid: state.actions.cardNumberValid,
+        cardNumberTouched: state.actions.cardNumberTouched,
+        expiryValid: state.actions.expiryValid,
+        expiryTouched: state.actions.expiryTouched,
+        cvvValid: state.actions.cvvValid,
+        cvvTouched: state.actions.cvvTouched,
+        cardType: state.actions.cardType,
+        toggle: state.actions.toggle,
     };
 }
 

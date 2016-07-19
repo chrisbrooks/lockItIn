@@ -1,10 +1,12 @@
 import styles from './paymentForm.less';
 import React from 'react';
+import classNames from 'classnames';
 import HelpIcon from '../helpIcon/helpIcon';
 import * as constants from '../../constants';
 
 const PaymentForm = ({
-    paymentApiActive,
+    amount,
+    surcharge,
     paymentError,
     paymentErrorMessage,
     onFormChange,
@@ -33,10 +35,14 @@ const PaymentForm = ({
         onFormChange(e.target.name, e.target.value);
     };
 
+    const gst = amount * 10 / 100;
+    const surCharge = (surcharge / 100) * amount;
+    const total = gst + surCharge + Number(amount);
+
     return (
         <div className={styles.creditCardPayment}>
-            {paymentApiActive && <div>
-                <h2>Credit card details</h2>
+            {!paymentError && <div>
+                <h2 className={styles.paymentHeader}>Credit card details</h2>
                 <p className={styles.acceptText}>We accept</p>
 
                 <div className={styles.issuerContainer}>
@@ -117,23 +123,48 @@ const PaymentForm = ({
                         </div>}
                     </div>
 
-                    {paymentError && <div className={styles.cardPaymentError}>
-                        {paymentErrorMessage}
-                    </div>}
-                </form>
-            </div>
-            }
 
-            {!paymentApiActive && <div>
-                <h2>Credit card payment is currently unavailable</h2>
-                <div>You can either pay by invoice or come back later to pay by credit card.</div>
+                </form>
             </div>}
+
+            {paymentError && <div>
+                <h2>{paymentErrorMessage}</h2>
+                <p>Refresh the page to try again or come back later.</p>
+            </div>}
+
+            <div className={styles.paymentInfo}>
+                <div className={styles.paymentInfoTotalContainer}>
+                    <div className={styles.paymentInfoContainer}>
+                        <p className={styles.paymentInfoTitle}>Subtotal</p>
+                        <p className={styles.paymentInfoValue}><span>$</span> {amount}</p>
+                    </div>
+                    <div className={styles.paymentInfoContainer}>
+                        <p className={styles.paymentInfoTitle}>GST</p>
+                        <p className={styles.paymentInfoValue}><span>$</span>{gst}</p>
+                    </div>
+                    {surcharge > 0 && <div className={styles.paymentInfoContainer} >
+                        <p className={styles.paymentInfoTitle}>{cardType}</p>
+                        <p className={styles.paymentInfoValue}><span>$</span>{surCharge}</p>
+                    </div>}
+                    <div className={styles.paymentInfoContainer}>
+                        <p className={styles.paymentInfoTitle}>Total</p>
+                        <p className={styles.paymentInfoValue}><span>$</span>{total}</p>
+                    </div>
+                </div>
+            </div>
+
         </div>
     );
 };
 
 PaymentForm.propTypes = {
-    paymentApiActive: React.PropTypes.element,
+    amount: React.PropTypes.string,
+    surcharge: React.PropTypes.number,
+    paymentError: React.PropTypes.element,
+    paymentErrorMessage: React.PropTypes.element,
+    cardNumberTouched: React.PropTypes.element,
+    expiryTouched: React.PropTypes.boolean,
+    cvvTouched: React.PropTypes.boolean,
     onFormChange: React.PropTypes.element,
     onFormValidate: React.PropTypes.element,
     cardNumber: React.PropTypes.string,
@@ -143,7 +174,7 @@ PaymentForm.propTypes = {
     expiryValid: React.PropTypes.element,
     cvvValid: React.PropTypes.element,
     cardType: React.PropTypes.string,
-    onToggle: React.PropTypes.element,
+    onToggle: React.PropTypes.boolean,
     toggle: React.PropTypes.boolean,
 };
 

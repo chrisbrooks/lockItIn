@@ -8,29 +8,34 @@ const PaymentSuccess = ({
     totalAmount,
     }) => {
 
-    return (
-        <div className={styles.paymentSuccessContainer}>
-            <h1>Thanks. Your payment was successful.</h1>
-            <div className={styles.paymentInfo}>
+    const print = () => {
+        window.print();
+    }
 
-                <h2>Your payment information</h2>
-                <div className={styles.paymentInfoContainer}>
-                    <div className={styles.paymentInfoTitle}>Invoice number</div>
-                    <div className={styles.paymentInfoValue}>{invoiceNumber}</div>
+    return (
+        <div className={styles.paymentSuccessPage}>
+            <h1 className={styles.paymentSuccessHeader}>Thanks. Your payment was successful.</h1>
+            <div className={styles.paymentSuccess}>
+                <h2 className={styles.paymentSuccessSubHeader}>Your payment information</h2>
+                <div className={styles.paymentSuccessContainer}>
+                    <p className={styles.paymentSuccessTitle}>Invoice number</p>
+                    <p className={styles.paymentSuccessValue}>{invoiceNumber}</p>
                 </div>
-                <div className={styles.paymentInfoContainer}>
-                    <div className={styles.paymentInfoTitle}>Customer number</div>
-                    <div className={styles.paymentInfoValue}>{customerNumber}</div>
+                <div className={styles.paymentSuccessContainer}>
+                    <p className={styles.paymentSuccessTitle}>Customer number</p>
+                    <p className={styles.paymentSuccessValue}>{customerNumber}</p>
                 </div>
-                <div className={styles.paymentInfoContainer}>
-                    <div className={styles.paymentInfoTitle}>Payment Reference</div>
-                    <div className={styles.paymentInfoValue}>{paymentRef}</div>
+                <div className={styles.paymentSuccessContainer}>
+                    <p className={styles.paymentSuccessTitle}>Payment Reference</p>
+                    <p className={styles.paymentSuccessValue}>{paymentRef}</p>
                 </div>
-                <div className={styles.paymentInfoContainer}>
-                    <div className={styles.paymentInfoTitle}>Total Paid</div>
-                    <div className={styles.paymentInfoValue}>${totalAmount}</div>
+                <div className={styles.paymentSuccessContainer}>
+                    <p className={styles.paymentSuccessTitle}>Total Paid</p>
+                    <p className={styles.paymentSuccessValue}>${totalAmount}</p>
                 </div>
             </div>
+            <p className={styles.paymentSuccessPrint}>Please <a onClick={print}>print this page</a> for your records</p>
+            <p className={styles.paymentSuccessPrintMobile}>A receipt has been sent to the billing address associated with this invoice.</p>
         </div>
     );
 };

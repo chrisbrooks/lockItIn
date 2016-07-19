@@ -3,7 +3,7 @@
 .pageContainer {
     background:@sk-off-white;
 
-    @media only screen and (min-width: @small-device-max-width) {
+    @media only screen and (min-width: @medium-device-max-width) {
         max-width: @main-content-max-width;
         margin:@default-spacer * 8 auto;
         border:1px solid @sk-light-mid-grey;
@@ -11,33 +11,15 @@
 }
 
 .paymentFormContainer {
-    padding: @default-spacer * 4 @default-spacer * 3 0;
+    padding: @default-spacer * 4 @default-spacer * 2 0;
 
-    @media only screen and (min-width: @small-device-max-width) {
+    @media only screen and (min-width: @medium-device-max-width) {
         padding: @default-spacer * 4 @default-spacer * 3 @default-spacer * 7;
     }
 }
 
 .paymentFormInnerContainer {
-    @media only screen and (min-width: @small-device-max-width) {
+    @media only screen and (min-width: @medium-device-max-width) {
         display: flex;
-    }
-}
-
-.paymentButtonContainer {
-    padding:@default-spacer * 3 @default-spacer * 3;
-
-    @media only screen and (min-width: @small-device-max-width) {
-        background:@sk-charcoal;
-    }
-
-    .paymentButton {
-        background: @sk-pink;
-        color: white;
-        border: none;
-        font-size: @sk-nav-and-title-font;
-        line-height: 45px;
-        padding: 0 @default-spacer * 3;
-        border-radius: 2px;
     }
 }
