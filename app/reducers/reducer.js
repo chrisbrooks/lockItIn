@@ -1,4 +1,5 @@
 import {
+    CURRENCY,
     LOADING,
     PAYMENT_SUCCESS,
     PAYMENT_ERROR,
@@ -18,6 +19,11 @@ import initialState from './initialState';
 
 export default function paymentReducer(state = initialState.actions, action) {
     switch (action.type) {
+
+        case CURRENCY: {
+            const currency = action.payload;
+            return { ...state, currency };
+        }
 
         case LOADING: {
             const loading = action.payload;
@@ -39,9 +45,10 @@ export default function paymentReducer(state = initialState.actions, action) {
             const customerNumber = action.payload.customernumber;
             const invoiceNumber = action.payload.invoicenumber;
             const amount = action.payload.amount;
-            const paymentRef = action.payload.prn;
+            const prn = action.payload.prn;
+            const email = action.payload.email;
 
-            return { ...state, customerNumber, invoiceNumber, amount, paymentRef };
+            return { ...state, customerNumber, invoiceNumber, amount, prn, email };
         }
 
         case TOTAL_AMOUNT: {

@@ -10,16 +10,16 @@ import Header from '../components/header/header';
 import PaymentInfo from '../components/paymentInfo/paymentInfo';
 import PaymentForm from '../components/paymentForm/paymentForm';
 import PaymentSuccess from '../components/paymentSuccess/paymentSuccess';
-const { stripePublishableKey } = require('webpack-config-loader!../../config.js');
+const { stripeAuPublishableKey, stripeNzPublishableKey } = require('webpack-config-loader!../../config.js');
 
 class App extends React.Component {
 
     constructor(props, context) {
         super(props, context);
 
+        { /* get inital url parameters e.g. amount, customer number etc.. */ }
         const query = props.location.query;
         this.props.actions.urlQuery(query);
-
 
         this.onFormChange = this.onFormChange.bind(this);
         this.onFormValidate = this.onFormValidate.bind(this);
@@ -29,29 +29,39 @@ class App extends React.Component {
 
     componentDidMount(){
 
-        Stripe.setPublishableKey(stripePublishableKey); // set your test public key
+        { /* set currency and stripe key */  }
+
+        if (/com.au/.test(window.location.href)){
+            this.props.actions.setCurrency(constants.country.AU);
+            Stripe.setPublishableKey(stripeAuPublishableKey); // set your test public key
+
+        } else {
+            Stripe.setPublishableKey(stripeNzPublishableKey); // set your test public key
+            this.props.actions.setCurrency(constants.country.NZ);
+        }
+
     }
 
     getSurcharge(cardNumber) {
 
         const cardIssuer = {
             mastercard: {
-                name: 'MasterCard',
+                name: constants.cardType.MASTERCARD,
                 is_type: /^5[1-5]/, //starting with 51 - 55
                 surcharge_percentage: 0
             },
             visa: {
-                name: 'Visa',
+                name: constants.cardType.VISA,
                 is_type: /^4/, //starting with 4
                 surcharge_percentage: 0
             },
             amex: {
-                name: 'Amex',
+                name: constants.cardType.AMEX,
                 is_type: /^3[47]/, //starting with 34 or 37
                 surcharge_percentage: 3.06
             },
             diners: {
-                name: 'Diners',
+                name: constants.cardType.DINERS,
                 isType: /^3(?:0[0-5]|[68][0-9])/, //starting with 300 through 305, 36 or 38,
                 surcharge_percentage: 0
             }
@@ -64,10 +74,6 @@ class App extends React.Component {
         }
 
         return {surcharge: 0, cardType: ''};
-    }
-
-    getInitialAmounts(value) {
-
     }
 
     getTotalAmount(value) {
@@ -106,9 +112,8 @@ class App extends React.Component {
 
     onFormValidate(name, value, active) {
 
-        this.props.actions.setFormTouched(active);
-
         if (name === constants.inputs.CARD_NUMBER) {
+
             const cardValidate = Stripe.card.validateCardNumber(value);
             this.props.actions.setCardNumberValid({ 'cardNumberValid': cardValidate, 'cardNumberTouched' : active });
         }
@@ -119,15 +124,25 @@ class App extends React.Component {
         }
 
         if (name === constants.inputs.SECURITY_CODE) {
-            const cvvValidate = Stripe.card.validateCVC(value);
+
+            let cvvValidate;
+            const cvv = this.props.cvv;
+            const cardType = this.props.cardType;
+            const amex = constants.cardType.AMEX;
+
+            if(cardType !== amex && cvv.length !== 3 || cardType === amex && cvv.length !== 4 ) {
+                cvvValidate = false;
+            } else {
+                cvvValidate = Stripe.card.validateCVC(value);
+            }
+
             this.props.actions.setCvvValid({ 'cvvValid': cvvValidate, 'cvvTouched': active });
         }
     }
 
     onSubmitForm() {
-        const { cardType, cardNumber, cvv, expiry, totalAmount, cardNumberValid, expiryValid, cvvValid, cardNumberTouched, expiryTouched, cvvTouched } = this.props;
+        const { currency, email, prn, cardType, cardNumber, cvv, expiry, totalAmount, cardNumberValid, expiryValid, cvvValid, cardNumberTouched, expiryTouched, cvvTouched } = this.props;
         const checkFormValidation = [cardNumberValid, expiryValid, cvvValid, cardNumberTouched, expiryTouched, cvvTouched];
-
         const formIsValid = checkFormValidation.every( function(e) {
             return e === true
         });
@@ -139,7 +154,7 @@ class App extends React.Component {
         }
 
         if(formIsValid) {
-            this.props.actions.createToken(cardType, cardNumber, cvv, expiry, totalAmount)
+            this.props.actions.createToken(currency, email, prn, cardNumber, cvv, expiry, totalAmount)
         }
     }
 
@@ -173,21 +188,7 @@ class App extends React.Component {
                         <div className={styles.paymentFormContainer}>
                             <h1>Make a payment</h1>
                             <div className={styles.paymentFormInnerContainer}>
-                                <PaymentInfo
-                                    customerNumber={this.props.customerNumber}
-                                    invoiceNumber={this.props.invoiceNumber}
-                                    amount={this.props.amount}
-                                    surcharge={this.props.surcharge}
-                                    cardType={this.props.cardType}
-                                    paymentError={this.props.paymentError}
-                                />
-
                                 <PaymentForm
-                                    customerNumber={this.props.customerNumber}
-                                    invoiceNumber={this.props.invoiceNumber}
-                                    amount={this.props.amount}
-                                    surcharge={this.props.surcharge}
-                                    paymentApiActive={this.props.paymentApiActive}
                                     paymentError={this.props.paymentError}
                                     paymentErrorMessage={this.props.paymentErrorMessage}
                                     onFormChange={this.onFormChange}
@@ -205,17 +206,27 @@ class App extends React.Component {
                                     toggle={this.props.toggle}
                                     onToggle={this.onToggle}
                                 />
+                                <PaymentInfo
+                                    customerNumber={this.props.customerNumber}
+                                    invoiceNumber={this.props.invoiceNumber}
+                                    amount={this.props.amount}
+                                    surcharge={this.props.surcharge}
+                                    cardType={this.props.cardType}
+                                />
                             </div>
                         </div>
 
                         {!this.props.paymentError && <div className={styles.paymentButtonContainer}>
+
                             {!this.props.loading && <button className={styles.paymentButton} onClick={this.onSubmitForm}>
                                 Confirm Payment
                             </button>}
+
                             {this.props.loading && <button className={styles.paymentButtonProccessing} onClick={this.onSubmitForm}>
                                 <Spinner config={spinConfig}></Spinner>
                                 Proccessing
                             </button>}
+
                         </div>}
                     </div>}
 
@@ -235,19 +246,21 @@ class App extends React.Component {
 
 function mapStateToProps(state) {
     return {
+        currency: state.actions.currency,
         loading: state.actions.loading,
-        actionsSuccess: state.actions.actionsSuccess,
-        actionsError: state.actions.actionsError,
-        actionsErrorMessage: state.actions.actionsErrorMessage,
+        paymentSuccess: state.actions.paymentSuccess,
+        paymentError: state.actions.paymentError,
+        paymentErrorMessage: state.actions.paymentErrorMessage,
         customerNumber: state.actions.customerNumber,
         invoiceNumber: state.actions.invoiceNumber,
         amount: state.actions.amount,
+        prn: state.actions.prn,
+        email: state.actions.email,
         totalAmount: state.actions.totalAmount,
         surcharge: state.actions.surcharge,
         cardNumber: state.actions.cardNumber,
         expiry: state.actions.expiry,
         cvv: state.actions.cvv,
-        actionsRef: state.actions.actionsRef,
         formTouched: state.actions.formTouched,
         cardNumberValid: state.actions.cardNumberValid,
         cardNumberTouched: state.actions.cardNumberTouched,

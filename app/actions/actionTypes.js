@@ -1,3 +1,4 @@
+export const CURRENCY = 'CURRENCY';
 export const LOADING = 'LOADING';
 export const PAYMENT_SUCCESS = 'PAYMENT_SUCCESS';
 export const PAYMENT_ERROR = 'PAYMENT_ERROR';

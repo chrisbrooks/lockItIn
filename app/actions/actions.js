@@ -4,6 +4,10 @@ import * as constants from '../constants';
 import * as types from './actionTypes';
 import axios from 'axios';
 
+export function setCurrency(value) {
+    return { type: types.CURRENCY, payload: value };
+}
+
 export function loading(value) {
     return { type: types.LOADING, payload: value };
 }
@@ -40,10 +44,6 @@ export function setCvv(value) {
     return { type: types.CVV_UPDATED, payload: value };
 }
 
-export function setFormTouched(active) {
-    return { type: types.FORM_TOUCHED, payload: active };
-}
-
 export function setCardNumberValid(cardValidate) {
     return { type: types.CARD_NUMBER_VALID, payload: cardValidate };
 }
@@ -60,34 +60,32 @@ export function setToggle(result) {
     return { type: types.TOGGLE, payload: result };
 }
 
-export function createToken(cardType, cardNumber, cvv, expiry, totalAmount) {
+export function createToken(currency, email, prn, cardNumber, cvv, expiry, totalAmount) {
     return dispatch => {
-
-        const expiryParts = expiry.split('/');
-        const expiryMonth = expiryParts[0];
-        const expiryYear =  expiryParts[1];
 
         const stripeData = {
             number: cardNumber,
             cvc: cvv,
             exp: expiry,
-            amount: totalAmount,
-        };
-
-        const paymentData = {
-            cardType: cardType,
-            expiryMonth: expiryMonth,
-            expiryYear: expiryYear,
-            last4Digits: cvv,
+            amount: totalAmount
         };
 
         const {paymentUrl} = require('webpack-config-loader!../../config.js');
 
         Stripe.createToken(stripeData, function (status, response) {
             console.log( status, response );
+
             dispatch(loading(true));
 
             if(status === 200) {
+
+                const paymentData = {
+                    prn: prn,
+                    email: email,
+                    currency: currency,
+                    amount: totalAmount,
+                    token: response.id,
+                };
 
                 axios.post(paymentUrl, paymentData).then(function(response) {
 
@@ -102,7 +100,7 @@ export function createToken(cardType, cardNumber, cvv, expiry, totalAmount) {
                 });
 
             } else {
-                onPaymentError(constants.errorMessages.PROCESSING_ERROR);
+                onPaymentError();
                 dispatch(loading(false));
             }
         });

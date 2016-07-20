@@ -1,8 +1,6 @@
 @import "../../static/less/styles";
 
 .creditCardPayment {
-    order: -1;
-    width: auto;
 
     @media only screen and (min-width: @medium-device-max-width) {
         width:300px;
@@ -64,19 +62,21 @@
         top: @default-spacer * 2;
     }
 
-    .issuerVisa {
-        &:extend(.issuer);
-        background-position: -53px 0;
-    }
+    i {
+        &:first-child {
+            &:extend(.issuer);
+            background-position: -53px 0;
+        }
 
-    .issuerMastercard {
-        &:extend(.issuer);
-        background-position: 0 0;
-    }
+        &:nth-child(2) {
+            &:extend(.issuer);
+            background-position: 0 0;
+        }
 
-    .issuerAmex {
-        &:extend(.issuer);
-        background-position: -106px 0;
+        &:nth-child(3) {
+            &:extend(.issuer);
+            background-position: -106px 0;
+        }
     }
 
     .issuerOther {
@@ -138,49 +138,6 @@
     }
 }
 
-//taken from the payment info component just for mobile view
-.paymentInfo {
-
-    .paymentInfoContainer {
-        display: flex;
-        margin-bottom: @default-spacer * 2;
-
-        .paymentInfoValue {
-            margin-left:auto;
-            text-align: right;
-            color:@sk-dark-mid-grey;
-            width:100px;
-
-            span {
-                float:left;
-            }
-        }
-    }
-
-    .paymentInfoTotalContainer {
-        margin-top: @default-spacer * 2;
-        display: block;
-
-        @media only screen and (min-width: @medium-device-max-width) {
-            display: none;
-        }
-
-        .paymentInfoContainer {
-            margin-bottom: @default-spacer;
-
-            .paymentInfoTitle {
-                font-weight: @sk-font-regular;
-            }
-
-            &:last-child {
-                .paymentInfoTitle {
-                    font-weight: @sk-font-medium;
-                }
-                .paymentInfoValue {
-                    font-weight: @sk-font-medium;
-                    color:@sk-black;
-                }
-            }
-        }
-    }
+.paymentError {
+    margin-bottom : @default-spacer * 3;
 }

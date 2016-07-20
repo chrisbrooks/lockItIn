@@ -4,6 +4,7 @@
 
     display: inline-block;
     margin-left:5px;
+    margin-top:-2px;
 
     .helpIcon {
         position: relative;
@@ -12,7 +13,7 @@
         z-index: 100;
     }
 
-    .helpIconContent {
+    .helpIconContentContainer {
 
         z-index: 10;
         color: @sk-charcoal;
@@ -23,7 +24,6 @@
         z-index: 100;
         width: 100%;
         background-color: @sk-white;
-        padding: (@default-spacer * 3) (@default-spacer * 3);
         border-radius: @sk-border-radius;
 
         @media only screen and (min-width: @medium-device-max-width) {
@@ -36,6 +36,10 @@
             top:auto;
             left:auto;
         }
+    }
+
+    .helpIconContent {
+        margin: @default-spacer * 3;
     }
 
     .helpIconArrowLeft {

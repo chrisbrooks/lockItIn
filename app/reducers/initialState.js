@@ -1,6 +1,7 @@
 export default {
     ajaxCallsInProgress: 0,
     actions: {
+        currency: '',
         loading: false,
         paymentSuccess: false,
         paymentError: false,
@@ -10,6 +11,7 @@ export default {
         complete: false,
         amount: null,
         totalAmount: null,
+        prn: '',
         customerNumber: null,
         invoiceNumber: null,
         cvv: null,

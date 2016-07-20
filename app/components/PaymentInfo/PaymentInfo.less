@@ -1,8 +1,7 @@
 @import "../../static/less/styles";
 
 .paymentInfo {
-    padding:0 0 @default-spacer * 2;
-
+    padding:@default-spacer * 2 0 0;
 
     @media only screen and (min-width: @medium-device-max-width) {
         padding:0 0 @default-spacer * 4 @default-spacer * 8;
@@ -38,11 +37,6 @@
 
     .paymentInfoTotalContainer {
         margin-top: @default-spacer * 4;
-        display: none;
-
-        @media only screen and (min-width: @medium-device-max-width) {
-            display: block;
-        }
 
         .paymentInfoContainer {
             margin-bottom: @default-spacer;

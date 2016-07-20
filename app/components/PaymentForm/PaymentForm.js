@@ -1,12 +1,10 @@
 import styles from './paymentForm.less';
 import React from 'react';
-import classNames from 'classnames';
+import MaskedInput from 'react-maskedinput';
 import HelpIcon from '../helpIcon/helpIcon';
 import * as constants from '../../constants';
 
 const PaymentForm = ({
-    amount,
-    surcharge,
     paymentError,
     paymentErrorMessage,
     onFormChange,
@@ -35,9 +33,13 @@ const PaymentForm = ({
         onFormChange(e.target.name, e.target.value);
     };
 
-    const gst = amount * 10 / 100;
-    const surCharge = (surcharge / 100) * amount;
-    const total = gst + surCharge + Number(amount);
+    { /* changes the mask format if the cardType is amex */ }
+    const cardNumberLength = cardType === constants.cardType.AMEX ? '1111 111111 11111' : '1111 1111 1111 1111';
+
+    { /* fade card if card cardNumber doesn't match cardType */ }
+    const visaSelected = cardType !== constants.cardType.VISA && cardType !== '' ? styles.issuerOther : styles.issuerVisa;
+    const masterCardSelected = cardType !== constants.cardType.MASTERCARD && cardType !== '' ? styles.issuerOther : styles.issuerMasterCard;
+    const amexSelected = cardType !== constants.cardType.AMEX && cardType !== '' ? styles.issuerOther : styles.issuerAmex;
 
     return (
         <div className={styles.creditCardPayment}>
@@ -47,9 +49,9 @@ const PaymentForm = ({
 
                 <div className={styles.issuerContainer}>
 
-                    <i className={styles.issuerVisa} aria-label="Visa"></i>
-                    <i className={styles.issuerMastercard} aria-label="MasterCard"></i>
-                    <i className={styles.issuerAmex} aria-label="Amex"></i>
+                    <i className={visaSelected} aria-label={constants.cardType.VISA}></i>
+                    <i className={masterCardSelected} aria-label={constants.cardType.MASTERCARD}></i>
+                    <i className={amexSelected} aria-label={constants.cardType.AMEX}></i>
 
                     <span className={styles.issuerSurcharge}>+ 3.06%</span>
                 </div>
@@ -61,15 +63,16 @@ const PaymentForm = ({
                             htmlFor={constants.inputs.CARD_NUMBER}
                             className={styles.cardNumberLabel}>Card number
                         </label>
-
-                        <input
-                            type="number"
+                        <MaskedInput
+                            displayType="input"
+                            mask={cardNumberLength}
+                            placeholderChar="*"
+                            placeholder=" "
                             name={constants.inputs.CARD_NUMBER}
                             className={styles.cardNumberInput}
                             data-stripe="number"
                             onBlur={formValidation}
-                            onChange={formChange}>
-                        </input>
+                            onChange={formChange} />
 
                         {!cardNumberValid && cardNumberTouched && <div className={styles.cardPaymentError}>
                             {cardNumber === null || cardNumber === '' ? 'Required' : 'Invalid card number'}
@@ -83,15 +86,15 @@ const PaymentForm = ({
                         className={styles.expiryLabel}>Expiry
                         </label>
 
-                        <input
-                            type="text"
+                        <MaskedInput
+                            mask="11/11"
                             name={constants.inputs.EXPIRY_DATE}
+                            placeholderChar=" "
                             placeholder="MM/YY"
                             data-stripe="exp"
                             className={styles.expiryInput}
                             onBlur={formValidation}
-                            onChange={formChange}>
-                        </input>
+                            onChange={formChange} />
 
                         {!expiryValid && expiryTouched && <div className={styles.cardPaymentError}>
                             {expiry === null || expiry === '' ? 'Required' : 'Invalid'}
@@ -108,15 +111,13 @@ const PaymentForm = ({
                         <HelpIcon cardType={cardType} onToggle={onToggle} toggle={toggle} />
 
                         <input
-                            type="number"
                             name={constants.inputs.SECURITY_CODE}
-                            maxLength="4"
                             autoComplete="off"
                             data-stripe="cvc"
                             className={styles.securityCodeInput}
+                            maxLength="4"
                             onBlur={formValidation}
-                            onChange={formChange}>
-                        </input>
+                            onChange={formChange} />
 
                         {!cvvValid && cvvTouched && <div className={styles.cardPaymentError}>
                             {cvv === null || cvv === '' ? 'Required' : 'Invalid'}
@@ -127,38 +128,16 @@ const PaymentForm = ({
                 </form>
             </div>}
 
-            {paymentError && <div>
+            {paymentError && <div className={styles.paymentError}>
                 <h2>{paymentErrorMessage}</h2>
                 <p>Refresh the page to try again or come back later.</p>
             </div>}
-
-            <div className={styles.paymentInfo}>
-                <div className={styles.paymentInfoTotalContainer}>
-                    <div className={styles.paymentInfoContainer}>
-                        <p className={styles.paymentInfoTitle}>Subtotal</p>
-                        <p className={styles.paymentInfoValue}><span>$</span> {amount}</p>
-                    </div>
-                    <div className={styles.paymentInfoContainer}>
-                        <p className={styles.paymentInfoTitle}>GST</p>
-                        <p className={styles.paymentInfoValue}><span>$</span>{gst}</p>
-                    </div>
-                    {surcharge > 0 && <div className={styles.paymentInfoContainer} >
-                        <p className={styles.paymentInfoTitle}>{cardType}</p>
-                        <p className={styles.paymentInfoValue}><span>$</span>{surCharge}</p>
-                    </div>}
-                    <div className={styles.paymentInfoContainer}>
-                        <p className={styles.paymentInfoTitle}>Total</p>
-                        <p className={styles.paymentInfoValue}><span>$</span>{total}</p>
-                    </div>
-                </div>
-            </div>
 
         </div>
     );
 };
 
 PaymentForm.propTypes = {
-    amount: React.PropTypes.string,
     surcharge: React.PropTypes.number,
     paymentError: React.PropTypes.element,
     paymentErrorMessage: React.PropTypes.element,
