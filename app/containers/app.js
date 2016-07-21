@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import axios from 'axios';
 import Spinner from 'react-spin';
+import base64 from 'base-64';
+import queryString from 'query-string';
 import * as constants from '../constants';
 import * as actions from '../actions/actions';
 import Header from '../components/header/header';
@@ -17,9 +19,18 @@ class App extends React.Component {
     constructor(props, context) {
         super(props, context);
 
-        { /* get inital url parameters e.g. amount, customer number etc.. */ }
-        const query = props.location.query;
-        this.props.actions.urlQuery(query);
+        { /* get inital url parameters e.g. amount, customer number etc.. from decoder */ }
+
+        const url = "http://localhost:3000?Y3VzdG9tZXJudW1iZXI9MjM0MjM0JmFtb3VudD01MDAmaW52b2ljZW51bWJlcj0zMzI0MzI0MzQmcHJuPWZmZjIzMjMyMyZlbWFpbD1jaHJpc0BnbWFpbC5jb20mY29tLmF1";
+        //var url = window.location.href;
+        const parameters = url.substring(url.indexOf('?')+1);
+
+        const base64Decode = base64.decode(parameters);
+        const decodedParameters = queryString.parse(base64Decode);
+
+        //const decodedParameters = props.location.query;
+
+        this.props.actions.urlQuery(decodedParameters);
 
         this.onFormChange = this.onFormChange.bind(this);
         this.onFormValidate = this.onFormValidate.bind(this);
@@ -125,17 +136,7 @@ class App extends React.Component {
 
         if (name === constants.inputs.SECURITY_CODE) {
 
-            let cvvValidate;
-            const cvv = this.props.cvv;
-            const cardType = this.props.cardType;
-            const amex = constants.cardType.AMEX;
-
-            if(cardType !== amex && cvv.length !== 3 || cardType === amex && cvv.length !== 4 ) {
-                cvvValidate = false;
-            } else {
-                cvvValidate = Stripe.card.validateCVC(value);
-            }
-
+            const cvvValidate = Stripe.card.validateCVC(value);
             this.props.actions.setCvvValid({ 'cvvValid': cvvValidate, 'cvvTouched': active });
         }
     }
@@ -147,10 +148,16 @@ class App extends React.Component {
             return e === true
         });
 
-        if(!formIsValid) {
+        if(!cardNumberValid) {
             this.props.actions.setCardNumberValid({ 'cardNumberValid': false, 'cardNumberTouched' : true });
-            this.props.actions.setExpiryValid({ 'expiryValid' : false, 'expiryTouched' : true });
-            this.props.actions.setCvvValid({ 'cvvValid': false, 'cvvTouched': true });
+        }
+
+        if(!expiryValid) {
+            this.props.actions.setExpiryValid({'expiryValid': false, 'expiryTouched': true});
+        }
+
+        if(!cvvValid) {
+            this.props.actions.setCvvValid({'cvvValid': false, 'cvvTouched': true});
         }
 
         if(formIsValid) {

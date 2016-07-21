@@ -17,7 +17,7 @@ import {
 
 import initialState from './initialState';
 
-export default function paymentReducer(state = initialState.actions, action) {
+export default function reducer(state = initialState.actions, action) {
     switch (action.type) {
 
         case CURRENCY: {

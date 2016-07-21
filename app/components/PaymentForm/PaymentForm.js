@@ -35,6 +35,7 @@ const PaymentForm = ({
 
     { /* changes the mask format if the cardType is amex */ }
     const cardNumberLength = cardType === constants.cardType.AMEX ? '1111 111111 11111' : '1111 1111 1111 1111';
+    const cvvLength = cardType === constants.cardType.AMEX ? '1111' : '111';
 
     { /* fade card if card cardNumber doesn't match cardType */ }
     const visaSelected = cardType !== constants.cardType.VISA && cardType !== '' ? styles.issuerOther : styles.issuerVisa;
@@ -89,7 +90,7 @@ const PaymentForm = ({
                         <MaskedInput
                             mask="11/11"
                             name={constants.inputs.EXPIRY_DATE}
-                            placeholderChar=" "
+                            placeholderChar="*"
                             placeholder="MM/YY"
                             data-stripe="exp"
                             className={styles.expiryInput}
@@ -110,12 +111,14 @@ const PaymentForm = ({
 
                         <HelpIcon cardType={cardType} onToggle={onToggle} toggle={toggle} />
 
-                        <input
+                        <MaskedInput
+                            mask={cvvLength}
                             name={constants.inputs.SECURITY_CODE}
+                            placeholderChar="*"
+                            placeholder=" "
                             autoComplete="off"
                             data-stripe="cvc"
                             className={styles.securityCodeInput}
-                            maxLength="4"
                             onBlur={formValidation}
                             onChange={formChange} />
 

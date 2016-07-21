@@ -77,7 +77,7 @@ export function createToken(currency, email, prn, cardNumber, cvv, expiry, total
 
             dispatch(loading(true));
 
-            if(status === 200) {
+            if (status === 200) {
 
                 const paymentData = {
                     prn: prn,
@@ -87,13 +87,13 @@ export function createToken(currency, email, prn, cardNumber, cvv, expiry, total
                     token: response.id,
                 };
 
-                axios.post(paymentUrl, paymentData).then(function(response) {
+                axios.post(paymentUrl, paymentData).then(function(result) {
 
                     if (status === 200) {
                         dispatch(paymentSuccess(true));
 
                     } else {
-                        onPaymentError(response.responseJSON.Message);
+                        onPaymentError(result.responseJSON.Message);
                     }
 
                     dispatch(loading(false));
@@ -107,63 +107,62 @@ export function createToken(currency, email, prn, cardNumber, cvv, expiry, total
 
         function onPaymentError(errorType) {
 
-            const nonFatal = function (errorText) {
-                dispatch(paymentError({ 'paymentError': true, 'paymentErrorMessage' : errorText }));
+            const nonFatal = (errorText) => {
+                dispatch(paymentError({ 'paymentError': true, 'paymentErrorMessage': errorText }));
             };
 
             switch (errorType) {
 
-            case constants.errors.DECLINED: {
-                nonFatal(constants.errorMessages.DECLINED);
-                break;
-            }
+                case constants.errors.DECLINED: {
+                    nonFatal(constants.errorMessages.DECLINED);
+                    break;
+                }
 
-            case constants.errors.DECLINED_FRAUDULENT: {
-                nonFatal(constants.errorMessages.DECLINED);
-                break;
-            }
+                case constants.errors.DECLINED_FRAUDULENT: {
+                    nonFatal(constants.errorMessages.DECLINED);
+                    break;
+                }
 
-            case constants.errors.DECLINED_INCORRECT_NUMBER: {
-                nonFatal(constants.errorMessages.NUMBER_INCORRECT);
-                break;
-            }
+                case constants.errors.DECLINED_INCORRECT_NUMBER: {
+                    nonFatal(constants.errorMessages.NUMBER_INCORRECT);
+                    break;
+                }
 
-            case constants.errors.DECLINED_INCORRECT_CVC: {
-                nonFatal(constants.errorMessages.CVC_INCORRECT);
-                break;
-            }
+                case constants.errors.DECLINED_INCORRECT_CVC: {
+                    nonFatal(constants.errorMessages.CVC_INCORRECT);
+                    break;
+                }
 
-            case constants.errors.DECLINED_EXPIRED: {
-                nonFatal(constants.errorMessages.CARD_EXPIRED);
-                break;
-            }
+                case constants.errors.DECLINED_EXPIRED: {
+                    nonFatal(constants.errorMessages.CARD_EXPIRED);
+                    break;
+                }
 
-            case constants.errors.UNSUPPORTED: {
-                nonFatal(constants.errorMessages.UNSUPPORTED);
-                break;
-            }
+                case constants.errors.UNSUPPORTED: {
+                    nonFatal(constants.errorMessages.UNSUPPORTED);
+                    break;
+                }
 
-            case constants.errors.INVALID_AMOUNT: {
-                break;
-            }
+                case constants.errors.INVALID_AMOUNT: {
+                    break;
+                }
 
-            case constants.errors.INVALID_CUSTOMER: {
-                break;
-            }
+                case constants.errors.INVALID_CUSTOMER: {
+                    break;
+                }
 
-            case constants.errors.INVALID_TOKEN: {
-                break;
-            }
+                case constants.errors.INVALID_TOKEN: {
+                    break;
+                }
 
-            case constants.errors.TOKENISATION_FAILURE: {
-                break;
-            }
+                case constants.errors.TOKENISATION_FAILURE: {
+                    break;
+                }
 
-            default: {
-                nonFatal(constants.errorMessages.PROCESSING_ERROR);
-                break;
-            }
-
+                default: {
+                    nonFatal(constants.errorMessages.PROCESSING_ERROR);
+                    break;
+                }
             }
         }
     };
