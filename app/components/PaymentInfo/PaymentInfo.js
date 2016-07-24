@@ -9,20 +9,24 @@ const PaymentInfo = ({
     cardType,
 }) => {
 
-    const gst = amount * 10 / 100;
-    const surCharge = (surcharge / 100) * amount;
-    const total = gst + surCharge + Number(amount);
+    let gst = amount * 10 / 100;
+    let surCharge = (surcharge / 100) * Number(amount);
+    let total = (gst + surCharge + Number(amount));
+
+    gst = gst.toFixed(2);
+    surCharge = surCharge.toFixed(2);
+    total = total.toFixed(2);
 
     return (
         <div className={styles.paymentInfo}>
             <h2>Your payment information</h2>
             <div className={styles.paymentInfoContainer}>
                 <p className={styles.paymentInfoTitle}>Invoice number</p>
-                <p className={styles.paymentInfoValue}>{invoiceNumber}</p>
+                <p className={styles.paymentInfoValue} data-automation="paymentInvoiceNumber">{invoiceNumber}</p>
             </div>
             <div className={styles.paymentInfoContainer}>
                 <p className={styles.paymentInfoTitle}>Customer number</p>
-                <p className={styles.paymentInfoValue}>{customerNumber}</p>
+                <p className={styles.paymentInfoValue} data-automation="paymentCustomerNumber">{customerNumber}</p>
             </div>
             <div className={styles.paymentInfoContainer}>
                 <p className={styles.paymentInfoTitle}>Invoice amount</p>
@@ -37,13 +41,13 @@ const PaymentInfo = ({
                     <p className={styles.paymentInfoTitle}>GST</p>
                     <p className={styles.paymentInfoValue}><span>$</span>{gst}</p>
                 </div>
-                {surcharge > 0 && <div className={styles.paymentInfoContainer} >
-                    <p className={styles.paymentInfoTitle}>{cardType}</p>
-                    <p className={styles.paymentInfoValue}><span>$</span>{surCharge}</p>
+                {surcharge > 0 && <div className={styles.paymentInfoContainer}>
+                    <p className={styles.paymentInfoTitle} data-automation="paymentSurchargeTitle">{cardType}</p>
+                    <p className={styles.paymentInfoValue} data-automation="paymentSurcharge"><span>$</span>{surCharge}</p>
                 </div>}
                 <div className={styles.paymentInfoContainer}>
                     <p className={styles.paymentInfoTitle}>Total</p>
-                    <p className={styles.paymentInfoValue}><span>$</span>{total}</p>
+                    <p className={styles.paymentInfoValue} data-automation="paymentTotal"><span>$</span>{total}</p>
                 </div>
             </div>
         </div>

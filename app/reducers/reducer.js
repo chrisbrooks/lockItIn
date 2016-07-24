@@ -1,5 +1,5 @@
 import {
-    CURRENCY,
+    LOCATION,
     LOADING,
     PAYMENT_SUCCESS,
     PAYMENT_ERROR,
@@ -20,9 +20,9 @@ import initialState from './initialState';
 export default function reducer(state = initialState.actions, action) {
     switch (action.type) {
 
-        case CURRENCY: {
-            const currency = action.payload;
-            return { ...state, currency };
+        case LOCATION: {
+            const location = action.payload;
+            return { ...state, location };
         }
 
         case LOADING: {
@@ -47,7 +47,7 @@ export default function reducer(state = initialState.actions, action) {
             const amount = action.payload.amount;
             const prn = action.payload.prn;
             const email = action.payload.email;
-
+            console.log(customerNumber);
             return { ...state, customerNumber, invoiceNumber, amount, prn, email };
         }
 

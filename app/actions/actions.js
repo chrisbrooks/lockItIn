@@ -4,8 +4,8 @@ import * as constants from '../constants';
 import * as types from './actionTypes';
 import axios from 'axios';
 
-export function setCurrency(value) {
-    return { type: types.CURRENCY, payload: value };
+export function setLocation(value) {
+    return { type: types.LOCATION, payload: value };
 }
 
 export function loading(value) {
@@ -21,6 +21,7 @@ export function paymentError(error) {
 }
 
 export function urlQuery(query) {
+    console.log(query);
     return { type: types.URL_QUERY, payload: query };
 }
 
@@ -60,7 +61,7 @@ export function setToggle(result) {
     return { type: types.TOGGLE, payload: result };
 }
 
-export function createToken(currency, email, prn, cardNumber, cvv, expiry, totalAmount) {
+export function createToken(location, email, prn, cardNumber, cvv, expiry, totalAmount) {
     return dispatch => {
 
         const stripeData = {
@@ -82,7 +83,7 @@ export function createToken(currency, email, prn, cardNumber, cvv, expiry, total
                 const paymentData = {
                     prn: prn,
                     email: email,
-                    currency: currency,
+                    currency: location,
                     amount: totalAmount,
                     token: response.id,
                 };

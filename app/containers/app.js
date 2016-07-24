@@ -43,14 +43,13 @@ class App extends React.Component {
         { /* set currency and stripe key */  }
 
         if (/com.au/.test(window.location.href)){
-            this.props.actions.setCurrency(constants.country.AU);
+            this.props.actions.setLocation(constants.location.AU);
             Stripe.setPublishableKey(stripeAuPublishableKey); // set your test public key
 
         } else {
             Stripe.setPublishableKey(stripeNzPublishableKey); // set your test public key
-            this.props.actions.setCurrency(constants.country.NZ);
+            this.props.actions.setLocation(constants.location.NZ);
         }
-
     }
 
     getSurcharge(cardNumber) {
@@ -90,10 +89,8 @@ class App extends React.Component {
     getTotalAmount(value) {
 
         const { amount } = this.props;
-
         const surChargeObject = this.getSurcharge(value);
         const surcharge = surChargeObject.surcharge;
-
         const gst = amount * 10 / 100;
         const surChargeTotal = (surcharge / 100) * amount;
         const total = gst + surChargeTotal + Number(amount);
@@ -123,26 +120,34 @@ class App extends React.Component {
 
     onFormValidate(name, value, active) {
 
-        if (name === constants.inputs.CARD_NUMBER) {
+        switch (name) {
 
-            const cardValidate = Stripe.card.validateCardNumber(value);
-            this.props.actions.setCardNumberValid({ 'cardNumberValid': cardValidate, 'cardNumberTouched' : active });
-        }
+            case constants.inputs.CARD_NUMBER: {
+                const cardValidate = Stripe.card.validateCardNumber(value);
+                this.props.actions.setCardNumberValid({ 'cardNumberValid': cardValidate, 'cardNumberTouched' : active });
+                break;
+            }
 
-        if (name === constants.inputs.EXPIRY_DATE) {
-            const expiryValidate = Stripe.card.validateExpiry(value);
-            this.props.actions.setExpiryValid({ 'expiryValid' : expiryValidate, 'expiryTouched' : active });
-        }
+            case constants.inputs.EXPIRY_DATE: {
+                const expiryValidate = Stripe.card.validateExpiry(value);
+                this.props.actions.setExpiryValid({ 'expiryValid' : expiryValidate, 'expiryTouched' : active });
+                break;
+            }
 
-        if (name === constants.inputs.SECURITY_CODE) {
+            case constants.inputs.SECURITY_CODE: {
+                const cvvValidate = Stripe.card.validateCVC(value);
+                this.props.actions.setCvvValid({ 'cvvValid': cvvValidate, 'cvvTouched': active });
+                break;
+            }
 
-            const cvvValidate = Stripe.card.validateCVC(value);
-            this.props.actions.setCvvValid({ 'cvvValid': cvvValidate, 'cvvTouched': active });
+            default: {
+                break;
+            }
         }
     }
 
     onSubmitForm() {
-        const { currency, email, prn, cardType, cardNumber, cvv, expiry, totalAmount, cardNumberValid, expiryValid, cvvValid, cardNumberTouched, expiryTouched, cvvTouched } = this.props;
+        const { location, email, prn, cardNumber, cvv, expiry, totalAmount, cardNumberValid, expiryValid, cvvValid, cardNumberTouched, expiryTouched, cvvTouched } = this.props;
         const checkFormValidation = [cardNumberValid, expiryValid, cvvValid, cardNumberTouched, expiryTouched, cvvTouched];
         const formIsValid = checkFormValidation.every( function(e) {
             return e === true
@@ -161,7 +166,7 @@ class App extends React.Component {
         }
 
         if(formIsValid) {
-            this.props.actions.createToken(currency, email, prn, cardNumber, cvv, expiry, totalAmount)
+            this.props.actions.createToken(location, email, prn, cardNumber, cvv, expiry, totalAmount)
         }
     }
 
@@ -189,7 +194,7 @@ class App extends React.Component {
 
         return (
             <div>
-                <Header />
+                <Header location={this.props.location} />
                 <div className={styles.pageContainer}>
                     {!this.props.paymentSuccess && <div>
                         <div className={styles.paymentFormContainer}>
@@ -253,7 +258,7 @@ class App extends React.Component {
 
 function mapStateToProps(state) {
     return {
-        currency: state.actions.currency,
+        location: state.actions.location,
         loading: state.actions.loading,
         paymentSuccess: state.actions.paymentSuccess,
         paymentError: state.actions.paymentError,

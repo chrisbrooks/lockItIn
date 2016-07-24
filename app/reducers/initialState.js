@@ -1,7 +1,7 @@
 export default {
     ajaxCallsInProgress: 0,
     actions: {
-        currency: '',
+        location: 'Australia',
         loading: false,
         paymentSuccess: false,
         paymentError: false,

@@ -35,7 +35,12 @@
         UNSUPPORTED: 'Diners Club is not accepted. Please pay with Visa, MasterCard or American Express.',
     };
 
-    export const country = {
+    export const location = {
         NZ: 'NewZealand',
         AU: 'Australia'
+    }
+
+    export const number = {
+        NZ: '0508 733 569',
+        AU: '1300 658 700'
     }
