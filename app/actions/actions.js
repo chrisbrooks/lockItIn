@@ -1,6 +1,7 @@
 import * as types from './actionTypes';
 
 export function setTotalAmount(value) {
+    console.log(value);
     return { type: types.TOTAL_AMOUNT, payload: value };
 }
 
