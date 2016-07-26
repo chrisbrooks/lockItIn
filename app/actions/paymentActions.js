@@ -40,7 +40,7 @@ export function createToken(cardType, cardNumber, cvv, expiry, amount) {
             cvc: cvv,
             exp: expiry,
             amount: amount,
-        }
+        };
 
         const expiryParts = expiry.split('/');
         const expiryMonth = expiryParts[0];
@@ -51,7 +51,7 @@ export function createToken(cardType, cardNumber, cvv, expiry, amount) {
             expiryMonth: expiryMonth,
             expiryYear: expiryYear,
             last4Digits: cvv
-        }
+        };
 
         Stripe.createToken(stripeData, function (status, response) {
             console.log( status, response );

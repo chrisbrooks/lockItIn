@@ -1,0 +1,156 @@
+{
+	"AWSTemplateFormatVersion": "2010-09-09",
+	"Description": "Advertiser - Static sites deployment users [IAM S3 bucket access user policies].",
+	"Parameters": {
+		"assetDeployStagingIAMUsername": {
+			"Type": "String",
+			"AllowedPattern": "^[a-z][a-z0-9-]+[a-z]$",
+			"Default": "advertiser-static-site-staging-deploy",
+			"Description": "Username of IAM user granted rights to deploy staging static site assets to S3 bucket - user must already exist."
+		},
+		"assetDeployStagingIAMAccessKeySerial": {
+			"Type": "Number",
+			"Default": "1",
+			"Description": "Access key serial number for staging static site deploy IAM user."
+		},
+		"assetDeployProductionIAMUsername": {
+			"Type": "String",
+			"AllowedPattern": "^[a-z][a-z0-9-]+[a-z]$",
+			"Default": "advertiser-static-site-production-deploy",
+			"Description": "Username of IAM user granted rights to deploy production static site assets to S3 bucket - user must already exist."
+		},
+		"assetDeployProductionIAMAccessKeySerial": {
+			"Type": "Number",
+			"Default": "1",
+			"Description": "Access key serial number for production static site deploy IAM user."
+		}
+	},
+	"Resources": {
+		"assetDeployStagingIAMAccessKey": {
+			"Type": "AWS::IAM::AccessKey",
+			"Properties": {
+				"Serial": {
+					"Ref": "assetDeployStagingIAMAccessKeySerial"
+				},
+				"Status": "Active",
+				"UserName": {
+					"Ref": "assetDeployStagingIAMUsername"
+				}
+			}
+		},
+		"assetDeployStagingIAMUserPolicyS3": {
+			"Type": "AWS::IAM::Policy",
+			"Properties": {
+				"PolicyDocument": {
+					"Version": "2012-10-17",
+					"Statement": [
+						{
+							"Action": [
+								"s3:ListBucket"
+							],
+							"Effect": "Allow",
+							"Resource": [
+								"arn:aws:s3:::seek-advertiser-static-site-494306307743"
+							]
+						},
+						{
+							"Action": [
+								"s3:DeleteObject",
+								"s3:PutObject"
+							],
+							"Effect": "Allow",
+							"Resource": [
+								"arn:aws:s3:::seek-advertiser-static-site-494306307743/hirer/payments/staging/*"
+							]
+						}
+					]
+				},
+				"PolicyName": "S3",
+				"Users": [
+					{
+						"Ref": "assetDeployStagingIAMUsername"
+					}
+				]
+			}
+		},
+		"assetDeployProductionIAMAccessKey": {
+			"Type": "AWS::IAM::AccessKey",
+			"Properties": {
+				"Serial": {
+					"Ref": "assetDeployProductionIAMAccessKeySerial"
+				},
+				"Status": "Active",
+				"UserName": {
+					"Ref": "assetDeployProductionIAMUsername"
+				}
+			}
+		},
+		"assetDeployProductionIAMUserPolicyS3": {
+			"Type": "AWS::IAM::Policy",
+			"Properties": {
+				"PolicyDocument": {
+					"Version": "2012-10-17",
+					"Statement": [
+						{
+							"Action": [
+								"s3:ListBucket"
+							],
+							"Effect": "Allow",
+							"Resource": [
+								"arn:aws:s3:::seek-advertiser-static-site-494306307743"
+							]
+						},
+						{
+							"Action": [
+								"s3:DeleteObject",
+								"s3:PutObject"
+							],
+							"Effect": "Allow",
+							"Resource": [
+								"arn:aws:s3:::seek-advertiser-static-site-494306307743/hirer/payments/production/*"
+							]
+						}
+					]
+				},
+				"PolicyName": "S3",
+				"Users": [
+					{
+						"Ref": "assetDeployProductionIAMUsername"
+					}
+				]
+			}
+		}
+	},
+	"Outputs": {
+		"assetDeployStagingIAMAccessKeyID": {
+			"Description": "Access key ID for staging static site deploy IAM user.",
+			"Value": {
+				"Ref": "assetDeployStagingIAMAccessKey"
+			}
+		},
+		"assetDeployStagingIAMSecretAccessKey": {
+			"Description": "Secret access key for staging static site deploy IAM user.",
+			"Value": {
+				"Fn::GetAtt": [
+					"assetDeployStagingIAMAccessKey",
+					"SecretAccessKey"
+				]
+			}
+		},
+		"assetDeployProductionIAMAccessKeyID": {
+			"Description": "Access key ID for production static site deploy IAM user.",
+			"Value": {
+				"Ref": "assetDeployProductionIAMAccessKey"
+			}
+		},
+		"assetDeployProductionIAMSecretAccessKey": {
+			"Description": "Secret access key for production static site deploy IAM user.",
+			"Value": {
+				"Fn::GetAtt": [
+					"assetDeployProductionIAMAccessKey",
+					"SecretAccessKey"
+				]
+			}
+		}
+	}
+}

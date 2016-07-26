@@ -1,0 +1,15 @@
+{
+    "protocol": "http",
+    "port": <%= portNumber %>,
+    "requests": [],
+    "stubs": [
+    <% include paymentService/imposters.ejs %>,
+    <% include notFound.ejs %>
+    ],
+    "_links": {
+        "self": {
+            "href": "http://<%= hostName %>:2525/imposters/<%= portNumber %>",
+            "logs": "http://<%= hostName %>:2525/logs"
+        }
+    }
+}
