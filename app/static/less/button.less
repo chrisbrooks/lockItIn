@@ -17,6 +17,13 @@
         cursor: pointer;
     }
 
+    .paymentButtonDisabled {
+        &:extend(.paymentButtonContainer .paymentButton);
+        opacity:0.5;
+        cursor:default;
+
+    }
+
     .paymentButtonProccessing {
         &:extend(.paymentButtonContainer .paymentButton);
         padding-left: @default-spacer *7;

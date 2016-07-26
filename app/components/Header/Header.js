@@ -17,7 +17,9 @@ const Header = ({ location }) => (
                     className={styles.headerIcon}
                     aria-hidden="true"
                     data-icon="&#57464;" />
-                <span className={styles.headerNumber} data-automation="headerNumber">{location === constants.location.AU ? constants.number.AU : constants.number.NZ}</span>
+                <span className={styles.headerNumber} data-automation="headerNumber">
+                    {location === constants.location.AU ? constants.number.AU : constants.number.NZ}
+                </span>
 
             </span>
         </div>

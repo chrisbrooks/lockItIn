@@ -37,10 +37,10 @@
 
     export const location = {
         NZ: 'NewZealand',
-        AU: 'Australia'
-    }
+        AU: 'Australia',
+    };
 
     export const number = {
         NZ: '0508 733 569',
-        AU: '1300 658 700'
-    }
+        AU: '1300 658 700',
+    };

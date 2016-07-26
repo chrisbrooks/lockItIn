@@ -10,7 +10,9 @@ const PaymentSuccess = ({
 
     const print = () => {
         window.print();
-    }
+    };
+
+    const total = Number(totalAmount).toFixed(2);
 
     return (
         <div className={styles.paymentSuccessPage}>
@@ -19,19 +21,19 @@ const PaymentSuccess = ({
                 <h2 className={styles.paymentSuccessSubHeader}>Your payment information</h2>
                 <div className={styles.paymentSuccessContainer}>
                     <p className={styles.paymentSuccessTitle}>Invoice number</p>
-                    <p className={styles.paymentSuccessValue}>{invoiceNumber}</p>
+                    <p className={styles.paymentSuccessValue} data-automation="paymentInvoiceNumber">{invoiceNumber}</p>
                 </div>
                 <div className={styles.paymentSuccessContainer}>
                     <p className={styles.paymentSuccessTitle}>Customer number</p>
-                    <p className={styles.paymentSuccessValue}>{customerNumber}</p>
+                    <p className={styles.paymentSuccessValue} data-automation="paymentCustomerNumber">{customerNumber}</p>
                 </div>
                 <div className={styles.paymentSuccessContainer}>
                     <p className={styles.paymentSuccessTitle}>Payment Reference</p>
-                    <p className={styles.paymentSuccessValue}>{paymentRef}</p>
+                    <p className={styles.paymentSuccessValue} data-automation="paymentReference">{paymentRef}</p>
                 </div>
                 <div className={styles.paymentSuccessContainer}>
                     <p className={styles.paymentSuccessTitle}>Total Paid</p>
-                    <p className={styles.paymentSuccessValue}>${totalAmount}</p>
+                    <p className={styles.paymentSuccessValue} data-automation="paymentAmount">${total}</p>
                 </div>
             </div>
             <p className={styles.paymentSuccessPrint}>Please <a onClick={print}>print this page</a> for your records</p>
@@ -44,6 +46,8 @@ PaymentSuccess.propTypes = {
     cardNumber: React.PropTypes.string,
     expiry: React.PropTypes.string,
     cvv: React.PropTypes.string,
+    customerNumber: React.PropTypes.string,
+    invoiceNumber: React.PropTypes.string,
     paymentRef: React.PropTypes.string,
     totalAmount: React.PropTypes.string,
 };

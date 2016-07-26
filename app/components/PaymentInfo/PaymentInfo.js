@@ -7,7 +7,7 @@ const PaymentInfo = ({
     amount,
     surcharge,
     cardType,
-}) => {
+    }) => {
 
     let gst = amount * 10 / 100;
     let surCharge = (surcharge / 100) * Number(amount);

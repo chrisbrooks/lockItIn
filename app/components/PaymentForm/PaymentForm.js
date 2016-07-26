@@ -1,6 +1,6 @@
 import styles from './paymentForm.less';
 import React from 'react';
-import MaskedInput from 'react-maskedinput';
+import NumberFormat from 'react-number-format';
 import HelpIcon from '../helpIcon/helpIcon';
 import * as constants from '../../constants';
 
@@ -8,7 +8,7 @@ const PaymentForm = ({
     paymentError,
     paymentErrorMessage,
     onFormChange,
-    onFormValidate,
+    onFormBlur,
     cardNumber,
     expiry,
     cvv,
@@ -23,32 +23,40 @@ const PaymentForm = ({
     toggle,
     }) => {
 
+    const cardNumberLength = cardType === constants.cardType.AMEX ? '#### ###### #####' : '#### #### #### ####';
+    const cvvLength = cardType === constants.cardType.AMEX ? '4' : '3';
+
+    const visaSelected = cardType !== constants.cardType.VISA && cardType !== '' ? styles.issuerOther : styles.issuerVisa;
+    const masterCardSelected = cardType !== constants.cardType.MASTERCARD && cardType !== '' ? styles.issuerOther : styles.issuerMasterCard;
+    const amexSelected = cardType !== constants.cardType.AMEX && cardType !== '' ? styles.issuerOther : styles.issuerAmex;
+
     const formValidation = (e) => {
         e.preventDefault();
-        onFormValidate(e.target.name, e.target.value, true);
+        onFormBlur(e.target.name, e.target.value, true);
     };
 
     const formChange = (e) => {
         e.preventDefault();
         onFormChange(e.target.name, e.target.value);
+
+        const caret = e.target.selectionStart + 1;
+        if (e.target.name === constants.inputs.EXPIRY_DATE) {
+            document.getElementById(constants.inputs.EXPIRY_DATE).setSelectionRange(caret, caret);
+        }
     };
 
-    { /* changes the mask format if the cardType is amex */ }
-    const cardNumberLength = cardType === constants.cardType.AMEX ? '1111 111111 11111' : '1111 1111 1111 1111';
-    const cvvLength = cardType === constants.cardType.AMEX ? '1111' : '111';
-
-    { /* fade card if card cardNumber doesn't match cardType */ }
-    const visaSelected = cardType !== constants.cardType.VISA && cardType !== '' ? styles.issuerOther : styles.issuerVisa;
-    const masterCardSelected = cardType !== constants.cardType.MASTERCARD && cardType !== '' ? styles.issuerOther : styles.issuerMasterCard;
-    const amexSelected = cardType !== constants.cardType.AMEX && cardType !== '' ? styles.issuerOther : styles.issuerAmex;
+    const formatExpiryChange = (val) => {
+        const value = val.substring(0, 2) + (val.length > 1 ? '/' + val.substring(2, 4) : '');
+        return value;
+    };
 
     return (
         <div className={styles.creditCardPayment}>
-            {!paymentError && <div>
+            {!paymentError && <div data-automation="paymentForm">
                 <h2 className={styles.paymentHeader}>Credit card details</h2>
                 <p className={styles.acceptText}>We accept</p>
 
-                <div className={styles.issuerContainer}>
+                <div className={styles.issuerContainer} data-automation="issuerContainer">
 
                     <i className={visaSelected} aria-label={constants.cardType.VISA}></i>
                     <i className={masterCardSelected} aria-label={constants.cardType.MASTERCARD}></i>
@@ -64,18 +72,16 @@ const PaymentForm = ({
                             htmlFor={constants.inputs.CARD_NUMBER}
                             className={styles.cardNumberLabel}>Card number
                         </label>
-                        <MaskedInput
-                            displayType="input"
-                            mask={cardNumberLength}
-                            placeholderChar="*"
-                            placeholder=" "
+                        <NumberFormat
+                            data-automation="cardNumberInput"
+                            displayType={'input'}
+                            format={cardNumberLength}
                             name={constants.inputs.CARD_NUMBER}
                             className={styles.cardNumberInput}
-                            data-stripe="number"
                             onBlur={formValidation}
-                            onChange={formChange} />
+                            onKeyUp={formChange} />
 
-                        {!cardNumberValid && cardNumberTouched && <div className={styles.cardPaymentError}>
+                        {!cardNumberValid && cardNumberTouched && <div className={styles.cardPaymentError} data-automation="cardPaymentError">
                             {cardNumber === null || cardNumber === '' ? 'Required' : 'Invalid card number'}
                         </div>}
                     </div>
@@ -87,17 +93,17 @@ const PaymentForm = ({
                         className={styles.expiryLabel}>Expiry
                         </label>
 
-                        <MaskedInput
-                            mask="11/11"
+                        <NumberFormat
+                            data-automation="expiryDateInput"
+                            id={constants.inputs.EXPIRY_DATE}
+                            format={formatExpiryChange}
                             name={constants.inputs.EXPIRY_DATE}
-                            placeholderChar="*"
                             placeholder="MM/YY"
-                            data-stripe="exp"
                             className={styles.expiryInput}
                             onBlur={formValidation}
-                            onChange={formChange} />
+                            onKeyUp={formChange} />
 
-                        {!expiryValid && expiryTouched && <div className={styles.cardPaymentError}>
+                        {!expiryValid && expiryTouched && <div className={styles.cardPaymentError} data-automation="expiryPaymentError">
                             {expiry === null || expiry === '' ? 'Required' : 'Invalid'}
                         </div>}
                     </div>
@@ -111,18 +117,16 @@ const PaymentForm = ({
 
                         <HelpIcon cardType={cardType} onToggle={onToggle} toggle={toggle} />
 
-                        <MaskedInput
-                            mask={cvvLength}
+                        <input
+                            data-automation="securityCodeInput"
+                            maxLength={cvvLength}
                             name={constants.inputs.SECURITY_CODE}
-                            placeholderChar="*"
-                            placeholder=" "
                             autoComplete="off"
-                            data-stripe="cvc"
                             className={styles.securityCodeInput}
                             onBlur={formValidation}
-                            onChange={formChange} />
+                            onKeyUp={formChange} />
 
-                        {!cvvValid && cvvTouched && <div className={styles.cardPaymentError}>
+                        {!cvvValid && cvvTouched && <div className={styles.cardPaymentError} data-automation="cvvPaymentError">
                             {cvv === null || cvv === '' ? 'Required' : 'Invalid'}
                         </div>}
                     </div>
@@ -131,8 +135,8 @@ const PaymentForm = ({
                 </form>
             </div>}
 
-            {paymentError && <div className={styles.paymentError}>
-                <h2>{paymentErrorMessage}</h2>
+            {paymentError && <div className={styles.paymentError} data-automation="paymentError">
+                <h2 data-automation="paymentErrorMessage">{paymentErrorMessage}</h2>
                 <p>Refresh the page to try again or come back later.</p>
             </div>}
 
@@ -148,7 +152,7 @@ PaymentForm.propTypes = {
     expiryTouched: React.PropTypes.boolean,
     cvvTouched: React.PropTypes.boolean,
     onFormChange: React.PropTypes.element,
-    onFormValidate: React.PropTypes.element,
+    onFormBlur: React.PropTypes.element,
     cardNumber: React.PropTypes.string,
     expiry: React.PropTypes.string,
     cvv: React.PropTypes.string,
@@ -156,7 +160,7 @@ PaymentForm.propTypes = {
     expiryValid: React.PropTypes.element,
     cvvValid: React.PropTypes.element,
     cardType: React.PropTypes.string,
-    onToggle: React.PropTypes.boolean,
+    onToggle: React.PropTypes.function,
     toggle: React.PropTypes.boolean,
 };
 

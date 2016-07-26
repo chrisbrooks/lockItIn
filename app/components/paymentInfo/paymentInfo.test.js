@@ -13,7 +13,7 @@ describe('<PaymentInfo />', () => {
             customerNumber: '1122334455',
             invoiceNumber: 'f24jsjkae',
             surcharge: 3.06,
-            cardType: 'Amex'
+            cardType: 'Amex',
         };
     });
 
@@ -43,6 +43,7 @@ describe('<PaymentInfo />', () => {
     });
 
     it('should show the correct customer and invoice numbers', () => {
+        const wrapper = shallow(<PaymentInfo {...props} />);
         expect(wrapper.find('[data-automation="paymentCustomerNumber"]').text()).to.equal('1122334455');
         expect(wrapper.find('[data-automation="paymentInvoiceNumber"]').text()).to.equal('f24jsjkae');
     });
