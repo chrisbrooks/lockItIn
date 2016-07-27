@@ -49,7 +49,7 @@ PaymentSuccess.propTypes = {
     customerNumber: React.PropTypes.string,
     invoiceNumber: React.PropTypes.string,
     paymentRef: React.PropTypes.string,
-    totalAmount: React.PropTypes.string,
+    totalAmount: React.PropTypes.number,
 };
 
 export default PaymentSuccess;

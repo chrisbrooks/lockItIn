@@ -129,7 +129,7 @@ class App extends React.Component {
 
     getSurcharge(cardNumber) {
 
-        const cardIssuers = {
+        const cardIssuer = {
             mastercard: {
                 name: constants.cardType.MASTERCARD,
                 is_type: /^5[1-5]/,
@@ -152,9 +152,9 @@ class App extends React.Component {
             },
         };
 
-        for (const issuer of cardIssuers) {
-            if (issuer.is_type && issuer.is_type.test(cardNumber)) {
-                return { cardType: issuer.name, surcharge: issuer.surcharge_percentage };
+        for (const i in cardIssuer) {
+            if (cardIssuer[i].is_type && cardIssuer[i].is_type.test(cardNumber)) {
+                return { cardType: cardIssuer[i].name, surcharge: cardIssuer[i].surcharge_percentage };
             }
         }
 
@@ -318,59 +318,58 @@ App.propTypes = {
     email: React.PropTypes.string,
     prn: React.PropTypes.string,
     surcharge: React.PropTypes.number,
-    paymentError: React.PropTypes.element,
-    paymentErrorMessage: React.PropTypes.element,
-    paymentSuccess: React.PropTypes.boolean,
-    cardNumberTouched: React.PropTypes.element,
-    expiryTouched: React.PropTypes.boolean,
-    cvvTouched: React.PropTypes.boolean,
+    paymentError: React.PropTypes.bool,
+    paymentErrorMessage: React.PropTypes.string,
+    paymentSuccess: React.PropTypes.bool,
+    cardNumberTouched: React.PropTypes.bool,
+    expiryTouched: React.PropTypes.bool,
+    cvvTouched: React.PropTypes.bool,
     onFormChange: React.PropTypes.element,
     onFormBlur: React.PropTypes.element,
     cardNumber: React.PropTypes.string,
     expiry: React.PropTypes.string,
     cvv: React.PropTypes.string,
-    cardNumberValid: React.PropTypes.element,
-    expiryValid: React.PropTypes.element,
-    cvvValid: React.PropTypes.element,
+    cardNumberValid: React.PropTypes.bool,
+    expiryValid: React.PropTypes.bool,
+    cvvValid: React.PropTypes.bool,
     cardType: React.PropTypes.string,
-    onToggle: React.PropTypes.function,
-    toggle: React.PropTypes.boolean,
+    onToggle: React.PropTypes.bool,
+    toggle: React.PropTypes.bool,
     invoiceNumber: React.PropTypes.string,
     customerNumber: React.PropTypes.string,
     amount: React.PropTypes.string,
-    totalAmount: React.PropTypes.string,
-    loading: React.PropTypes.boolean,
+    totalAmount: React.PropTypes.number,
+    loading: React.PropTypes.bool,
     paymentRef: React.PropTypes.string,
-    setToggle: React.PropTypes.boolean,
+    setToggle: React.PropTypes.bool,
     location: React.PropTypes.string,
     country: React.PropTypes.shape({
-        setLocation: React.PropTypes.function,
+        setLocation: React.PropTypes.func,
     }),
     validation: React.PropTypes.shape({
-        setCardNumberValid: React.PropTypes.function,
-        setExpiryValid: React.PropTypes.function,
-        setCvvValid: React.PropTypes.function,
+        setCardNumberValid: React.PropTypes.func,
+        setExpiryValid: React.PropTypes.func,
+        setCvvValid: React.PropTypes.func,
     }),
     payment: React.PropTypes.shape({
-        createStripeToken: React.PropTypes.function,
+        createStripeToken: React.PropTypes.func,
     }),
     actions: React.PropTypes.shape({
-        setToggle: React.PropTypes.function,
-        setSurcharge: React.PropTypes.function,
-        setTotalAmount: React.PropTypes.function,
+        setToggle: React.PropTypes.func,
+        setSurcharge: React.PropTypes.func,
+        setTotalAmount: React.PropTypes.func,
     }),
     card: React.PropTypes.shape({
-        setCardNumber: React.PropTypes.function,
-        setExpiry: React.PropTypes.function,
-        setCvv: React.PropTypes.function,
+        setCardNumber: React.PropTypes.func,
+        setExpiry: React.PropTypes.func,
+        setCvv: React.PropTypes.func,
     }),
     urlQuery: React.PropTypes.shape({
-        setUrlQuery: React.PropTypes.function,
+        setUrlQuery: React.PropTypes.func,
     }),
 };
 
 function mapStateToProps(state) {
-    console.log(state);
     return {
         location: state.country.location,
         customerNumber: state.urlQuery.customerNumber,
