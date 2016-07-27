@@ -1,5 +1,5 @@
 import styles from './helpIcon.less';
-import React from 'react';
+import React, { PropTypes } from 'react';
 
 const HelpIcon = ({
     cardType,

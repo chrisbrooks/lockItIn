@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import styles from './app.less';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
