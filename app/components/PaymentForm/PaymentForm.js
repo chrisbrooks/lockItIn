@@ -1,5 +1,5 @@
 import styles from './paymentForm.less';
-import React from 'react';
+import React, { PropTypes } from 'react';
 import NumberFormat from 'react-number-format';
 import HelpIcon from '../helpIcon/helpIcon';
 import * as constants from '../../constants';
@@ -145,23 +145,23 @@ const PaymentForm = ({
 };
 
 PaymentForm.propTypes = {
-    surcharge: React.PropTypes.number,
-    paymentError: React.PropTypes.bool,
-    paymentErrorMessage: React.PropTypes.string,
-    cardNumberTouched: React.PropTypes.bool,
-    expiryTouched: React.PropTypes.bool,
-    cvvTouched: React.PropTypes.bool,
-    onFormChange: React.PropTypes.func,
-    onFormBlur: React.PropTypes.func,
-    cardNumber: React.PropTypes.string,
-    expiry: React.PropTypes.string,
-    cvv: React.PropTypes.string,
-    cardNumberValid: React.PropTypes.bool,
-    expiryValid: React.PropTypes.bool,
-    cvvValid: React.PropTypes.bool,
-    cardType: React.PropTypes.string,
-    onToggle: React.PropTypes.func,
-    toggle: React.PropTypes.bool,
+    surcharge: PropTypes.number,
+    paymentError: PropTypes.bool,
+    paymentErrorMessage: PropTypes.string,
+    cardNumberTouched: PropTypes.bool,
+    expiryTouched: PropTypes.bool,
+    cvvTouched: PropTypes.bool,
+    onFormChange: PropTypes.func.isRequired,
+    onFormBlur: PropTypes.func.isRequired,
+    cardNumber: PropTypes.string,
+    expiry: PropTypes.string,
+    cvv: PropTypes.string,
+    cardNumberValid: PropTypes.bool,
+    expiryValid: PropTypes.bool,
+    cvvValid: PropTypes.bool,
+    cardType: PropTypes.string,
+    onToggle: PropTypes.func.isRequired,
+    toggle: PropTypes.bool,
 };
 
 export default PaymentForm;
