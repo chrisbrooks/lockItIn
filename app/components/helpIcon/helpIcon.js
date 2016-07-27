@@ -32,9 +32,9 @@ const HelpIcon = ({
 );
 
 HelpIcon.propTypes = {
-    cardType: React.PropTypes.string,
-    onToggle: React.PropTypes.func,
-    toggle: React.PropTypes.bool,
+    cardType: PropTypes.string,
+    onToggle: PropTypes.func.isRequired,
+    toggle: PropTypes.bool,
 };
 
 export default HelpIcon;
