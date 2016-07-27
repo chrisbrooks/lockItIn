@@ -46,7 +46,7 @@ const PaymentForm = ({
     };
 
     const formatExpiryChange = (val) => {
-        const value = val.substring(0, 2) + (val.length > 1 ? '/' + val.substring(2, 4) : '');
+        const value = val.substring(0, 2) + (val.length > 1 ? '/' + val.substring(2, 4) : ''); // eslint-disable-line prefer-template
         return value;
     };
 
@@ -148,7 +148,7 @@ PaymentForm.propTypes = {
     surcharge: React.PropTypes.number,
     paymentError: React.PropTypes.element,
     paymentErrorMessage: React.PropTypes.element,
-    cardNumberTouched: React.PropTypes.element,
+    cardNumberTouched: React.PropTypes.boolean,
     expiryTouched: React.PropTypes.boolean,
     cvvTouched: React.PropTypes.boolean,
     onFormChange: React.PropTypes.element,

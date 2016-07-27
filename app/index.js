@@ -1,3 +1,5 @@
+/* eslint-disable import/default */
+
 /*
 import './styles/styles.less';
 import './favicon.ico';

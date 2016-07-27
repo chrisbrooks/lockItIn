@@ -20,7 +20,7 @@ describe('<HelpIcon />', () => {
         props.onToggle = sinon.spy();
         const wrapper = shallow(<HelpIcon {...props} />);
         wrapper.find('[data-automation="helpIconCloseIcon"]').simulate('click');
-        expect(props.onToggle.called).to.be.true;
+        expect(props.onToggle.called).to.equal(true);
     });
 
     it('should show popup when toggle is true', () => {
