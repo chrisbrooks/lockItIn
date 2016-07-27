@@ -38,15 +38,11 @@ class App extends React.Component {
 
         if (/com.au/.test(window.location.href)) {
             this.props.locationActions.setLocation(constants.location.AU);
-            /*eslint-disable */
-            Stripe.setPublishableKey(stripeAuPublishableKey);
-            /*eslint-enable */
+            Stripe.setPublishableKey(stripeAuPublishableKey); // eslint-disable-line no-undef
 
         } else {
             this.props.locationActions.setLocation(constants.location.NZ);
-            /*eslint-disable */
-            Stripe.setPublishableKey(stripeNzPublishableKey);
-            /*eslint-enable */
+            Stripe.setPublishableKey(stripeNzPublishableKey); // eslint-disable-line no-undef
         }
 
         this.onFormChange = this.onFormChange.bind(this);
@@ -89,25 +85,19 @@ class App extends React.Component {
         switch (name) {
 
             case constants.inputs.CARD_NUMBER: {
-                /*eslint-disable */
-                const cardValidate = Stripe.card.validateCardNumber(value);
-                /*eslint-enable */
+                const cardValidate = Stripe.card.validateCardNumber(value); // eslint-disable-line no-undef
                 this.props.validationActions.setCardNumberValid({ cardNumberValid: cardValidate, cardNumberTouched: active });
                 break;
             }
 
             case constants.inputs.EXPIRY_DATE: {
-                /*eslint-disable */
-                const expiryValidate = Stripe.card.validateExpiry(value);
-                /*eslint-enable */
+                const expiryValidate = Stripe.card.validateExpiry(value); // eslint-disable-line no-undef
                 this.props.validationActions.setExpiryValid({ expiryValid: expiryValidate, expiryTouched: active });
                 break;
             }
 
             case constants.inputs.SECURITY_CODE: {
-                /*eslint-disable */
-                const cvvValidate = Stripe.card.validateCVC(value);
-                /*eslint-enable */
+                const cvvValidate = Stripe.card.validateCVC(value); // eslint-disable-line no-undef
                 this.props.validationActions.setCvvValid({ cvvValid: cvvValidate, cvvTouched: active });
                 break;
             }
@@ -139,7 +129,7 @@ class App extends React.Component {
 
     getSurcharge(cardNumber) {
 
-        const cardIssuer = {
+        const cardIssuers = {
             mastercard: {
                 name: constants.cardType.MASTERCARD,
                 is_type: /^5[1-5]/,
@@ -162,9 +152,9 @@ class App extends React.Component {
             },
         };
 
-        for (const i in cardIssuer) {
-            if (cardIssuer[i].is_type && cardIssuer[i].is_type.test(cardNumber)) {
-                return { cardType: cardIssuer[i].name, surcharge: cardIssuer[i].surcharge_percentage };
+        for (const issuer of cardIssuers) {
+            if (issuer.is_type && issuer.is_type.test(cardNumber)) {
+                return { cardType: issuer.name, surcharge: issuer.surcharge_percentage };
             }
         }
 
@@ -202,9 +192,7 @@ class App extends React.Component {
             cvvTouched,
         ];
 
-        const formIsValid = checkFormValidation.every( function (e) {
-            return e === true;
-        });
+        const formIsValid = checkFormValidation.every(e => e === true);
 
         if (!cardNumberValid) {
             this.props.validationActions.setCardNumberValid({ cardNumberValid: false, cardNumberTouched: true });

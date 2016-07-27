@@ -30,7 +30,7 @@ describe('<PaymentForm />', () => {
         wrapper.find('[data-automation="cardNumberInput"]').simulate('blur',
             { preventDefault() {}, target: { name: 'CardNumber', value: props.cardNumber },
         });
-        expect(props.onFormBlur.called).to.be.true;
+        expect(props.onFormBlur.called).to.equal(true);
     });
 
     it('should check the onFormBlur function is triggered from the ExpiryDate Input', () => {
@@ -39,7 +39,7 @@ describe('<PaymentForm />', () => {
         wrapper.find('[data-automation="expiryDateInput"]').simulate('blur',
             { preventDefault() {}, target: { name: 'ExpiryDate', value: props.expiry },
             });
-        expect(props.onFormBlur.called).to.be.true;
+        expect(props.onFormBlur.called).to.equal(true);
     });
 
     it('should check the onFormBlur function is triggered from the SecurityCode Input', () => {
@@ -48,7 +48,7 @@ describe('<PaymentForm />', () => {
         wrapper.find('[data-automation="securityCodeInput"]').simulate('blur',
             { preventDefault() {}, target: { name: 'SecurityCode', value: props.cvv },
             });
-        expect(props.onFormBlur.called).to.be.true;
+        expect(props.onFormBlur.called).to.equal(true);
     });
 
     it('should check the onFormChange function is triggered', () => {
@@ -57,7 +57,7 @@ describe('<PaymentForm />', () => {
         wrapper.find('[data-automation="cardNumberInput"]').simulate('keyUp',
             { preventDefault() {}, target: { name: 'CardNumber', value: props.cardNumber },
             });
-        expect(props.onFormChange.called).to.be.true;
+        expect(props.onFormChange.called).to.equal(true);
     });
 
     it('should check the onFormChange function is triggered', () => {
@@ -66,7 +66,7 @@ describe('<PaymentForm />', () => {
         wrapper.find('[data-automation="cardNumberInput"]').simulate('keyUp',
             { preventDefault() {}, target: { name: 'CardNumber', value: props.cardNumber },
             });
-        expect(props.onFormChange.called).to.be.true;
+        expect(props.onFormChange.called).to.equal(true);
     });
 
     it('should check that all the error fields are showing when touched but not valid', () => {
