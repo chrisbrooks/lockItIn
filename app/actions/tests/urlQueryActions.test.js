@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import * as urlQueryActions from '../urlQueryActions';
+import * as urlQuery from '../urlQueryActions';
 import * as types from '../actionTypes';
 
 describe('url query actions', () => {
@@ -12,6 +12,6 @@ describe('url query actions', () => {
             amount: '300',
         };
         const expectedAction = { type: types.URL_QUERY, payload: value };
-        expect(urlQueryActions.urlQuery(value)).to.eql(expectedAction);
+        expect(urlQuery.setUrlQuery(value)).to.eql(expectedAction);
     });
 });

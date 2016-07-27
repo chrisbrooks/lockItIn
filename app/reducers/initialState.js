@@ -7,23 +7,23 @@ export default {
         totalAmount: null,
         toggle: false,
     },
-    locationActions: {
+    country: {
         location: 'Australia',
     },
-    urlQueryActions: {
+    urlQuery: {
         customerNumber: null,
         invoiceNumber: null,
         amount: null,
         prn: '',
         email: '',
     },
-    paymentActions: {
+    payment: {
         loading: false,
         paymentSuccess: false,
         paymentError: false,
         paymentErrorMessage: '',
     },
-    validationActions: {
+    validation: {
         cardNumberValid: false,
         cardNumberTouched: false,
         expiryValid: false,
@@ -31,7 +31,7 @@ export default {
         cvvValid: false,
         cvvTouched: false,
     },
-    cardActions: {
+    card: {
         cardNumber: null,
         expiry: null,
         cvv: null,

@@ -6,7 +6,7 @@ import {
 
 import initialState from './initialState';
 
-export default function reducer(state = initialState.cardActions, action) {
+export default function reducer(state = initialState.card, action) {
     switch (action.type) {
 
         case CARD_NUMBER_UPDATED: {

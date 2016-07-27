@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import * as locationActions from '../locationActions';
+import * as country from '../countryActions';
 import * as types from '../actionTypes';
 
 describe('location actions', () => {
@@ -7,7 +7,7 @@ describe('location actions', () => {
         const value = 'Australia';
         const expectedAction = { type: types.LOCATION, payload: value };
         const unexpectedAction = { type: types.LOCATION, payload: 'NewZealand' };
-        expect(locationActions.setLocation(value)).to.eql(expectedAction);
-        expect(locationActions.setLocation(value)).to.not.eql(unexpectedAction);
+        expect(country.setLocation(value)).to.eql(expectedAction);
+        expect(country.setLocation(value)).to.not.eql(unexpectedAction);
     });
 });

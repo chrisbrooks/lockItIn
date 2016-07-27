@@ -4,7 +4,7 @@ import {
 
 import initialState from './initialState';
 
-export default function reducer(state = initialState.locationActions, action) {
+export default function reducer(state = initialState.country, action) {
     switch (action.type) {
 
         case LOCATION: {

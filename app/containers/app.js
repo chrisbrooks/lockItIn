@@ -7,11 +7,11 @@ import base64 from 'base-64';
 import queryString from 'query-string';
 import * as constants from '../constants';
 import * as actions from '../actions/actions';
-import * as paymentActions from '../actions/paymentActions';
-import * as validationActions from '../actions/validationActions';
-import * as cardActions from '../actions/cardActions';
-import * as urlQueryActions from '../actions/urlQueryActions';
-import * as locationActions from '../actions/locationActions';
+import * as payment from '../actions/paymentActions';
+import * as validation from '../actions/validationActions';
+import * as card from '../actions/cardActions';
+import * as urlQuery from '../actions/urlQueryActions';
+import * as country from '../actions/countryActions';
 import Header from '../components/header/header';
 import PaymentInfo from '../components/paymentInfo/paymentInfo';
 import PaymentForm from '../components/paymentForm/paymentForm';
@@ -34,14 +34,14 @@ class App extends React.Component {
 
         { /* const decodedParameters = props.location.query; */ }
 
-        this.props.urlQueryActions.urlQuery(decodedParameters);
+        this.props.urlQuery.setUrlQuery(decodedParameters);
 
         if (/com.au/.test(window.location.href)) {
-            this.props.locationActions.setLocation(constants.location.AU);
+            this.props.country.setLocation(constants.location.AU);
             Stripe.setPublishableKey(stripeAuPublishableKey); // eslint-disable-line no-undef
 
         } else {
-            this.props.locationActions.setLocation(constants.location.NZ);
+            this.props.country.setLocation(constants.location.NZ);
             Stripe.setPublishableKey(stripeNzPublishableKey); // eslint-disable-line no-undef
         }
 
@@ -57,17 +57,17 @@ class App extends React.Component {
             case constants.inputs.CARD_NUMBER: {
                 const surcharge = this.getSurcharge(value);
                 this.props.actions.setSurcharge(surcharge);
-                this.props.cardActions.setCardNumber(value);
+                this.props.card.setCardNumber(value);
                 break;
             }
 
             case constants.inputs.EXPIRY_DATE: {
-                this.props.cardActions.setExpiry(value);
+                this.props.card.setExpiry(value);
                 break;
             }
 
             case constants.inputs.SECURITY_CODE: {
-                this.props.cardActions.setCvv(value);
+                this.props.card.setCvv(value);
                 break;
             }
 
@@ -86,19 +86,19 @@ class App extends React.Component {
 
             case constants.inputs.CARD_NUMBER: {
                 const cardValidate = Stripe.card.validateCardNumber(value); // eslint-disable-line no-undef
-                this.props.validationActions.setCardNumberValid({ cardNumberValid: cardValidate, cardNumberTouched: active });
+                this.props.validation.setCardNumberValid({ cardNumberValid: cardValidate, cardNumberTouched: active });
                 break;
             }
 
             case constants.inputs.EXPIRY_DATE: {
                 const expiryValidate = Stripe.card.validateExpiry(value); // eslint-disable-line no-undef
-                this.props.validationActions.setExpiryValid({ expiryValid: expiryValidate, expiryTouched: active });
+                this.props.validation.setExpiryValid({ expiryValid: expiryValidate, expiryTouched: active });
                 break;
             }
 
             case constants.inputs.SECURITY_CODE: {
                 const cvvValidate = Stripe.card.validateCVC(value); // eslint-disable-line no-undef
-                this.props.validationActions.setCvvValid({ cvvValid: cvvValidate, cvvTouched: active });
+                this.props.validation.setCvvValid({ cvvValid: cvvValidate, cvvTouched: active });
                 break;
             }
 
@@ -114,7 +114,7 @@ class App extends React.Component {
         const { location, email, prn, cardNumber, cvv, expiry, totalAmount } = this.props;
 
         if (formIsValid) {
-            this.props.paymentActions.createStripeToken(location, email, prn, cardNumber, cvv, expiry, totalAmount);
+            this.props.payment.createStripeToken(location, email, prn, cardNumber, cvv, expiry, totalAmount);
         }
     }
 
@@ -195,15 +195,15 @@ class App extends React.Component {
         const formIsValid = checkFormValidation.every(e => e === true);
 
         if (!cardNumberValid) {
-            this.props.validationActions.setCardNumberValid({ cardNumberValid: false, cardNumberTouched: true });
+            this.props.validation.setCardNumberValid({ cardNumberValid: false, cardNumberTouched: true });
         }
 
         if (!expiryValid) {
-            this.props.validationActions.setExpiryValid({ expiryValid: false, expiryTouched: true });
+            this.props.validation.setExpiryValid({ expiryValid: false, expiryTouched: true });
         }
 
         if (!cvvValid) {
-            this.props.validationActions.setCvvValid({ cvvValid: false, cvvTouched: true });
+            this.props.validation.setCvvValid({ cvvValid: false, cvvTouched: true });
         }
 
         return formIsValid;
@@ -343,68 +343,69 @@ App.propTypes = {
     paymentRef: React.PropTypes.string,
     setToggle: React.PropTypes.boolean,
     location: React.PropTypes.string,
-    validationActions: React.PropTypes.shape({
+    country: React.PropTypes.shape({
+        setLocation: React.PropTypes.function,
+    }),
+    validation: React.PropTypes.shape({
         setCardNumberValid: React.PropTypes.function,
         setExpiryValid: React.PropTypes.function,
         setCvvValid: React.PropTypes.function,
     }),
-    paymentActions: React.PropTypes.shape({
+    payment: React.PropTypes.shape({
         createStripeToken: React.PropTypes.function,
-    }),
-    locationActions: React.PropTypes.shape({
-        setLocation: React.PropTypes.boolean,
     }),
     actions: React.PropTypes.shape({
         setToggle: React.PropTypes.function,
         setSurcharge: React.PropTypes.function,
         setTotalAmount: React.PropTypes.function,
     }),
-    cardActions: React.PropTypes.shape({
+    card: React.PropTypes.shape({
         setCardNumber: React.PropTypes.function,
         setExpiry: React.PropTypes.function,
         setCvv: React.PropTypes.function,
     }),
-    urlQueryActions: React.PropTypes.shape({
-        urlQuery: React.PropTypes.function,
+    urlQuery: React.PropTypes.shape({
+        setUrlQuery: React.PropTypes.function,
     }),
 };
 
 function mapStateToProps(state) {
+    console.log(state);
     return {
-        location: state.locationActions.location,
-        loading: state.paymentActions.loading,
-        paymentSuccess: state.paymentActions.paymentSuccess,
-        paymentError: state.paymentActions.paymentError,
-        paymentErrorMessage: state.paymentActions.paymentErrorMessage,
-        customerNumber: state.urlQueryActions.customerNumber,
-        invoiceNumber: state.urlQueryActions.invoiceNumber,
-        amount: state.urlQueryActions.amount,
-        prn: state.urlQueryActions.prn,
-        email: state.urlQueryActions.email,
-        totalAmount: state.actions.totalAmount,
-        surcharge: state.actions.surcharge,
-        cardNumber: state.cardActions.cardNumber,
-        expiry: state.cardActions.expiry,
-        cvv: state.cardActions.cvv,
-        cardNumberValid: state.validationActions.cardNumberValid,
-        cardNumberTouched: state.validationActions.cardNumberTouched,
-        expiryValid: state.validationActions.expiryValid,
-        expiryTouched: state.validationActions.expiryTouched,
-        cvvValid: state.validationActions.cvvValid,
-        cvvTouched: state.validationActions.cvvTouched,
+        location: state.country.location,
+        customerNumber: state.urlQuery.customerNumber,
+        invoiceNumber: state.urlQuery.invoiceNumber,
+        amount: state.urlQuery.amount,
+        prn: state.urlQuery.prn,
+        email: state.urlQuery.email,
+        loading: state.payment.loading,
+        paymentSuccess: state.payment.paymentSuccess,
+        paymentError: state.payment.paymentError,
+        paymentErrorMessage: state.payment.paymentErrorMessage,
+        cardNumber: state.card.cardNumber,
+        expiry: state.card.expiry,
+        cvv: state.card.cvv,
+        cardNumberValid: state.validation.cardNumberValid,
+        cardNumberTouched: state.validation.cardNumberTouched,
+        expiryValid: state.validation.expiryValid,
+        expiryTouched: state.validation.expiryTouched,
+        cvvValid: state.validation.cvvValid,
+        cvvTouched: state.validation.cvvTouched,
         cardType: state.actions.cardType,
         toggle: state.actions.toggle,
+        totalAmount: state.actions.totalAmount,
+        surcharge: state.actions.surcharge,
     };
 }
 
 function mapDispatchToProps(dispatch) {
     return {
         actions: bindActionCreators(actions, dispatch),
-        paymentActions: bindActionCreators(paymentActions, dispatch),
-        validationActions: bindActionCreators(validationActions, dispatch),
-        cardActions: bindActionCreators(cardActions, dispatch),
-        urlQueryActions: bindActionCreators(urlQueryActions, dispatch),
-        locationActions: bindActionCreators(locationActions, dispatch),
+        payment: bindActionCreators(payment, dispatch),
+        validation: bindActionCreators(validation, dispatch),
+        card: bindActionCreators(card, dispatch),
+        urlQuery: bindActionCreators(urlQuery, dispatch),
+        country: bindActionCreators(country, dispatch),
     };
 }
 

@@ -6,7 +6,7 @@ import {
 
 import initialState from './initialState';
 
-export default function reducer(state = initialState.validationActions, action) {
+export default function reducer(state = initialState.validation, action) {
     switch (action.type) {
 
         case CARD_NUMBER_VALID: {

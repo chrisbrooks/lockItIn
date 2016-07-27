@@ -6,7 +6,7 @@ import {
 
 import initialState from './initialState';
 
-export default function reducer(state = initialState.paymentActions, action) {
+export default function reducer(state = initialState.payment, action) {
     switch (action.type) {
 
         case LOADING: {

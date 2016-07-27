@@ -4,7 +4,7 @@ import {
 
 import initialState from './initialState';
 
-export default function reducer(state = initialState.urlQueryActions, action) {
+export default function reducer(state = initialState.urlQuery, action) {
     switch (action.type) {
 
         case URL_QUERY: {
