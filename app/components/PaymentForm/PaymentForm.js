@@ -1,56 +1,167 @@
-import styles from './PaymentForm.less';
-import React from 'react';
-import HelpIcon from '../HelpIcon/HelpIcon';
+import styles from './paymentForm.less';
+import React, { PropTypes } from 'react';
+import NumberFormat from 'react-number-format';
+import HelpIcon from '../helpIcon/helpIcon';
+import * as constants from '../../constants';
 
 const PaymentForm = ({
-    onCardNumberChange,
-    onExpiryChange,
-    onCvvChange,
-    onHandleToggle,
+    paymentError,
+    paymentErrorMessage,
+    onFormChange,
+    onFormBlur,
+    cardNumber,
+    expiry,
+    cvv,
+    cardNumberValid,
+    cardNumberTouched,
+    expiryValid,
+    expiryTouched,
+    cvvValid,
+    cvvTouched,
     cardType,
+    onToggle,
+    toggle,
     }) => {
+
+    const cardNumberLength = cardType === constants.cardType.AMEX ? '#### ###### #####' : '#### #### #### ####';
+    const cvvLength = cardType === constants.cardType.AMEX ? '4' : '3';
+
+    const visaSelected = cardType !== constants.cardType.VISA && cardType !== '' ? styles.issuerOther : styles.issuerVisa;
+    const masterCardSelected = cardType !== constants.cardType.MASTERCARD && cardType !== '' ? styles.issuerOther : styles.issuerMasterCard;
+    const amexSelected = cardType !== constants.cardType.AMEX && cardType !== '' ? styles.issuerOther : styles.issuerAmex;
+
+    const formValidation = (e) => {
+        e.preventDefault();
+        onFormBlur(e.target.name, e.target.value, true);
+    };
+
+    const formChange = (e) => {
+        e.preventDefault();
+        onFormChange(e.target.name, e.target.value);
+
+        const caret = e.target.selectionStart + 1;
+        if (e.target.name === constants.inputs.EXPIRY_DATE) {
+            document.getElementById(constants.inputs.EXPIRY_DATE).setSelectionRange(caret, caret);
+        }
+    };
+
+    const formatExpiryChange = (val) => {
+        const value = val.substring(0, 2) + (val.length > 1 ? '/' + val.substring(2, 4) : ''); // eslint-disable-line prefer-template
+        return value;
+    };
 
     return (
         <div className={styles.creditCardPayment}>
-            <h2>Credit card details</h2>
+            {!paymentError && <div data-automation="paymentForm">
+                <h2 className={styles.paymentHeader}>Credit card details</h2>
+                <p className={styles.acceptText}>We accept</p>
 
-            <p className={styles.acceptText}>We accept</p>
+                <div className={styles.issuerContainer} data-automation="issuerContainer">
 
-            <div className={styles.issuerContainer}>
-                <i className={styles.issuerVisa} aria-label="visa"></i>
-                <i className={styles.issuerMastercard} aria-label="mastercard"></i>
-                <i className={styles.issuerAmex} aria-label="american express"></i>
-                <span className={styles.issuerSurcharge}>+ 3.06%</span>
-            </div>
+                    <i className={visaSelected} aria-label={constants.cardType.VISA}></i>
+                    <i className={masterCardSelected} aria-label={constants.cardType.MASTERCARD}></i>
+                    <i className={amexSelected} aria-label={constants.cardType.AMEX}></i>
 
-            <form autocomplete="on">
-                <div className={styles.cardNumberContainer}>
-                    <label for="CardNo" className={styles.cardNumberLabel}>Card number</label>
-                    <input type="number" name="CardNo" className={styles.cardNumberInput} data-stripe='number' onChange={(e)=> {e.preventDefault(); onCardNumberChange(e.target.value)}}></input>
-                    <div className={styles.cardPaymentError}>Required</div>
+                    <span className={styles.issuerSurcharge}>+ 3.06%</span>
                 </div>
 
-                <div className={styles.expiryContainer}>
-                    <label for="ExpiryDate" className={styles.expiryLabel}>Expiry</label>
-                    <input type="text" name="ExpiryDate" placeholder="MM/YY" data-stripe='exp' className={styles.expiryInput} onChange={(e)=> {e.preventDefault(); onExpiryChange(e.target.value)}}></input>
-                    <div className={styles.cardPaymentError}>Invalid</div>
-                </div>
+                <form autoComplete="on">
+                    <div className={styles.cardNumberContainer}>
 
-                <div className={styles.securityCodeContainer}>
-                    <label for="SecurityCode" className={styles.securityCodeLabel}>CCV</label><HelpIcon cardType={cardType} onHandleToggle={onHandleToggle} />
-                    <input type="number" name="SecurityCode" maxlength="4" autocomplete="off" data-stripe='cvc' className={styles.securityCodeInput} onChange={(e)=> {e.preventDefault(); onCvvChange(e.target.value)}}></input>
-                    <div className={styles.cardPaymentError}>Invalid</div>
-                </div>
-            </form>
+                        <label
+                            htmlFor={constants.inputs.CARD_NUMBER}
+                            className={styles.cardNumberLabel}>Card number
+                        </label>
+                        <NumberFormat
+                            data-automation="cardNumberInput"
+                            displayType={'input'}
+                            format={cardNumberLength}
+                            name={constants.inputs.CARD_NUMBER}
+                            className={styles.cardNumberInput}
+                            onBlur={formValidation}
+                            onKeyUp={formChange} />
+
+                        {!cardNumberValid && cardNumberTouched && <div className={styles.cardPaymentError} data-automation="cardPaymentError">
+                            {cardNumber === null || cardNumber === '' ? 'Required' : 'Invalid card number'}
+                        </div>}
+                    </div>
+
+                    <div className={styles.expiryContainer}>
+
+                        <label
+                        htmlFor={constants.inputs.EXPIRY_DATE}
+                        className={styles.expiryLabel}>Expiry
+                        </label>
+
+                        <NumberFormat
+                            data-automation="expiryDateInput"
+                            id={constants.inputs.EXPIRY_DATE}
+                            format={formatExpiryChange}
+                            name={constants.inputs.EXPIRY_DATE}
+                            placeholder="MM/YY"
+                            className={styles.expiryInput}
+                            onBlur={formValidation}
+                            onKeyUp={formChange} />
+
+                        {!expiryValid && expiryTouched && <div className={styles.cardPaymentError} data-automation="expiryPaymentError">
+                            {expiry === null || expiry === '' ? 'Required' : 'Invalid'}
+                        </div>}
+                    </div>
+
+                    <div className={styles.securityCodeContainer}>
+
+                        <label
+                        htmlFor={constants.inputs.SECURITY_CODE}
+                        className={styles.securityCodeLabel}>CCV
+                        </label>
+
+                        <HelpIcon cardType={cardType} onToggle={onToggle} toggle={toggle} />
+
+                        <input
+                            data-automation="securityCodeInput"
+                            maxLength={cvvLength}
+                            name={constants.inputs.SECURITY_CODE}
+                            autoComplete="off"
+                            className={styles.securityCodeInput}
+                            onBlur={formValidation}
+                            onKeyUp={formChange} />
+
+                        {!cvvValid && cvvTouched && <div className={styles.cardPaymentError} data-automation="cvvPaymentError">
+                            {cvv === null || cvv === '' ? 'Required' : 'Invalid'}
+                        </div>}
+                    </div>
+
+
+                </form>
+            </div>}
+
+            {paymentError && <div className={styles.paymentError} data-automation="paymentError">
+                <h2 data-automation="paymentErrorMessage">{paymentErrorMessage}</h2>
+                <p>Refresh the page to try again or come back later.</p>
+            </div>}
 
         </div>
     );
 };
 
 PaymentForm.propTypes = {
-    cardNumber: React.PropTypes.number,
-    cvv: React.PropTypes.number,
-    expiry: React.PropTypes.number,
+    surcharge: PropTypes.number,
+    paymentError: PropTypes.bool,
+    paymentErrorMessage: PropTypes.string,
+    cardNumberTouched: PropTypes.bool,
+    expiryTouched: PropTypes.bool,
+    cvvTouched: PropTypes.bool,
+    onFormChange: PropTypes.func.isRequired,
+    onFormBlur: PropTypes.func.isRequired,
+    cardNumber: PropTypes.string,
+    expiry: PropTypes.string,
+    cvv: PropTypes.string,
+    cardNumberValid: PropTypes.bool,
+    expiryValid: PropTypes.bool,
+    cvvValid: PropTypes.bool,
+    cardType: PropTypes.string,
+    onToggle: PropTypes.func.isRequired,
+    toggle: PropTypes.bool,
 };
 
 export default PaymentForm;

@@ -1,7 +1,18 @@
 @import "../../static/less/styles";
 
 .creditCardPayment {
-    order: -1;
+
+    @media only screen and (min-width: @small-device-max-width) {
+        width:300px;
+    }
+
+    .paymentHeader {
+        margin-bottom: @default-spacer * 2;
+
+        @media only screen and (min-width: @small-device-max-width) {
+            margin-bottom: @default-spacer * 4;
+        }
+    }
 
     input {
         border: 1px solid #d6d6d6;
@@ -19,7 +30,6 @@
 
     .cardPaymentError {
         &:extend(.errorMessage all);
-        display: none;
     }
 }
 
@@ -27,6 +37,8 @@
 
 .acceptText {
     margin:0 0 5px;
+    font-size: @sk-standard-font-size;
+    color:@sk-dark-mid-grey;
 }
 
 /* card logos */
@@ -36,7 +48,7 @@
     height: (@default-spacer * 3);
     display: inline-block;
     margin-right: 5px;
-    background: url('../../static/images/credit-card-issuer.png') no-repeat;
+    background: url('../../static/images/creditCardIssuer.png') no-repeat;
 }
 
 .issuerContainer {
@@ -50,22 +62,24 @@
         top: @default-spacer * 2;
     }
 
-    .issuerVisa {
-        &:extend(.issuer);
-        background-position: -53px 0;
+    i {
+        &:first-child {
+            &:extend(.issuer);
+            background-position: -53px 0;
+        }
+
+        &:nth-child(2) {
+            &:extend(.issuer);
+            background-position: 0 0;
+        }
+
+        &:nth-child(3) {
+            &:extend(.issuer);
+            background-position: -106px 0;
+        }
     }
 
-    .issuerMastercard {
-        &:extend(.issuer);
-        background-position: 0 0;
-    }
-
-    .issuerAmex {
-        &:extend(.issuer);
-        background-position: -106px 0;
-    }
-
-    .logoOtherIssuer {
+    .issuerOther {
         opacity: 0.2;
     }
 }
@@ -90,6 +104,7 @@
     width: 48%;
     display: inline-block;
     margin-bottom: @default-spacer * 2;
+    vertical-align: top;
 
     @media only screen and (min-width: @small-device-max-width) {
         width: @default-spacer * 10;
@@ -107,6 +122,7 @@
     display: inline-block;
     margin-left: 4%;
     margin-bottom: @default-spacer * 2;
+    vertical-align: top;
 
     @media only screen and (min-width: @small-device-max-width) {
         width: @default-spacer * 10;
@@ -122,4 +138,6 @@
     }
 }
 
-
+.paymentError {
+    margin-bottom : @default-spacer * 3;
+}

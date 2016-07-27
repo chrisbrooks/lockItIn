@@ -1,68 +1,137 @@
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import * as constants from '../constants';
 import * as types from './actionTypes';
-import { beginAjaxCall, ajaxCallError } from './ajaxStatusActions';
 import axios from 'axios';
-const {
-    paymentUrl
-    } = require('webpack-config-loader!../../config.js');
 
-
-export function storeQuery(query) {
-    return { type: types.STORE_QUERY, payload: query };
+export function loading(value) {
+    return { type: types.LOADING, payload: value };
 }
 
-export function setSurcharge(value) {
-    return { type: types.SURCHARGE_UPDATED, payload: value };
+export function paymentSuccess(value) {
+    return { type: types.PAYMENT_SUCCESS, payload: value };
 }
 
-export function setCardNumber(value) {
-    return { type: types.CARD_NUMBER_UPDATED, payload: value };
+export function paymentError(error) {
+
+    switch (error) {
+
+        case constants.errors.DECLINED: {
+            return { type:
+                types.PAYMENT_ERROR,
+                payload: {
+                    paymentError: true,
+                    paymentErrorMessage: constants.errorMessages.DECLINED,
+                },
+            };
+        }
+
+        case constants.errors.DECLINED_FRAUDULENT: {
+            return { type:
+                types.PAYMENT_ERROR,
+                payload: {
+                    paymentError: true,
+                    paymentErrorMessage: constants.errorMessages.DECLINED,
+                },
+            };
+        }
+
+        case constants.errors.DECLINED_INCORRECT_NUMBER: {
+            return { type:
+                types.PAYMENT_ERROR,
+                payload: {
+                    paymentError: true,
+                    paymentErrorMessage: constants.errorMessages.NUMBER_INCORRECT,
+                },
+            };
+        }
+
+        case constants.errors.DECLINED_INCORRECT_CVC: {
+            return { type:
+                types.PAYMENT_ERROR,
+                payload: {
+                    paymentError: true,
+                    paymentErrorMessage: constants.errorMessages.CVC_INCORRECT,
+                },
+            };
+        }
+
+        case constants.errors.DECLINED_EXPIRED: {
+            return { type:
+                types.PAYMENT_ERROR,
+                payload: {
+                    paymentError: true,
+                    paymentErrorMessage: constants.errorMessages.CARD_EXPIRED,
+                },
+            };
+        }
+
+        case constants.errors.UNSUPPORTED: {
+            return { type:
+                types.PAYMENT_ERROR,
+                payload: {
+                    paymentError: true,
+                    paymentErrorMessage: constants.errorMessages.UNSUPPORTED,
+                },
+            };
+        }
+
+        default: {
+            return {
+                type: types.PAYMENT_ERROR,
+                payload: {
+                    paymentError: true,
+                    paymentErrorMessage: constants.errorMessages.PROCESSING_ERROR,
+                },
+            };
+        }
+    }
 }
 
-export function setExpiry(value) {
-    return { type: types.EXPIRY_UPDATED, payload: value };
-}
-
-export function setCvv(value) {
-    return { type: types.CVV_UPDATED, payload: value };
-}
-
-export function setError(error) {
-    return { type: types.PAYMENT_ERROR, payload: error };
-}
-
-export function createToken(cardType, cardNumber, cvv, expiry, amount) {
+export function createStripeToken(location, email, prn, cardNumber, cvv, expiry, totalAmount) {
     return dispatch => {
 
         const stripeData = {
             number: cardNumber,
             cvc: cvv,
             exp: expiry,
-            amount: amount,
+            amount: totalAmount,
         };
 
-        const expiryParts = expiry.split('/');
-        const expiryMonth = expiryParts[0];
-        const expiryYear =  expiryParts[1];
+        const { paymentUrl } = require('webpack-config-loader!../../config.js');
 
-        const paymentData = {
-            cardType,
-            expiryMonth: expiryMonth,
-            expiryYear: expiryYear,
-            last4Digits: cvv
-        };
-
+        /*eslint-disable */
         Stripe.createToken(stripeData, function (status, response) {
-            console.log( status, response );
+        /*eslint-enable */
 
-            if(status === 200) {
+            dispatch(loading(true));
 
-                axios.post(paymentUrl, paymentData).then(function(result){
-                    console.log(result);
+            if (status === 200) {
+
+                const paymentData = {
+                    prn,
+                    email,
+                    currency: location,
+                    amount: totalAmount,
+                    token: response.id,
+                };
+
+                /*eslint-disable */
+                axios.post(paymentUrl, paymentData).then(function (result) {
+                /*eslint-enable */
+
+                    if (status === 200) {
+                        dispatch(paymentSuccess(true));
+
+                    } else {
+                        dispatch(paymentError(result.responseJSON.Message));
+                    }
+
+                    dispatch(loading(false));
                 });
+
             } else {
-                dispatch(setError(response.error));
+
+                dispatch(paymentError(constants.errorMessages.PROCESSING_ERROR));
+                dispatch(loading(false));
             }
         });
     };

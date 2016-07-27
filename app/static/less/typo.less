@@ -5,7 +5,11 @@ h1 {
 }
 
 h2 {
-    font-size: @sk-nav-and-title-font;
+    font-size: @sk-section-heading-font;
     font-weight: @sk-font-regular;
-    margin: 0 0 @default-spacer * 3;
+    margin: 0 0 @default-spacer * 4;
+
+    @media only screen and (min-width: @small-device-max-width) {
+        font-size: @sk-nav-and-title-font;
+    }
 }

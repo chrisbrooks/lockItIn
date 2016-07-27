@@ -11,7 +11,7 @@
 }
 
 .paymentFormContainer {
-    padding: @default-spacer * 4 @default-spacer * 3 0;
+    padding: @default-spacer * 4 @default-spacer * 2;
 
     @media only screen and (min-width: @small-device-max-width) {
         padding: @default-spacer * 4 @default-spacer * 3 @default-spacer * 7;
@@ -21,24 +21,5 @@
 .paymentFormInnerContainer {
     @media only screen and (min-width: @small-device-max-width) {
         display: flex;
-    }
-}
-
-.paymentButtonContainer {
-    padding:@default-spacer * 3 @default-spacer * 3;
-
-    @media only screen and (min-width: @small-device-max-width) {
-        background:@sk-charcoal;
-    }
-
-
-    .paymentButton {
-        background: @sk-pink;
-        color: white;
-        border: none;
-        font-size: @sk-nav-and-title-font;
-        line-height: 45px;
-        padding: 0 @default-spacer * 3;
-        border-radius: 2px;
     }
 }

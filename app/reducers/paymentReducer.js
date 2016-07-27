@@ -1,39 +1,32 @@
-import { PAYMENT_SUCCESS, STORE_QUERY, SURCHARGE_UPDATED, CARD_NUMBER_UPDATED, EXPIRY_UPDATED, CVV_UPDATED } from '../actions/actionTypes';
+import {
+    LOADING,
+    PAYMENT_SUCCESS,
+    PAYMENT_ERROR,
+} from '../actions/actionTypes';
+
 import initialState from './initialState';
 
-export default function paymentReducer(state = initialState.payment, action) {
+export default function reducer(state = initialState.payment, action) {
     switch (action.type) {
 
-    case STORE_QUERY:
-        const customerNumber = action.payload.customernumber;
-        const invoiceNumber = action.payload.invoicenumber;
-        const amount = action.payload.amount;
+        case LOADING: {
+            const loading = action.payload;
+            return { ...state, loading };
+        }
 
-        return { ...state, customerNumber, invoiceNumber, amount };
+        case PAYMENT_SUCCESS: {
+            const paymentSuccess = action.payload;
+            return { ...state, paymentSuccess };
+        }
 
-        case SURCHARGE_UPDATED:
-            const surcharge = action.payload.surcharge;
-            const cardType = action.payload.cardType;
+        case PAYMENT_ERROR: {
+            const paymentError = action.payload.paymentError;
+            const paymentErrorMessage = action.payload.paymentErrorMessage;
+            return { ...state, paymentError, paymentErrorMessage };
+        }
 
-            return { ...state, surcharge, cardType};
-
-        case CARD_NUMBER_UPDATED:
-            const cardNumber = action.payload;
-
-            return {...state, cardNumber};
-
-        case EXPIRY_UPDATED:
-            const expiry = action.payload;
-
-            return {...state, expiry};
-
-        case CVV_UPDATED:
-            const cvv = action.payload;
-
-            return {...state, cvv};
-
-        default:
-        return state;
+        default: {
+            return state;
+        }
     }
-
 }

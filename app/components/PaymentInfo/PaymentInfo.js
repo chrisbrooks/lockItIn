@@ -1,4 +1,4 @@
-import styles from './PaymentInfo.less';
+import styles from './paymentInfo.less';
 import React from 'react';
 
 const PaymentInfo = ({
@@ -7,43 +7,47 @@ const PaymentInfo = ({
     amount,
     surcharge,
     cardType,
-}) => {
+    }) => {
 
-    const gst = amount * 10 / 100;
-    const surCharge = (surcharge / 100) * amount;
-    const total = gst + surCharge + Number(amount);
+    let gst = amount * 10 / 100;
+    let surCharge = (surcharge / 100) * Number(amount);
+    let total = (gst + surCharge + Number(amount));
+
+    gst = gst.toFixed(2);
+    surCharge = surCharge.toFixed(2);
+    total = total.toFixed(2);
 
     return (
         <div className={styles.paymentInfo}>
-            <h2>Your Payment information</h2>
+            <h2>Your payment information</h2>
             <div className={styles.paymentInfoContainer}>
-                <div className={styles.paymentInfoTitle}>Invoice number</div>
-                <div className={styles.paymentInfoValue}>{invoiceNumber}</div>
+                <p className={styles.paymentInfoTitle}>Invoice number</p>
+                <p className={styles.paymentInfoValue} data-automation="paymentInvoiceNumber">{invoiceNumber}</p>
             </div>
             <div className={styles.paymentInfoContainer}>
-                <div className={styles.paymentInfoTitle}>Customer Number</div>
-                <div className={styles.paymentInfoValue}>{customerNumber}</div>
+                <p className={styles.paymentInfoTitle}>Customer number</p>
+                <p className={styles.paymentInfoValue} data-automation="paymentCustomerNumber">{customerNumber}</p>
             </div>
             <div className={styles.paymentInfoContainer}>
-                <div className={styles.paymentInfoTitle}>Invoice Amount</div>
-                <div className={styles.paymentInfoValue}><span>$</span> {amount}</div>
+                <p className={styles.paymentInfoTitle}>Invoice amount</p>
+                <p className={styles.paymentInfoValue}><span>$</span> {amount}</p>
             </div>
             <div className={styles.paymentInfoTotalContainer}>
                 <div className={styles.paymentInfoContainer}>
-                    <div className={styles.paymentInfoTitle}>Subtotal</div>
-                    <div className={styles.paymentInfoValue}><span>$</span> {amount}</div>
+                    <p className={styles.paymentInfoTitle}>Subtotal</p>
+                    <p className={styles.paymentInfoValue}><span>$</span> {amount}</p>
                 </div>
                 <div className={styles.paymentInfoContainer}>
-                    <div className={styles.paymentInfoTitle}>GST</div>
-                    <div className={styles.paymentInfoValue}><span>$</span>{gst}</div>
+                    <p className={styles.paymentInfoTitle}>GST</p>
+                    <p className={styles.paymentInfoValue}><span>$</span>{gst}</p>
                 </div>
-                { surcharge > 0 && <div className={styles.paymentInfoContainer} >
-                    <div className={styles.paymentInfoTitle}>{cardType}</div>
-                    <div className={styles.paymentInfoValue}><span>$</span>{surCharge}</div>
-                </div> }
+                {surcharge > 0 && <div className={styles.paymentInfoContainer}>
+                    <p className={styles.paymentInfoTitle} data-automation="paymentSurchargeTitle">{cardType}</p>
+                    <p className={styles.paymentInfoValue} data-automation="paymentSurcharge"><span>$</span>{surCharge}</p>
+                </div>}
                 <div className={styles.paymentInfoContainer}>
-                    <div className={styles.paymentInfoTitle}>Total</div>
-                    <div className={styles.paymentInfoValue}><span>$</span>{total}</div>
+                    <p className={styles.paymentInfoTitle}>Total</p>
+                    <p className={styles.paymentInfoValue} data-automation="paymentTotal"><span>$</span>{total}</p>
                 </div>
             </div>
         </div>
@@ -51,9 +55,9 @@ const PaymentInfo = ({
 };
 
 PaymentInfo.propTypes = {
-    invoiceNumber: React.PropTypes.number,
-    customerNumber: React.PropTypes.number,
-    amount: React.PropTypes.number,
+    invoiceNumber: React.PropTypes.string,
+    customerNumber: React.PropTypes.string,
+    amount: React.PropTypes.string,
     surcharge: React.PropTypes.number,
     cardType: React.PropTypes.string,
 };

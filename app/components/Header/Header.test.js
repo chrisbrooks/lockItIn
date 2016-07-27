@@ -1,19 +1,26 @@
-{ /*  import React from 'react';
-import Header from './Header';
+import React from 'react';
 import { shallow } from 'enzyme';
 import { expect } from 'chai';
+import Header from './Header';
 
 describe('<Header />', () => {
-    let wrapper;
+
+    let props;
 
     beforeEach(() => {
-        wrapper = shallow(<Header />);
+        props = {
+            location: 'Australia',
+        };
     });
 
-    it('renders a welcome message', () => {
-        const actual = wrapper.find('h1').text();
-        const expected = 'Would you like to make a payment?';
-
-        expect(actual).to.equal(expected);
+    it('should set the Australian phone number', () => {
+        const wrapper = shallow(<Header {...props} />);
+        expect(wrapper.find('[data-automation="headerNumber"]').text()).to.equal('1300 658 700');
     });
-}); */ }
+
+    it('should set the NewZealand phone number', () => {
+        props.location = 'NewZealand';
+        const wrapper = shallow(<Header {...props} />);
+        expect(wrapper.find('[data-automation="headerNumber"]').text()).to.equal('0508 733 569');
+    });
+});
