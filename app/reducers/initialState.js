@@ -14,8 +14,8 @@ export default {
         customerNumber: null,
         invoiceNumber: null,
         amount: null,
-        prn: '',
-        email: '',
+        prn: null,
+        email: null,
     },
     payment: {
         loading: false,

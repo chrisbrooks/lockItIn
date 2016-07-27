@@ -18,7 +18,7 @@ import PaymentForm from '../components/paymentForm/paymentForm';
 import PaymentSuccess from '../components/paymentSuccess/paymentSuccess';
 const { stripeAuPublishableKey, stripeNzPublishableKey } = require('webpack-config-loader!../../config.js');
 
-class App extends React.Component {
+export class App extends React.Component {
 
     constructor(props, context) {
         super(props, context);
@@ -217,7 +217,7 @@ class App extends React.Component {
 
                 <Header location={this.props.location} />
 
-                <div className={styles.pageContainer}>
+                <div className={styles.pageContainer} data-automation="pageContainer" >
 
                     {!this.props.paymentSuccess &&
 
