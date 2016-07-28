@@ -1,0 +1,38 @@
+{
+    "predicates": [
+        {
+            "and": [
+                {
+                    "equals": {
+                        "method": "POST"
+                    }
+                },
+                {
+                    "matches": {
+                        "path": "^/token/charge",
+                        "query": {
+                            "customerType": "AdUser",
+                            "token": "card_not_supported_token",
+                            "prn": "\\d+",
+                            "amount": "\\d+",
+                            "country": "(Australia|NewZealand)",
+                            "email": "thisis@anemail.net",
+                            "reference": ""
+                        }
+                    }
+                }
+            ]
+        }
+    ],
+    "responses": [
+        {
+            "is": {
+                "statusCode": 400,
+                "headers": {
+                    "Content-Type": "text/plain; charset=utf-8"
+                },
+                "body": "Your card is not supported. Please use a Visa, MasterCard, or American Express card"
+            }
+        }
+    ]
+}

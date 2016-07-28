@@ -1,0 +1,38 @@
+{
+    "predicates": [
+        {
+            "and": [
+                {
+                    "equals": {
+                        "method": "POST"
+                    }
+                },
+                {
+                    "matches": {
+                        "path": "^/token/charge",
+                        "query": {
+                            "customerType": "AdUser",
+                            "token": "token",
+                            "prn": "\\d+",
+                            "amount": "-10000",
+                            "country": "(Australia|NewZealand)",
+                            "email": "thisis@anemail.net",
+                            "reference": ""
+                        }
+                    }
+                }
+            ]
+        }
+    ],
+    "responses": [
+        {
+            "is": {
+                "statusCode": 400,
+                "headers": {
+                    "Content-Type": "text/plain; charset=utf-8"
+                },
+                "body": "Invalid positive integer."
+            }
+        }
+    ]
+}
