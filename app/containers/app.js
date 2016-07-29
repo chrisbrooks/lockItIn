@@ -18,13 +18,20 @@ import PaymentForm from '../components/paymentForm/paymentForm';
 import PaymentSuccess from '../components/paymentSuccess/paymentSuccess';
 const { stripeAuPublishableKey, stripeNzPublishableKey } = require('webpack-config-loader!../../config.js');
 
-class App extends React.Component {
+export class App extends React.Component {
 
     constructor(props, context) {
         super(props, context);
 
+        this.onFormChange = this.onFormChange.bind(this);
+        this.onFormBlur = this.onFormBlur.bind(this);
+        this.onSubmitForm = this.onSubmitForm.bind(this);
+        this.onToggle = this.onToggle.bind(this);
+    }
+
+    componentDidMount() {
         const url = "http://localhost:3000?Y3VzdG9tZXJudW1iZXI9MjM0MjM0JmFtb3VudD01MDAma" +
-        "W52b2ljZW51bWJlcj0zMzI0MzI0MzQmcHJuPWZmZjIzMjMyMyZlbWFpbD1jaHJpc0BnbWFpbC5jb20mY29tLmF1";
+            "W52b2ljZW51bWJlcj0zMzI0MzI0MzQmcHJuPWZmZjIzMjMyMyZlbWFpbD1jaHJpc0BnbWFpbC5jb20mY29tLmF1";
 
         { /* var url = window.location.href; */ }
         const parameters = url.substring(url.indexOf('?') + 1);
@@ -39,16 +46,10 @@ class App extends React.Component {
         if (/com.au/.test(window.location.href)) {
             this.props.countryActions.setLocation(constants.location.AU);
             Stripe.setPublishableKey(stripeAuPublishableKey); // eslint-disable-line no-undef
-
         } else {
             this.props.countryActions.setLocation(constants.location.NZ);
             Stripe.setPublishableKey(stripeNzPublishableKey); // eslint-disable-line no-undef
         }
-
-        this.onFormChange = this.onFormChange.bind(this);
-        this.onFormBlur = this.onFormBlur.bind(this);
-        this.onSubmitForm = this.onSubmitForm.bind(this);
-        this.onToggle = this.onToggle.bind(this);
     }
 
     onFormChange(name, value) {
@@ -153,8 +154,8 @@ class App extends React.Component {
         };
 
         for (const issuer of Object.entries(cardIssuers)) {
-            if (issuer.is_type && issuer.is_type.test(cardNumber)) {
-                return { cardType: issuer.name, surcharge: issuer.surcharge_percentage };
+            if (issuer[1].is_type && issuer[1].is_type.test(cardNumber)) {
+                return { cardType: issuer[1].name, surcharge: issuer[1].surcharge_percentage };
             }
         }
 
@@ -213,15 +214,15 @@ class App extends React.Component {
 
         return (
 
-            <div>
+            <div className={styles.pageOuterContainer}>
 
                 <Header location={this.props.location} />
 
-                <div className={styles.pageContainer}>
+                <div className={styles.pageContainer} data-automation="pageContainer" >
 
                     {!this.props.paymentSuccess &&
 
-                        <div>
+                        <div className={styles.paymentFormOuterContainer} data-automation="paymentFormOuterContainer">
 
                             <div className={styles.paymentFormContainer}>
 
@@ -262,19 +263,24 @@ class App extends React.Component {
 
                             {!this.props.paymentError &&
 
-                                <div className={styles.paymentButtonContainer}>
+                                <div className={styles.paymentButtonContainer} data-automation="paymentButtonContainer">
 
                                 {!this.props.loading &&
 
-                                    <button className={styles.paymentButton} onClick={this.onSubmitForm}>
+                                    <button className={styles.paymentButton} onClick={this.onSubmitForm} data-automation="paymentButton">
                                         Confirm Payment
                                     </button>
                                 }
 
                                 {this.props.loading &&
 
-                                    <button className={styles.paymentButtonProccessing} onClick={this.onSubmitForm}>
+                                    <button
+                                        className={styles.paymentButtonProcessing}
+                                        onClick={this.onSubmitForm}
+                                        data-automation="paymentButtonProcessing">
+
                                         <Spinner
+                                            data-automation="spinner"
                                             config={{
                                                 lines: 5,
                                                 length: 0,
@@ -300,6 +306,7 @@ class App extends React.Component {
                     {this.props.paymentSuccess &&
 
                         <PaymentSuccess
+                        data-automation="paymentSuccess"
                         customerNumber={this.props.customerNumber}
                         invoiceNumber={this.props.invoiceNumber}
                         paymentRef={this.props.paymentRef}

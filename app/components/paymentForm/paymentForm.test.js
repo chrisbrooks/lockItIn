@@ -15,6 +15,7 @@ describe('<PaymentForm />', () => {
             cvv: '111',
             onFormBlur: sinon.spy(),
             onFormChange: sinon.spy(),
+            onToggle: sinon.spy(),
             cardNumberValid: false,
             cardNumberTouched: true,
             expiryValid: false,
@@ -25,48 +26,39 @@ describe('<PaymentForm />', () => {
     });
 
     it('should check the onFormBlur function is triggered from the CardNumber Input', () => {
-        props.onFormBlur = sinon.spy();
         const wrapper = shallow(<PaymentForm {...props} />);
         wrapper.find('[data-automation="cardNumberInput"]').simulate('blur',
             { preventDefault() {}, target: { name: 'CardNumber', value: props.cardNumber },
         });
         expect(props.onFormBlur.called).to.equal(true);
+        expect(props.onFormBlur.calledWith('CardNumber', props.cardNumber)).to.equal(true);
     });
 
     it('should check the onFormBlur function is triggered from the ExpiryDate Input', () => {
-        props.onFormBlur = sinon.spy();
         const wrapper = shallow(<PaymentForm {...props} />);
         wrapper.find('[data-automation="expiryDateInput"]').simulate('blur',
             { preventDefault() {}, target: { name: 'ExpiryDate', value: props.expiry },
             });
         expect(props.onFormBlur.called).to.equal(true);
+        expect(props.onFormBlur.calledWith('ExpiryDate', props.expiry)).to.equal(true);
     });
 
     it('should check the onFormBlur function is triggered from the SecurityCode Input', () => {
-        props.onFormBlur = sinon.spy();
         const wrapper = shallow(<PaymentForm {...props} />);
         wrapper.find('[data-automation="securityCodeInput"]').simulate('blur',
             { preventDefault() {}, target: { name: 'SecurityCode', value: props.cvv },
             });
         expect(props.onFormBlur.called).to.equal(true);
+        expect(props.onFormBlur.calledWith('SecurityCode', props.cvv)).to.equal(true);
     });
 
     it('should check the onFormChange function is triggered', () => {
-        props.onFormChange = sinon.spy();
         const wrapper = shallow(<PaymentForm {...props} />);
         wrapper.find('[data-automation="cardNumberInput"]').simulate('keyUp',
             { preventDefault() {}, target: { name: 'CardNumber', value: props.cardNumber },
             });
         expect(props.onFormChange.called).to.equal(true);
-    });
-
-    it('should check the onFormChange function is triggered', () => {
-        props.onFormChange = sinon.spy();
-        const wrapper = shallow(<PaymentForm {...props} />);
-        wrapper.find('[data-automation="cardNumberInput"]').simulate('keyUp',
-            { preventDefault() {}, target: { name: 'CardNumber', value: props.cardNumber },
-            });
-        expect(props.onFormChange.called).to.equal(true);
+        expect(props.onFormChange.calledWith('CardNumber', props.cardNumber)).to.equal(true);
     });
 
     it('should check that all the error fields are showing when touched but not valid', () => {
@@ -75,6 +67,7 @@ describe('<PaymentForm />', () => {
         expect(wrapper.find('[data-automation="expiryPaymentError"]').length).to.equal(1);
         expect(wrapper.find('[data-automation="cvvPaymentError"]').length).to.equal(1);
     });
+
 
     it('should check that all the error fields are not showing when false and not touched', () => {
         props = {
@@ -150,5 +143,27 @@ describe('<PaymentForm />', () => {
         };
         const wrapper = shallow(<PaymentForm {...props} />);
         expect(wrapper.find('[data-automation="paymentForm"]').length).to.equal(0);
+    });
+
+    it('should check that the helpIcon has the correct props', () => {
+        props = {
+            cardType: 'Visa',
+            toggle: true,
+        };
+
+        const wrapper = shallow(<PaymentForm {...props} />);
+        const helpIconProps = wrapper.find('HelpIcon').props();
+        expect(helpIconProps.cardType).to.equal('Visa');
+        expect(helpIconProps.toggle).to.equal(true);
+    });
+
+
+    it('calls onCompleteChange handler with the right arguments when clicked', () => {
+        const wrapper = shallow(<PaymentForm {...props} />);
+        wrapper.find('[data-automation="cardNumberInput"]').simulate('blur',
+            { preventDefault() {}, target: { name: 'CardNumber', value: props.cardNumber },
+            });
+        expect(props.onFormBlur.called).to.equal(true);
+        expect(props.onFormBlur.calledWith('CardNumber', props.cardNumber)).to.equal(true);
     });
 });
