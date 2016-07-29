@@ -16,7 +16,7 @@ import Header from '../components/header/header';
 import PaymentInfo from '../components/paymentInfo/paymentInfo';
 import PaymentForm from '../components/paymentForm/paymentForm';
 import PaymentSuccess from '../components/paymentSuccess/paymentSuccess';
-//const { stripeAuPublishableKey, stripeNzPublishableKey } = require('webpack-config-loader!../../config.js');
+const { stripeAuPublishableKey, stripeNzPublishableKey } = require('webpack-config-loader!../../config.js');
 
 export class App extends React.Component {
 
@@ -45,10 +45,10 @@ export class App extends React.Component {
 
         if (/com.au/.test(window.location.href)) {
             this.props.countryActions.setLocation(constants.location.AU);
-            //Stripe.setPublishableKey(stripeAuPublishableKey); // eslint-disable-line no-undef
+            Stripe.setPublishableKey(stripeAuPublishableKey); // eslint-disable-line no-undef
         } else {
             this.props.countryActions.setLocation(constants.location.NZ);
-            //Stripe.setPublishableKey(stripeNzPublishableKey); // eslint-disable-line no-undef
+            Stripe.setPublishableKey(stripeNzPublishableKey); // eslint-disable-line no-undef
         }
     }
 

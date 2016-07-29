@@ -21,7 +21,7 @@ describe('<PaymentForm />', () => {
             expiryValid: false,
             expiryTouched: true,
             cvvValid: false,
-            cvvTouched: true
+            cvvTouched: true,
         };
     });
 
@@ -67,6 +67,7 @@ describe('<PaymentForm />', () => {
         expect(wrapper.find('[data-automation="expiryPaymentError"]').length).to.equal(1);
         expect(wrapper.find('[data-automation="cvvPaymentError"]').length).to.equal(1);
     });
+
 
     it('should check that all the error fields are not showing when false and not touched', () => {
         props = {
@@ -147,8 +148,8 @@ describe('<PaymentForm />', () => {
     it('should check that the helpIcon has the correct props', () => {
         props = {
             cardType: 'Visa',
-            toggle: true
-        }
+            toggle: true,
+        };
 
         const wrapper = shallow(<PaymentForm {...props} />);
         const helpIconProps = wrapper.find('HelpIcon').props();
