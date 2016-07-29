@@ -1,5 +1,4 @@
 export default {
-    ajaxCallsInProgress: 0,
     actions: {
         surcharge: 0,
         cardType: '',
