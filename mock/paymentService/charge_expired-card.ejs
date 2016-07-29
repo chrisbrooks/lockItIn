@@ -1,27 +1,9 @@
 {
     "predicates": [
         {
-            "and": [
-                {
-                    "equals": {
-                        "method": "POST"
-                    }
-                },
-                {
-                    "matches": {
-                        "path": "^/token/charge",
-                        "query": {
-                            "customerType": "AdUser",
-                            "token": "expired_card_token",
-                            "prn": "\\d+",
-                            "amount": "\\d+",
-                            "country": "(Australia|NewZealand)",
-                            "email": "thisis@anemail.net",
-                            "reference": ""
-                        }
-                    }
-                }
-            ]
+            "contains": {
+                "body": "\"token\": \"expired_card_token\""
+            }
         }
     ],
     "responses": [
