@@ -1,0 +1,22 @@
+{
+    "protocol": "http",
+    "port": 2626,
+    "requests": [],
+    "stubs": [
+        <% include paymentService/charge_amount-invalid.ejs %>,
+        <% include paymentService/charge_card-type-invalid.ejs %>,
+        <% include paymentService/charge_expired-card.ejs %>,
+        <% include paymentService/charge_fraudulent.ejs %>,
+        <% include paymentService/charge_invalid-cvv.ejs %>,
+        <% include paymentService/charge_invalid.ejs %>,
+        <% include paymentService/charge_success.ejs %>,
+        <% include paymentService/charge_token-invalid.ejs %>,
+        <% include notFound.ejs %>
+    ],
+    "_links": {
+        "self": {
+            "href": "http://localhost:2525/imposters/",
+            "logs": "http://localhost:2525/logs"
+        }
+    }
+}

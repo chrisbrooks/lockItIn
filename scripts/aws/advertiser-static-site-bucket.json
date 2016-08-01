@@ -1,0 +1,109 @@
+{
+	"AWSTemplateFormatVersion": "2010-09-09",
+	"Description": "Advertiser - Static sites [S3 bucket, S3 bucket policy].",
+	"Parameters": {
+		"S3BucketName": {
+			"Type": "String",
+			"AllowedPattern": "^[a-z][a-z0-9-]+[a-z0-9]$",
+			"Default": "seek-advertiser-static-site-494306307743",
+			"Description": "S3 bucket name to store static site resources."
+		},
+		"tagOwnerName": {
+			"Type": "String",
+			"Default": "advertiserstream@seek.com.au",
+			"Description": "Owner name tag."
+		},
+		"tagProjectName": {
+			"Type": "String",
+			"Default": "Hirer Access",
+			"Description": "Project name tag."
+		},
+		"tagStreamName": {
+			"Type": "String",
+			"Default": "Advertiser",
+			"Description": "Stream name tag."
+		}
+	},
+	"Resources": {
+		"S3Bucket": {
+			"Type": "AWS::S3::Bucket",
+			"DeletionPolicy": "Retain",
+			"Properties": {
+				"BucketName": {
+					"Ref": "S3BucketName"
+				},
+				"Tags": [
+					{
+						"Key": "Owner",
+						"Value": {
+							"Ref": "tagOwnerName"
+						}
+					},
+					{
+						"Key": "Project",
+						"Value": {
+							"Ref": "tagProjectName"
+						}
+					},
+					{
+						"Key": "Stream",
+						"Value": {
+							"Ref": "tagStreamName"
+						}
+					}
+				],
+				"WebsiteConfiguration": {
+					"IndexDocument": "index.html"
+				}
+			}
+		},
+		"S3BucketPolicy": {
+			"Type": "AWS::S3::BucketPolicy",
+			"Properties": {
+				"Bucket": {
+					"Ref": "S3Bucket"
+				},
+				"PolicyDocument": {
+					"Statement": [
+						{
+							"Action": [
+								"s3:GetObject"
+							],
+							"Effect": "Allow",
+							"Principal": {
+								"AWS": [
+									"*"
+								]
+							},
+							"Resource": [
+								{
+									"Fn::Join": [
+										"",
+										[
+											"arn:aws:s3:::",
+											{
+												"Ref": "S3BucketName"
+											},
+											"/*"
+										]
+									]
+								}
+							]
+						}
+					]
+				}
+			}
+		}
+	},
+	"Outputs": {
+		"S3BucketWebsiteURL": {
+			"Description": "Public URL to access static website hosting endpoint.",
+			"Value": {
+				"Fn::GetAtt": [
+					"S3Bucket",
+					"WebsiteURL"
+				]
+			}
+		}
+	}
+}

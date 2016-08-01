@@ -1,0 +1,83 @@
+{
+	"AWSTemplateFormatVersion": "2010-09-09",
+	"Description": "Advertiser - Static web asset SEEK CDN deployment [IAM S3 bucket access user policy].",
+	"Parameters": {
+		"assetDeployIAMUsername": {
+			"Type": "String",
+			"AllowedPattern": "^[a-z][a-z0-9-]+[a-z]$",
+			"Default": "advertiser-static-asset-deploy",
+			"Description": "Username of IAM user granted rights to deploy Advertiser web assets to S3 bucket - user must already exist."
+		},
+		"assetDeployIAMAccessKeySerial": {
+			"Type": "Number",
+			"Default": "1",
+			"Description": "Access key serial number for asset deploy IAM user."
+		}
+	},
+	"Resources": {
+		"assetDeployIAMAccessKey": {
+			"Type": "AWS::IAM::AccessKey",
+			"Properties": {
+				"Serial": {
+					"Ref": "assetDeployIAMAccessKeySerial"
+				},
+				"Status": "Active",
+				"UserName": {
+					"Ref": "assetDeployIAMUsername"
+				}
+			}
+		},
+		"assetDeployIAMUserPolicyS3": {
+			"Type": "AWS::IAM::Policy",
+			"Properties": {
+				"PolicyDocument": {
+					"Version": "2012-10-17",
+					"Statement": [
+						{
+							"Action": [
+								"s3:ListBucket"
+							],
+							"Effect": "Allow",
+							"Resource": [
+								"arn:aws:s3:::seek-cdn"
+							]
+						},
+						{
+							"Action": [
+								"s3:DeleteObject",
+								"s3:PutObject"
+							],
+							"Effect": "Allow",
+							"Resource": [
+								"arn:aws:s3:::seek-cdn/hirer/payments/*"
+							]
+						}
+					]
+				},
+				"PolicyName": "S3",
+				"Users": [
+					{
+						"Ref": "assetDeployIAMUsername"
+					}
+				]
+			}
+		}
+	},
+	"Outputs": {
+		"assetDeployIAMAccessKeyID": {
+			"Description": "Access key ID for asset deploy IAM user.",
+			"Value": {
+				"Ref": "assetDeployIAMAccessKey"
+			}
+		},
+		"assetDeployIAMSecretAccessKey": {
+			"Description": "Secret access key for asset deploy IAM user.",
+			"Value": {
+				"Fn::GetAtt": [
+					"assetDeployIAMAccessKey",
+					"SecretAccessKey"
+				]
+			}
+		}
+	}
+}
