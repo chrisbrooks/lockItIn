@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import { expect } from 'chai';
 import sinon from 'sinon';
 import { App } from './app';
@@ -10,11 +10,6 @@ describe('<App />', () => {
     let props;
 
     beforeEach(() => {
-
-        global.window = {
-            location: 'https://talent.seek.com.au',
-            Stripe: sinon.spy(),
-        };
 
         props = {
             country: 'Australia',
@@ -458,6 +453,25 @@ describe('<App />', () => {
                     cvvTouched: true,
                 })).to.equal(true);
             });
+        });
+
+        describe('testing securityCode input', () => {
+            global.window = {
+                location: {
+                    href: 'https://talent.seek.com.au'
+                }
+            };
+
+            sinon.spy(App.prototype, 'componentDidMount');
+            sinon.spy(App.prototype, 'getLocation');
+            sinon.spy(App.prototype, 'getUrlParam');
+
+            const wrapper = mount(<App {...props} />);
+
+            expect(App.prototype.componentDidMount.calledOnce).to.equal(true);
+            expect(App.prototype.getLocation.calledOnce).to.equal(true);
+            expect(App.prototype.getUrlParam.calledOnce).to.equal(true);
+            //expect(props.countryActions.setLocation.calledWith('Australia')).to.equal(true);
         });
     });
 });
