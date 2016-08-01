@@ -10,7 +10,6 @@ export default function reducer(state = initialState.payment, action) {
     switch (action.type) {
 
         case LOADING: {
-            console.log(action.payload);
             const loading = action.payload;
             return { ...state, loading };
         }

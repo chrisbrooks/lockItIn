@@ -2,7 +2,7 @@ import styles from './header.less';
 import React from 'react';
 import * as constants from '../../constants';
 
-const Header = ({ location }) => (
+const Header = ({ country }) => (
     <div className={styles.header}>
         <div className={styles.headerInnerContainer}>
             <a href="/" className={styles.headerLogoContainer}>
@@ -18,7 +18,7 @@ const Header = ({ location }) => (
                     aria-hidden="true"
                     data-icon="&#57464;" />
                 <span className={styles.headerNumber} data-automation="headerNumber">
-                    {location === constants.location.AU ? constants.number.AU : constants.number.NZ}
+                    {country === constants.location.AU ? constants.number.AU : constants.number.NZ}
                 </span>
 
             </span>
@@ -27,7 +27,7 @@ const Header = ({ location }) => (
 );
 
 Header.propTypes = {
-    location: React.PropTypes.string,
+    country: React.PropTypes.string,
 };
 
 export default Header;

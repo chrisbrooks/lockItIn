@@ -7,7 +7,7 @@ export default {
         toggle: false,
     },
     country: {
-        location: 'Australia',
+        country: 'Australia',
     },
     urlQuery: {
         customerNumber: null,

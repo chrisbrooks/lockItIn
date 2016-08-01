@@ -1,5 +1,6 @@
 import * as constants from '../constants';
 import * as types from './actionTypes';
+import Stripe from '../stripe/configureStripe';
 import axios from 'axios';
 
 export function loading(value) {
@@ -96,7 +97,7 @@ export function createStripeToken(location, email, prn, cardNumber, cvv, expiry,
             amount: totalAmount,
         };
 
-        const { paymentUrl } = require('webpack-config-loader!../../config.js');
+        const { paymentUrl } = require('../../config.js');
 
         /*eslint-disable */
         Stripe.createToken(stripeData, function (status, response) {
@@ -105,6 +106,7 @@ export function createStripeToken(location, email, prn, cardNumber, cvv, expiry,
             dispatch(loading(true));
 
             if (status === 200) {
+
 
                 const paymentData = {
                     prn,

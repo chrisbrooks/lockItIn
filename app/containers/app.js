@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import Stripe from '../stripe/configureStripe';
 import styles from './app.less';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -16,7 +17,9 @@ import Header from '../components/header/header';
 import PaymentInfo from '../components/paymentInfo/paymentInfo';
 import PaymentForm from '../components/paymentForm/paymentForm';
 import PaymentSuccess from '../components/paymentSuccess/paymentSuccess';
-const { stripeAuPublishableKey, stripeNzPublishableKey } = require('webpack-config-loader!../../config.js');
+import { stripeAuPublishableKey, stripeNzPublishableKey } from '../../config.js';
+
+const validate = require('card-validator');
 
 export class App extends React.Component {
 
@@ -26,30 +29,12 @@ export class App extends React.Component {
         this.onFormChange = this.onFormChange.bind(this);
         this.onFormBlur = this.onFormBlur.bind(this);
         this.onSubmitForm = this.onSubmitForm.bind(this);
-        this.onToggle = this.onToggle.bind(this);
+        this.toggleHelpBox = this.toggleHelpBox.bind(this);
     }
 
     componentDidMount() {
-        const url = "http://localhost:3000?Y3VzdG9tZXJudW1iZXI9MjM0MjM0JmFtb3VudD01MDAma" +
-            "W52b2ljZW51bWJlcj0zMzI0MzI0MzQmcHJuPWZmZjIzMjMyMyZlbWFpbD1jaHJpc0BnbWFpbC5jb20mY29tLmF1";
-
-        { /* var url = window.location.href; */ }
-        const parameters = url.substring(url.indexOf('?') + 1);
-
-        const base64Decode = base64.decode(parameters);
-        const decodedParameters = queryString.parse(base64Decode);
-
-        { /* const decodedParameters = props.location.query; */ }
-
-        this.props.urlQueryActions.setUrlQuery(decodedParameters);
-
-        if (/com.au/.test(window.location.href)) {
-            this.props.countryActions.setLocation(constants.location.AU);
-            Stripe.setPublishableKey(stripeAuPublishableKey); // eslint-disable-line no-undef
-        } else {
-            this.props.countryActions.setLocation(constants.location.NZ);
-            Stripe.setPublishableKey(stripeNzPublishableKey); // eslint-disable-line no-undef
-        }
+        this.getLocation();
+        this.getUrlParam();
     }
 
     onFormChange(name, value) {
@@ -86,19 +71,19 @@ export class App extends React.Component {
         switch (name) {
 
             case constants.inputs.CARD_NUMBER: {
-                const cardValidate = Stripe.card.validateCardNumber(value); // eslint-disable-line no-undef
+                const cardValidate = validate.number(value).isValid;
                 this.props.validationActions.setCardNumberValid({ cardNumberValid: cardValidate, cardNumberTouched: active });
                 break;
             }
 
             case constants.inputs.EXPIRY_DATE: {
-                const expiryValidate = Stripe.card.validateExpiry(value); // eslint-disable-line no-undef
+                const expiryValidate = validate.expirationDate(value).isValid;
                 this.props.validationActions.setExpiryValid({ expiryValid: expiryValidate, expiryTouched: active });
                 break;
             }
 
             case constants.inputs.SECURITY_CODE: {
-                const cvvValidate = Stripe.card.validateCVC(value); // eslint-disable-line no-undef
+                const cvvValidate = validate.cvv(value).isValid;
                 this.props.validationActions.setCvvValid({ cvvValid: cvvValidate, cvvTouched: active });
                 break;
             }
@@ -112,19 +97,10 @@ export class App extends React.Component {
     onSubmitForm() {
 
         const formIsValid = this.validateForm();
-        const { location, email, prn, cardNumber, cvv, expiry, totalAmount } = this.props;
+        const { country, email, prn, cardNumber, cvv, expiry, totalAmount } = this.props;
 
         if (formIsValid) {
-            this.props.paymentActions.createStripeToken(location, email, prn, cardNumber, cvv, expiry, totalAmount);
-        }
-    }
-
-    onToggle() {
-
-        if (this.props.toggle) {
-            this.props.actions.setToggle(false);
-        } else {
-            this.props.actions.setToggle(true);
+            this.props.paymentActions.createStripeToken(country, email, prn, cardNumber, cvv, expiry, totalAmount);
         }
     }
 
@@ -174,6 +150,31 @@ export class App extends React.Component {
         return total;
     }
 
+    getLocation() {
+        if (/com.au/.test(window.location.href)) {
+            this.props.countryActions.setLocation(constants.location.AU);
+            Stripe.setPublishableKey(stripeAuPublishableKey); // eslint-disable-line no-undef
+        } else {
+            this.props.countryActions.setLocation(constants.location.NZ);
+            Stripe.setPublishableKey(stripeNzPublishableKey); // eslint-disable-line no-undef
+        }
+    }
+
+    getUrlParam() {
+        const url = "http://localhost:3000?Y3VzdG9tZXJudW1iZXI9MjM0MjM0JmFtb3VudD01MDAma" +
+            "W52b2ljZW51bWJlcj0zMzI0MzI0MzQmcHJuPWZmZjIzMjMyMyZlbWFpbD1jaHJpc0BnbWFpbC5jb20mY29tLmF1";
+
+        { /* var url = window.location.href; */ }
+        const parameters = url.substring(url.indexOf('?') + 1);
+
+        const base64Decode = base64.decode(parameters);
+        const decodedParameters = queryString.parse(base64Decode);
+
+        { /* const decodedParameters = props.location.query; */ }
+
+        this.props.urlQueryActions.setUrlQuery(decodedParameters);
+    }
+
     validateForm() {
         const {
             cardNumberValid,
@@ -182,7 +183,7 @@ export class App extends React.Component {
             cardNumberTouched,
             expiryTouched,
             cvvTouched,
-        } = this.props;
+            } = this.props;
 
         const checkFormValidation = [
             cardNumberValid,
@@ -210,13 +211,22 @@ export class App extends React.Component {
         return formIsValid;
     }
 
+    toggleHelpBox() {
+
+        if (this.props.toggle) {
+            this.props.actions.setToggle(false);
+        } else {
+            this.props.actions.setToggle(true);
+        }
+    }
+
     render() {
 
         return (
 
             <div className={styles.pageOuterContainer}>
 
-                <Header location={this.props.location} />
+                <Header country={this.props.country} />
 
                 <div className={styles.pageContainer} data-automation="pageContainer" >
 
@@ -246,7 +256,7 @@ export class App extends React.Component {
                                         cvvTouched={this.props.cvvTouched}
                                         cardType={this.props.cardType}
                                         toggle={this.props.toggle}
-                                        onToggle={this.onToggle}
+                                        toggleHelpBox={this.toggleHelpBox}
                                     />
 
                                     <PaymentInfo
@@ -340,7 +350,7 @@ App.propTypes = {
     expiryValid: PropTypes.bool,
     cvvValid: PropTypes.bool,
     cardType: PropTypes.string,
-    onToggle: PropTypes.func,
+    toggleHelpBox: PropTypes.func,
     toggle: PropTypes.bool,
     invoiceNumber: PropTypes.string,
     customerNumber: PropTypes.string,
@@ -349,7 +359,7 @@ App.propTypes = {
     loading: PropTypes.bool,
     paymentRef: PropTypes.string,
     setToggle: PropTypes.func,
-    location: PropTypes.string,
+    country: PropTypes.string,
 
     // Action creators
     paymentActions: PropTypes.shape({
@@ -380,7 +390,7 @@ App.propTypes = {
 
 function mapStateToProps(state) {
     return {
-        location: state.country.location,
+        country: state.country.country,
         customerNumber: state.urlQuery.customerNumber,
         invoiceNumber: state.urlQuery.invoiceNumber,
         amount: state.urlQuery.amount,

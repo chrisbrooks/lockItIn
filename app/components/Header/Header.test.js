@@ -9,7 +9,7 @@ describe('<Header />', () => {
 
     beforeEach(() => {
         props = {
-            location: 'Australia',
+            country: 'Australia',
         };
     });
 
@@ -19,7 +19,7 @@ describe('<Header />', () => {
     });
 
     it('should set the NewZealand phone number', () => {
-        props.location = 'NewZealand';
+        props.country = 'NewZealand';
         const wrapper = shallow(<Header {...props} />);
         expect(wrapper.find('[data-automation="headerNumber"]').text()).to.equal('0508 733 569');
     });

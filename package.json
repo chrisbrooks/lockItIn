@@ -28,6 +28,7 @@
     "babel-polyfill": "6.9.1",
     "babel-runtime": "6.11.6",
     "base-64": "0.1.0",
+    "card-validator": "2.3.0",
     "css-reset": "git+ssh://git@github.com/SEEK-Jobs/css-reset",
     "json-loader": "0.5.4",
     "object-assign": "4.1.0",
@@ -95,7 +96,6 @@
     "style-loader": "0.13.1",
     "wallaby-webpack": "0.0.22",
     "webpack": "1.12.12",
-    "webpack-config-loader": "0.1.0",
     "webpack-dev-middleware": "1.6.1",
     "webpack-hot-middleware": "2.10.0",
     "webpack-node-externals": "1.0.0"

@@ -15,7 +15,7 @@ describe('<PaymentForm />', () => {
             cvv: '111',
             onFormBlur: sinon.spy(),
             onFormChange: sinon.spy(),
-            onToggle: sinon.spy(),
+            toggleHelpBox: sinon.spy(),
             cardNumberValid: false,
             cardNumberTouched: true,
             expiryValid: false,
@@ -157,13 +157,4 @@ describe('<PaymentForm />', () => {
         expect(helpIconProps.toggle).to.equal(true);
     });
 
-
-    it('calls onCompleteChange handler with the right arguments when clicked', () => {
-        const wrapper = shallow(<PaymentForm {...props} />);
-        wrapper.find('[data-automation="cardNumberInput"]').simulate('blur',
-            { preventDefault() {}, target: { name: 'CardNumber', value: props.cardNumber },
-            });
-        expect(props.onFormBlur.called).to.equal(true);
-        expect(props.onFormBlur.calledWith('CardNumber', props.cardNumber)).to.equal(true);
-    });
 });

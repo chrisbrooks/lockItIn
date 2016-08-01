@@ -11,15 +11,15 @@ describe('<HelpIcon />', () => {
     beforeEach(() => {
         props = {
             toggle: true,
-            onToggle: sinon.spy(),
+            toggleHelpBox: sinon.spy(),
             cardType: 'Amex',
         };
     });
 
-    it('should show popup when onToggle is Clicked', () => {
+    it('should show popup when toggleHelpBox is Clicked', () => {
         const wrapper = shallow(<HelpIcon {...props} />);
         wrapper.find('[data-automation="helpIconCloseIcon"]').simulate('click');
-        expect(props.onToggle.called).to.equal(true);
+        expect(props.toggleHelpBox.called).to.equal(true);
     });
 
     it('should show popup when toggle is true', () => {

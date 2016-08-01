@@ -19,7 +19,7 @@ const PaymentForm = ({
     cvvValid,
     cvvTouched,
     cardType,
-    onToggle,
+    toggleHelpBox,
     toggle,
     }) => {
 
@@ -115,7 +115,7 @@ const PaymentForm = ({
                         className={styles.securityCodeLabel}>CCV
                         </label>
 
-                        <HelpIcon cardType={cardType} onToggle={onToggle} toggle={toggle} />
+                        <HelpIcon cardType={cardType} toggleHelpBox={toggleHelpBox} toggle={toggle} />
 
                         <input
                             data-automation="securityCodeInput"
@@ -160,7 +160,7 @@ PaymentForm.propTypes = {
     expiryValid: PropTypes.bool,
     cvvValid: PropTypes.bool,
     cardType: PropTypes.string,
-    onToggle: PropTypes.func.isRequired,
+    toggleHelpBox: PropTypes.func.isRequired,
     toggle: PropTypes.bool,
 };
 

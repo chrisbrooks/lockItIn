@@ -8,8 +8,8 @@ export default function reducer(state = initialState.country, action) {
     switch (action.type) {
 
         case LOCATION: {
-            const location = action.payload;
-            return { ...state, location };
+            const country = action.payload;
+            return { ...state, country };
         }
 
         default: {

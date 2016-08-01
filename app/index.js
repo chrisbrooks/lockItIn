@@ -16,9 +16,10 @@ const {
     environment,
     raygunIsEnabled,
     raygunApiKey,
-} = require('webpack-config-loader!../config.js');
+} = require('../config.js');
 
 const store = configureStore();
+
 
 if (raygunIsEnabled) {
     /* global Raygun */

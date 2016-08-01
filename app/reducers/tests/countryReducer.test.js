@@ -11,16 +11,16 @@ describe('country reducer', () => {
 
     it('should return the correct default state', () => {
         expect(reducer((state), {})).to.eql({
-            location: 'Australia',
+            country: 'Australia',
         });
     });
 
     it('should return the correct location state', () => {
-        const location = 'NewZealand';
+        const country = 'NewZealand';
         expect(reducer((state), {
             type: LOCATION,
-            payload: location,
-        })).to.eql({ location: 'NewZealand' });
+            payload: country,
+        })).to.eql({ country: 'NewZealand' });
     });
 
 });
