@@ -2,7 +2,7 @@
     "predicates": [
         {
             "contains": {
-                "body": "\"token\": \"token\""
+                "body": "\"token\":\"token\""
             }
         }
     ],
@@ -11,7 +11,7 @@
             "is": {
                 "statusCode": 200,
                 "headers": {
-                    "Content-Type": "text/plain; charset=utf-8"
+                    <% include headers.ejs %>
                 },
                 "body": "Payment succeeded."
             }

@@ -2,7 +2,7 @@
     "predicates": [
         {
             "contains": {
-                "body": "\"token\": \"card_not_supported_token\""
+                "body": "\"token\":\"card_not_supported_token\""
             }
         }
     ],
@@ -11,7 +11,7 @@
             "is": {
                 "statusCode": 400,
                 "headers": {
-                    "Content-Type": "text/plain; charset=utf-8"
+                    <% include headers.ejs %>
                 },
                 "body": "Your card is not supported. Please use a Visa, MasterCard, or American Express card"
             }

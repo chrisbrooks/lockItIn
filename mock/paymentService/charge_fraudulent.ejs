@@ -2,7 +2,7 @@
     "predicates": [
         {
             "contains": {
-                "body": "\"token\": \"declined_card_fraud_token\""
+                "body": "\"token\":\"declined_card_fraud_token\""
             }
         }
     ],
@@ -11,7 +11,7 @@
             "is": {
                 "statusCode": 400,
                 "headers": {
-                    "Content-Type": "text/plain; charset=utf-8"
+                    <% include headers.ejs %>
                 },
                 "body": "Your card was declined. fraudulent."
             }
