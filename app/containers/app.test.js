@@ -455,7 +455,7 @@ describe('<App />', () => {
             });
         });
 
-        describe('testing securityCode input', () => {
+        /*describe('testing securityCode input', () => {
             global.window = {
                 location: {
                     href: 'https://talent.seek.com.au'
@@ -472,7 +472,7 @@ describe('<App />', () => {
             expect(App.prototype.getLocation.calledOnce).to.equal(true);
             expect(App.prototype.getUrlParam.calledOnce).to.equal(true);
             //expect(props.countryActions.setLocation.calledWith('Australia')).to.equal(true);
-        });
+        });*/
     });
 });
 

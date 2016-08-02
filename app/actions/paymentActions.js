@@ -108,13 +108,17 @@ export function createStripeToken(location, email, prn, cardNumber, cvv, expiry,
             if (status === 200) {
 
 
-                const paymentData = {
+                /*const paymentData = {
                     prn,
                     email,
                     currency: location,
                     amount: totalAmount,
                     token: response.id,
-                };
+                };*/
+
+                const paymentData = {
+                    token: response
+                }
 
                 /*eslint-disable */
                 axios.post(paymentUrl, paymentData).then(function (result) {
