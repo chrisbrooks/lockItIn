@@ -12,7 +12,7 @@ describe('<PaymentSuccess />', () => {
             customerNumber: '1122334455',
             invoiceNumber: 'f24jsjkae',
             totalAmount: 300,
-            paymentRef: 'sdfsd98f7df',
+            prn: 'sdfsd98f7df',
         };
     });
 

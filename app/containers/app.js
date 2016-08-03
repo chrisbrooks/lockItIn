@@ -319,7 +319,7 @@ export class App extends React.Component {
                         data-automation="paymentSuccess"
                         customerNumber={this.props.customerNumber}
                         invoiceNumber={this.props.invoiceNumber}
-                        paymentRef={this.props.paymentRef}
+                        prn={this.props.prn}
                         totalAmount={this.props.totalAmount}
                         />
                     }
@@ -357,7 +357,6 @@ App.propTypes = {
     amount: PropTypes.string,
     totalAmount: PropTypes.number,
     loading: PropTypes.bool,
-    paymentRef: PropTypes.string,
     setToggle: PropTypes.func,
     country: PropTypes.string,
 

@@ -1,7 +1,14 @@
+import configureMockStore from 'redux-mock-store';
+import thunk from 'redux-thunk';
+import nock from 'nock';
+import { shallow } from 'enzyme';
 import { expect } from 'chai';
+import sinon from 'sinon';
 import * as payment from '../paymentActions';
 import * as types from '../actionTypes';
 import * as constants from '../../constants';
+import Stripe from '../../stripe/configureStripe';
+import axios from 'axios';
 
 describe('payment loading actions', () => {
     it('should set loading action to true', () => {
@@ -77,4 +84,25 @@ describe('payment error actions', () => {
         } };
         expect(payment.paymentError(value)).to.eql(expectedAction);
     });
+});
+
+describe('createStripToken', () => {
+
+    it('should set the correct actions', () => {
+
+        const value = {
+            prn: 'rtghfasrfeatg',
+            email: 'chris@gmail.com',
+            country: 'Australia',
+            cardNumber: '4747 4747 4747 4747',
+            expiry: '10/18',
+            cvv: '111',
+            totalAmount: 550,
+        };
+
+        payment.createStripeToken(value);
+
+
+    });
+
 });

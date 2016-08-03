@@ -37,7 +37,6 @@ describe('<App />', () => {
             prn: 'ffffff456rf',
             loading: true,
             totalAmount: 500,
-            paymentRef: 'rsuyedy',
             actions: {
                 setSurcharge: sinon.spy(),
                 setTotalAmount: sinon.spy(),
@@ -161,7 +160,7 @@ describe('<App />', () => {
             const paymentSuccess = wrapper.find('PaymentSuccess').props();
             expect(paymentSuccess.customerNumber).to.equal('4134987123');
             expect(paymentSuccess.invoiceNumber).to.equal('2232131231');
-            expect(paymentSuccess.paymentRef).to.equal('rsuyedy');
+            expect(paymentSuccess.prn).to.equal('ffffff456rf');
             expect(paymentSuccess.totalAmount).to.equal(500);
         });
     });
@@ -454,25 +453,6 @@ describe('<App />', () => {
                 })).to.equal(true);
             });
         });
-
-        /*describe('testing securityCode input', () => {
-            global.window = {
-                location: {
-                    href: 'https://talent.seek.com.au'
-                }
-            };
-
-            sinon.spy(App.prototype, 'componentDidMount');
-            sinon.spy(App.prototype, 'getLocation');
-            sinon.spy(App.prototype, 'getUrlParam');
-
-            const wrapper = mount(<App {...props} />);
-
-            expect(App.prototype.componentDidMount.calledOnce).to.equal(true);
-            expect(App.prototype.getLocation.calledOnce).to.equal(true);
-            expect(App.prototype.getUrlParam.calledOnce).to.equal(true);
-            //expect(props.countryActions.setLocation.calledWith('Australia')).to.equal(true);
-        });*/
     });
 });
 

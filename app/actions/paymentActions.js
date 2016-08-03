@@ -8,6 +8,7 @@ export function loading(value) {
 }
 
 export function paymentSuccess(value) {
+    console.log(value);
     return { type: types.PAYMENT_SUCCESS, payload: value };
 }
 
@@ -87,7 +88,7 @@ export function paymentError(error) {
     }
 }
 
-export function createStripeToken(location, email, prn, cardNumber, cvv, expiry, totalAmount) {
+export function createStripeToken(country, email, prn, cardNumber, cvv, expiry, totalAmount) {
     return dispatch => {
 
         const stripeData = {
@@ -108,27 +109,28 @@ export function createStripeToken(location, email, prn, cardNumber, cvv, expiry,
 
             if (status === 200) {
 
-
                 const paymentData = {
                     prn,
                     email,
-                    currency: location,
+                    currency: country,
                     amount: totalAmount,
-                    token: response.token,
+                    token: response.id,
                 };
 
                 /*eslint-disable */
-                axios.post(chargeUrl, paymentData).then(function (result) {
-                /*eslint-enable */
+                axios.post(chargeUrl, paymentData).then(function (status, result) {
+                    /*eslint-enable */
 
-                    if (status === 200) {
-                        dispatch(paymentSuccess(true));
-
-                    } else {
-                        dispatch(paymentError(result.responseJSON.Message));
-                    }
-
+                    dispatch(paymentSuccess(true));
                     dispatch(loading(false));
+
+                    /*eslint-disable */
+                }).catch(function (error) {
+                    /*eslint-enable */
+
+                    dispatch(paymentError(error.data));
+                    dispatch(loading(false));
+
                 });
 
             } else {
@@ -136,6 +138,7 @@ export function createStripeToken(location, email, prn, cardNumber, cvv, expiry,
                 dispatch(paymentError(constants.errorMessages.PROCESSING_ERROR));
                 dispatch(loading(false));
             }
+
         });
     };
 }

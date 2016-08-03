@@ -4,7 +4,7 @@ import React from 'react';
 const PaymentSuccess = ({
     invoiceNumber,
     customerNumber,
-    paymentRef,
+    prn,
     totalAmount,
     }) => {
 
@@ -29,7 +29,7 @@ const PaymentSuccess = ({
                 </div>
                 <div className={styles.paymentSuccessContainer}>
                     <p className={styles.paymentSuccessTitle}>Payment Reference</p>
-                    <p className={styles.paymentSuccessValue} data-automation="paymentReference">{paymentRef}</p>
+                    <p className={styles.paymentSuccessValue} data-automation="paymentReference">{prn}</p>
                 </div>
                 <div className={styles.paymentSuccessContainer}>
                     <p className={styles.paymentSuccessTitle}>Total Paid</p>
@@ -48,7 +48,7 @@ PaymentSuccess.propTypes = {
     cvv: React.PropTypes.string,
     customerNumber: React.PropTypes.string,
     invoiceNumber: React.PropTypes.string,
-    paymentRef: React.PropTypes.string,
+    prn: React.PropTypes.string,
     totalAmount: React.PropTypes.number,
 };
 
