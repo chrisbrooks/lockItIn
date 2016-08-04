@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import Stripe from '../stripe/configureStripe';
+import Stripe from '../../mock/stripe/configureStripe'; // eslint-disable-line
 import styles from './app.less';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -17,7 +17,7 @@ import Header from '../components/header/header';
 import PaymentInfo from '../components/paymentInfo/paymentInfo';
 import PaymentForm from '../components/paymentForm/paymentForm';
 import PaymentSuccess from '../components/paymentSuccess/paymentSuccess';
-import { stripeAuPublishableKey, stripeNzPublishableKey } from '../../config.js';
+import { stripeAuPublishableKey, stripeNzPublishableKey } from '../../config.js'; // eslint-disable-line
 
 const validate = require('card-validator');
 
@@ -97,10 +97,10 @@ export class App extends React.Component {
     onSubmitForm() {
 
         const formIsValid = this.validateForm();
-        const { country, email, prn, cardNumber, cvv, expiry, totalAmount } = this.props;
+        const { country, email, prn, cardNumber, cvv, expiry, totalAmount, customerNumber } = this.props;
 
         if (formIsValid) {
-            this.props.paymentActions.createStripeToken(country, email, prn, cardNumber, cvv, expiry, totalAmount);
+            this.props.paymentActions.createStripeToken(country, email, prn, cardNumber, cvv, expiry, totalAmount, customerNumber);
         }
     }
 

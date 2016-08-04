@@ -1,10 +1,9 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
+import { shallow } from 'enzyme';
 import { expect } from 'chai';
 import sinon from 'sinon';
 import { App } from './app';
 import * as constants from '../constants';
-import * as countryActions from '../actions/countryActions';
 
 describe('<App />', () => {
 
@@ -455,28 +454,5 @@ describe('<App />', () => {
             });
         });
     });
-
-    /*describe('testing urlQuery and location', () => {
-        global.window = {
-            location: {
-                href: 'https://talent.seek.com.au'
-            }
-        };
-
-        sinon.spy(App.prototype, 'componentDidMount');
-
-        //const wrapper = shallow(<App {...props} />);
-
-        let app = new App(props);
-
-        app.getLocation();
-
-        expect(props.countryActions.setLocation.called).to.equal(true);
-
-        //expect(App.prototype.componentDidMount.calledOnce).to.equal(true);
-        //expect(App.prototype.getLocation.calledOnce).to.equal(true);
-        //expect(App.prototype.getUrlParam.calledOnce).to.equal(true);
-
-    });*/
 });
 

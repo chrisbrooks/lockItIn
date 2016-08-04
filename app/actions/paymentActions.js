@@ -1,6 +1,6 @@
 import * as constants from '../constants';
 import * as types from './actionTypes';
-import Stripe from '../stripe/configureStripe';
+import Stripe from '../../mock/stripe/configureStripe'; // eslint-disable-line
 import axios from 'axios';
 
 export function loading(value) {
@@ -8,7 +8,6 @@ export function loading(value) {
 }
 
 export function paymentSuccess(value) {
-    console.log(value);
     return { type: types.PAYMENT_SUCCESS, payload: value };
 }
 
@@ -88,7 +87,7 @@ export function paymentError(error) {
     }
 }
 
-export function createStripeToken(country, email, prn, cardNumber, cvv, expiry, totalAmount) {
+export function createStripeToken(country, email, prn, cardNumber, cvv, expiry, totalAmount, customerNumber) {
     return dispatch => {
 
         const stripeData = {
@@ -115,6 +114,7 @@ export function createStripeToken(country, email, prn, cardNumber, cvv, expiry, 
                     currency: country,
                     amount: totalAmount,
                     token: response.id,
+                    customernumber: customerNumber,
                 };
 
                 /*eslint-disable */

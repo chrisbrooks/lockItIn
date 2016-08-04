@@ -1,4 +1,3 @@
-/* eslint-disable global-require */
 function createToken(stripeData, callback) {
 
     switch (stripeData.exp) {

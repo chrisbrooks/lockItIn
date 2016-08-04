@@ -4,7 +4,7 @@ import * as payment from '../paymentActions';
 import * as types from '../actionTypes';
 import * as constants from '../../constants';
 import axios from 'axios';
-import Stripe from '../../stripe/configureStripe';
+import stripeMock from '../../../mock/stripe/configureStripe'; // eslint-disable-line
 
 describe('payment loading actions', () => {
     it('should set loading action to true', () => {
@@ -84,13 +84,14 @@ describe('payment error actions', () => {
 
 describe('createStripeToken', () => {
 
-    const country = "Australia",
-        email = "chris@gmail.com",
-        prn = "etwrt346ertr",
-        cardNumber = "4747 4747 4747 4747",
-        cvv = "111",
-        expiry = "10/18",
-        totalAmount = 500;
+    const country = "Australia";
+    const email = "chris@gmail.com";
+    const prn = "etwrt346ertr";
+    const cardNumber = "4747 4747 4747 4747";
+    const cvv = "111";
+    const expiry = "10/18";
+    const totalAmount = 500;
+    const customerNumber = '3efsrge45drg';
 
     const stripeData = {
         number: cardNumber,
@@ -105,23 +106,24 @@ describe('createStripeToken', () => {
         currency: country,
         amount: totalAmount,
         token: 'token',
+        customernumber: customerNumber,
     };
 
     const dispatch = sinon.spy();
     sinon.spy(axios, 'post');
-    sinon.spy(Stripe, 'createToken');
+    sinon.spy(stripeMock, 'createToken');
 
     it('should set the correct actions', () => {
 
-        var actionMethod = payment.createStripeToken(country, email, prn, cardNumber, cvv, expiry, totalAmount );
+        const actionMethod = payment.createStripeToken(country, email, prn, cardNumber, cvv, expiry, totalAmount, customerNumber);
 
         actionMethod(dispatch);
 
-        expect(Stripe.createToken.called).to.equal(true);
-        expect(Stripe.createToken.calledWith(stripeData)).to.equal(true);
+        expect(stripeMock.createToken.called).to.equal(true);
+        expect(stripeMock.createToken.calledWith(stripeData)).to.equal(true);
 
         expect(axios.post.called).to.equal(true);
-        expect(axios.post.calledWith('http://localhost:2626/token/charge',paymentData)).to.equal(true);
+        expect(axios.post.calledWith('http://localhost:2626/token/charge', paymentData)).to.equal(true);
         expect(dispatch.called).to.equal(true);
 
         expect(dispatch.calledWith({ type: types.LOADING, payload: true })).to.equal(true);
