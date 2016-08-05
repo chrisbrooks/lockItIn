@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import Stripe from '../../mock/stripe/configureStripe'; // eslint-disable-line
+import Stripe from '../mocks/stripe/configureStripe'; // eslint-disable-line
 import styles from './app.less';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -151,6 +151,7 @@ export class App extends React.Component {
     }
 
     getLocation() {
+
         if (/com.au/.test(window.location.href)) {
             this.props.countryActions.setLocation(constants.location.AU);
             Stripe.setPublishableKey(stripeAuPublishableKey); // eslint-disable-line no-undef
@@ -161,21 +162,17 @@ export class App extends React.Component {
     }
 
     getUrlParam() {
-        const url = "http://localhost:3000?Y3VzdG9tZXJudW1iZXI9MjM0MjM0JmFtb3VudD01MDAma" +
-            "W52b2ljZW51bWJlcj0zMzI0MzI0MzQmcHJuPWZmZjIzMjMyMyZlbWFpbD1jaHJpc0BnbWFpbC5jb20mY29tLmF1";
 
-        { /* var url = window.location.href; */ }
+        const url = window.location.href;
         const parameters = url.substring(url.indexOf('?') + 1);
-
         const base64Decode = base64.decode(parameters);
         const decodedParameters = queryString.parse(base64Decode);
-
-        { /* const decodedParameters = props.location.query; */ }
 
         this.props.urlQueryActions.setUrlQuery(decodedParameters);
     }
 
     validateForm() {
+
         const {
             cardNumberValid,
             expiryValid,

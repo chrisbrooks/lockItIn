@@ -10,7 +10,7 @@
     "open:dist": "babel-node scripts/distServer.js",
     "lint": "esw webpack.config.* app scripts",
     "lint:watch": "npm run lint -- --watch",
-    "mock": "mb --configfile ./mock/imposters.ejs --debug",
+    "mock": "mb --configfile app/mocks/imposters.ejs --debug",
     "clean-dist": "npm run remove-dist && mkdir dist",
     "remove-dist": "rimraf ./dist",
     "build:html": "babel-node scripts/buildHtml.js",

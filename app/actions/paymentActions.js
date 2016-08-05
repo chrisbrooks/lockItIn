@@ -1,6 +1,6 @@
 import * as constants from '../constants';
 import * as types from './actionTypes';
-import Stripe from '../../mock/stripe/configureStripe'; // eslint-disable-line
+import Stripe from '../mocks/stripe/configureStripe'; // eslint-disable-line
 import axios from 'axios';
 
 export function loading(value) {
@@ -17,7 +17,7 @@ export function paymentError(error) {
 
         case constants.errors.DECLINED: {
             return { type:
-                types.PAYMENT_ERROR,
+            types.PAYMENT_ERROR,
                 payload: {
                     paymentError: true,
                     paymentErrorMessage: constants.errorMessages.DECLINED,
@@ -27,7 +27,37 @@ export function paymentError(error) {
 
         case constants.errors.DECLINED_FRAUDULENT: {
             return { type:
-                types.PAYMENT_ERROR,
+            types.PAYMENT_ERROR,
+                payload: {
+                    paymentError: true,
+                    paymentErrorMessage: constants.errorMessages.DECLINED_FRAUDULENT,
+                },
+            };
+        }
+
+        case constants.errors.DECLINED_EXPIRED: {
+            return { type:
+            types.PAYMENT_ERROR,
+                payload: {
+                    paymentError: true,
+                    paymentErrorMessage: constants.errorMessages.DECLINED_EXPIRED,
+                },
+            };
+        }
+
+        case constants.errors.DECLINED_INCORRECT_CVC: {
+            return { type:
+            types.PAYMENT_ERROR,
+                payload: {
+                    paymentError: true,
+                    paymentErrorMessage: constants.errorMessages.DECLINED_INCORRECT_CVC,
+                },
+            };
+        }
+
+        case constants.errors.INVALID_AMOUNT: {
+            return { type:
+            types.PAYMENT_ERROR,
                 payload: {
                     paymentError: true,
                     paymentErrorMessage: constants.errorMessages.DECLINED,
@@ -35,32 +65,12 @@ export function paymentError(error) {
             };
         }
 
-        case constants.errors.DECLINED_INCORRECT_NUMBER: {
+        case constants.errors.INVALID_TOKEN: {
             return { type:
-                types.PAYMENT_ERROR,
+            types.PAYMENT_ERROR,
                 payload: {
                     paymentError: true,
-                    paymentErrorMessage: constants.errorMessages.NUMBER_INCORRECT,
-                },
-            };
-        }
-
-        case constants.errors.DECLINED_INCORRECT_CVC: {
-            return { type:
-                types.PAYMENT_ERROR,
-                payload: {
-                    paymentError: true,
-                    paymentErrorMessage: constants.errorMessages.CVC_INCORRECT,
-                },
-            };
-        }
-
-        case constants.errors.DECLINED_EXPIRED: {
-            return { type:
-                types.PAYMENT_ERROR,
-                payload: {
-                    paymentError: true,
-                    paymentErrorMessage: constants.errorMessages.CARD_EXPIRED,
+                    paymentErrorMessage: constants.errorMessages.DECLINED,
                 },
             };
         }
@@ -76,8 +86,8 @@ export function paymentError(error) {
         }
 
         default: {
-            return {
-                type: types.PAYMENT_ERROR,
+            return { type:
+            types.PAYMENT_ERROR,
                 payload: {
                     paymentError: true,
                     paymentErrorMessage: constants.errorMessages.PROCESSING_ERROR,

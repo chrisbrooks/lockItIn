@@ -4,7 +4,7 @@ import * as payment from '../paymentActions';
 import * as types from '../actionTypes';
 import * as constants from '../../constants';
 import axios from 'axios';
-import stripeMock from '../../../mock/stripe/configureStripe'; // eslint-disable-line
+import stripeMock from '../../mocks/stripe/configureStripe'; // eslint-disable-line
 
 describe('payment loading actions', () => {
     it('should set loading action to true', () => {
@@ -26,30 +26,18 @@ describe('payment error actions', () => {
 
     it('should set the DECLINED payment error message', () => {
         const value = constants.errors.DECLINED;
-        const expectedAction = { type: types.PAYMENT_ERROR, payload: { paymentError: true, paymentErrorMessage: constants.errorMessages.DECLINED } };
+        const expectedAction = { type: types.PAYMENT_ERROR, payload: {
+            paymentError: true,
+            paymentErrorMessage: constants.errorMessages.DECLINED,
+        } };
         expect(payment.paymentError(value)).to.eql(expectedAction);
     });
 
     it('should set the DECLINED_FRAUDULENT payment error message', () => {
         const value = constants.errors.DECLINED_FRAUDULENT;
-        const expectedAction = { type: types.PAYMENT_ERROR, payload: { paymentError: true, paymentErrorMessage: constants.errorMessages.DECLINED } };
-        expect(payment.paymentError(value)).to.eql(expectedAction);
-    });
-
-    it('should set the DECLINED_FRAUDULENT payment error message', () => {
-        const value = constants.errors.DECLINED_INCORRECT_NUMBER;
         const expectedAction = { type: types.PAYMENT_ERROR, payload: {
             paymentError: true,
-            paymentErrorMessage: constants.errorMessages.NUMBER_INCORRECT,
-        } };
-        expect(payment.paymentError(value)).to.eql(expectedAction);
-    });
-
-    it('should set the DECLINED_INCORRECT_CVC payment error message', () => {
-        const value = constants.errors.DECLINED_INCORRECT_CVC;
-        const expectedAction = { type: types.PAYMENT_ERROR, payload: {
-            paymentError: true,
-            paymentErrorMessage: constants.errorMessages.CVC_INCORRECT,
+            paymentErrorMessage: constants.errorMessages.DECLINED_FRAUDULENT,
         } };
         expect(payment.paymentError(value)).to.eql(expectedAction);
     });
@@ -58,7 +46,25 @@ describe('payment error actions', () => {
         const value = constants.errors.DECLINED_EXPIRED;
         const expectedAction = { type: types.PAYMENT_ERROR, payload: {
             paymentError: true,
-            paymentErrorMessage: constants.errorMessages.CARD_EXPIRED,
+            paymentErrorMessage: constants.errorMessages.DECLINED_EXPIRED,
+        } };
+        expect(payment.paymentError(value)).to.eql(expectedAction);
+    });
+
+    it('should set the DECLINED_INCORRECT_CVC payment error message', () => {
+        const value = constants.errors.DECLINED_INCORRECT_CVC;
+        const expectedAction = { type: types.PAYMENT_ERROR, payload: {
+            paymentError: true,
+            paymentErrorMessage: constants.errorMessages.DECLINED_INCORRECT_CVC,
+        } };
+        expect(payment.paymentError(value)).to.eql(expectedAction);
+    });
+
+    it('should set the DECLINED_INCORRECT_CVC payment error message', () => {
+        const value = constants.errors.INVALID_AMOUNT;
+        const expectedAction = { type: types.PAYMENT_ERROR, payload: {
+            paymentError: true,
+            paymentErrorMessage: constants.errorMessages.DECLINED,
         } };
         expect(payment.paymentError(value)).to.eql(expectedAction);
     });
@@ -68,6 +74,16 @@ describe('payment error actions', () => {
         const expectedAction = { type: types.PAYMENT_ERROR, payload: {
             paymentError: true,
             paymentErrorMessage: constants.errorMessages.UNSUPPORTED,
+        } };
+        expect(payment.paymentError(value)).to.eql(expectedAction);
+    });
+
+
+    it('should set the DECLINED_INCORRECT_CVC payment error message', () => {
+        const value = constants.errors.INVALID_TOKEN;
+        const expectedAction = { type: types.PAYMENT_ERROR, payload: {
+            paymentError: true,
+            paymentErrorMessage: constants.errorMessages.DECLINED,
         } };
         expect(payment.paymentError(value)).to.eql(expectedAction);
     });
