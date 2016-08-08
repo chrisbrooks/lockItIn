@@ -40,6 +40,7 @@ if [[ $dockerExitStatus -ne 0 ]]; then
 
   cp package.json $DIRNAME
 
+  echo "docker build --tag $DOCKER_IMAGE_NAME:$dockerImageTag --build-arg sshkeybase64=$SSH_KEY_BASE64 $DIRNAME"
   docker build --tag $DOCKER_IMAGE_NAME:$dockerImageTag --build-arg sshkeybase64=$SSH_KEY_BASE64 $DIRNAME
   docker tag --force $DOCKER_IMAGE_NAME:$dockerImageTag $DOCKER_IMAGE_NAME:latest
 
