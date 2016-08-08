@@ -12,9 +12,7 @@ if [[ (! -d "$appSourceBaseDir/agent") || (! -d "$appSourceBaseDir/dist") ]]; th
   exitError "Script $(basename $0) must be run from the root of the project as agent/$(basename $0)"
 fi
 
-if [[ -z $SSH_KEY_BASE64 ]]; then
-  exitError "Base64 encoded SSH key expected as environment variable"
-fi
+SSH_KEY_BASE64=$(base64 ~/.ssh/id_rsa)
 
 echo ">> Using docker version"
 docker version
