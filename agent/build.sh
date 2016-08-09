@@ -12,8 +12,6 @@ if [[ (! -d "$appSourceBaseDir/agent") || (! -d "$appSourceBaseDir/dist") ]]; th
   exitError "Script $(basename $0) must be run from the root of the project as agent/$(basename $0)"
 fi
 
-SSH_KEY_BASE64=$(base64 ~/.ssh/id_rsa)
-
 echo ">> Using docker version"
 docker version
 
@@ -40,8 +38,7 @@ if [[ $dockerExitStatus -ne 0 ]]; then
 
   cp package.json $DIRNAME
 
-  echo "docker build --tag $DOCKER_IMAGE_NAME:$dockerImageTag --build-arg sshkeybase64=$SSH_KEY_BASE64 $DIRNAME"
-  docker build --tag $DOCKER_IMAGE_NAME:$dockerImageTag --build-arg sshkeybase64=$SSH_KEY_BASE64 $DIRNAME
+  docker build --tag $DOCKER_IMAGE_NAME:$dockerImageTag $DIRNAME
   docker tag --force $DOCKER_IMAGE_NAME:$dockerImageTag $DOCKER_IMAGE_NAME:latest
 
   echo ">> Push build agent to Docker registry"
