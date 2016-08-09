@@ -58,6 +58,6 @@ const config = {
     ],
 };
 
-module.exports = decorateClientConfig(config, {
+module.exports = config, {
     extractTextPlugin: ExtractTextPlugin
-});
+};
