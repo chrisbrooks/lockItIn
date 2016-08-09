@@ -23,7 +23,6 @@ fs.readFile('app/index.html', 'utf8', (readError, markup) => {
 
     // since a separate spreadsheet is only utilized for the
     // production build, need to dynamically add this here.
-    $('head').append('<link rel="stylesheet" href="/styles.css">');
 
     if (useRaygun) {
         if (raygunToken) {

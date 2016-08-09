@@ -17,7 +17,9 @@ const config = {
     // more info:https://webpack.github.io/docs/build-performance.html#sourcemaps
     // and https://webpack.github.io/docs/configuration.html#devtool
     // devtool: 'cheap-source-map',
-    noInfo: true, // set to false to see a list of every file being bundled.
+
+    // set to false to see a list of every file being bundled.
+    noInfo: true,
     entry: [
         // Set up an ES6-ish environment
         'babel-polyfill',

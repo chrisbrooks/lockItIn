@@ -1,7 +1,7 @@
 module.exports = {
     environment: 'production',
     raygunIsEnabled: false,
-    raygunApiKey: null,
+    raygunApiKey: '',
     paymentUrl: 'http://talent.seek.com.au/api/pay',
     stripeAuPublishableKey: '',
     stripeNzPublishableKey: '',
