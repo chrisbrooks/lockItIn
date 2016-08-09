@@ -1,4 +1,3 @@
-const decorateClientConfig = require('seek-style-guide/webpack').decorateClientConfig;
 import webpack from 'webpack';
 import path from 'path';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
