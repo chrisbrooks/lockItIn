@@ -1,4 +1,3 @@
-const decorateClientConfig = require('seek-style-guide/webpack').decorateClientConfig;
 import webpack from 'webpack';
 import path from 'path';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
@@ -11,7 +10,7 @@ const srcPaths = [
     path.resolve(__dirname, './app'),
 ];
 
-const config = {
+export default {
     debug: true,
 
     // more info:https://webpack.github.io/docs/build-performance.html#sourcemaps
@@ -109,7 +108,3 @@ const config = {
         'react/lib/ReactContext': true,
     },
 };
-
-module.exports = decorateClientConfig(config, {
-    extractTextPlugin: ExtractTextPlugin,
-});
