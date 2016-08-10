@@ -1,0 +1,20 @@
+{
+    "predicates": [
+        {
+            "contains": {
+                "body": "\"token\":\"declined_card_token\""
+            }
+        }
+    ],
+    "responses": [
+        {
+            "is": {
+                "statusCode": 400,
+                "headers": {
+                    <% include headers.ejs %>
+                },
+                "body": "Your card was declined."
+            }
+        }
+    ]
+}

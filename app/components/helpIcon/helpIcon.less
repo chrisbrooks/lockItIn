@@ -1,0 +1,121 @@
+@import (reference) "../../static/less/variables";
+
+.helpIconContainer {
+
+    display: inline-block;
+    margin-left:5px;
+    margin-top:-2px;
+
+    .helpIcon {
+        position: relative;
+        color: @sk-pink;
+        cursor: pointer;
+        z-index: 200;
+    }
+
+    .helpIconContentContainer {
+
+        z-index: 10;
+        color: @sk-charcoal;
+        position: fixed;
+        top: 0px;
+        left: 0px;
+        height: 100%;
+        z-index: 100;
+        width: 100%;
+        background-color: @sk-white;
+        border-radius: @sk-border-radius;
+
+        @media only screen and (min-width: @small-device-max-width) {
+            position: absolute;
+            margin-top: -42px;
+            margin-left: 30px;
+            height:auto;
+            width: 302px;
+            border: 1px solid @sk-light-mid-grey;
+            top:auto;
+            left:auto;
+        }
+    }
+
+    .helpIconContent {
+        margin: @default-spacer * 3;
+    }
+
+    .helpIconArrowLeft {
+        width: 0;
+        height: 0;
+        border: 5px solid transparent;
+        border-color: rgba(0, 0, 0, 0); //Required for Firefox
+        display: inline-block;
+        border-right-color: @sk-light-mid-grey;
+        border-width: 10px;
+        margin-right: 10px;
+        position: absolute;
+        top: 22px;
+        left: -21px;
+    }
+
+    .helpIconArrowLeftInner {
+        width: 0;
+        height: 0;
+        border: 5px solid transparent;
+        border-color: rgba(0, 0, 0, 0); //Required for Firefox
+        display: inline-block;
+        border-right-color: @sk-white;
+        border-width: 14px;
+        position: relative;
+        left: -12px;
+        top: -14px;
+    }
+
+    .helpIconCloseIcon {
+        color: @sk-dark-mid-grey;
+        position: absolute;
+        top: 0;
+        right: 0;
+        padding: @default-spacer;
+        z-index: 20;
+        cursor: pointer;
+
+        &:hover {
+            color: @sk-pink;
+        }
+    }
+
+    .helpIconHeading {
+        margin: @default-spacer * 2 0;
+    }
+
+    .helpIconHeadingFirst {
+        margin: 0 0 @default-spacer * 2;
+    }
+
+    .helpImageContainer {
+        display: flex;
+
+        .helpImage {
+            min-width: 143px;
+            height: 72px;
+            background: url('../../static/images/ccvExample.png') no-repeat 0 -72px;
+        }
+
+        .helpImageAmex {
+            &:extend(.helpIconContainer .helpImageContainer .helpImage);
+            background-position: 0 0;
+        }
+
+        .helpImageDescription {
+            margin-top: (@default-spacer * 3);
+        }
+
+        .helpImageDescriptionAmex {
+            margin-top: @default-spacer;
+        }
+    }
+
+}
+
+.issuerVisa {
+    background:red;
+}

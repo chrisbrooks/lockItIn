@@ -1,0 +1,23 @@
+{
+    "protocol": "http",
+    "port": 2626,
+    "requests": [],
+    "stubs": [
+        <% include paymentService/charge_card-not-supported-token.ejs %>,
+        <% include paymentService/charge_charge-amount-invalid.ejs %>,
+        <% include paymentService/charge_declined-card-fraud-token.ejs %>,
+        <% include paymentService/charge_declined-card-token.ejs %>,
+        <% include paymentService/charge_expired-card-token.ejs %>,
+        <% include paymentService/charge_incorrect-cvv-card-token.ejs %>,
+        <% include paymentService/charge_invalid-token.ejs %>,
+        <% include paymentService/charge_success.ejs %>,
+        <% include options.ejs %>,
+        <% include notFound.ejs %>
+    ],
+    "_links": {
+        "self": {
+            "href": "http://localhost:2525/imposters/",
+            "logs": "http://localhost:2525/logs"
+        }
+    }
+}

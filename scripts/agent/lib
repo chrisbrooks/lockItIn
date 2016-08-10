@@ -1,0 +1,13 @@
+function exitError {
+
+  echo "Error: $1" >&2
+  exit 1
+}
+
+function dockerCatchError {
+
+  set +e
+  docker $@
+  dockerExitStatus=$?
+  set -e
+}
