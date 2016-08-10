@@ -17,7 +17,7 @@
     "prebuild": "npm run clean-dist && npm run build:html && npm run test",
     "build": "babel-node scripts/build.js && npm run open:dist",
     "test": "mocha scripts/testSetup.js \"app/**/*.test.js\" --reporter progress",
-    "test:tc" : "mocha scripts/testSetup.js \"app/**/*.test.js\" --reporter mocha-teamcity-reporter",
+    "test:tc": "mocha scripts/testSetup.js \"app/**/*.test.js\" --reporter mocha-teamcity-reporter",
     "test:cover": "babel-node node_modules/isparta/bin/isparta cover --root app --report html node_modules/mocha/bin/_mocha -- --require ./scripts/testSetup.js \"app/**/*.test.js\" --reporter progress",
     "test:watch": "npm run test -- --watch"
   },
@@ -85,6 +85,7 @@
     "less": "2.7.1",
     "less-loader": "2.2.3",
     "mocha": "2.4.5",
+    "mocha-teamcity-reporter": "1.0.2",
     "mountebank": "1.4.0",
     "npm-run-all": "1.8.0",
     "postcss-loader": "0.8.0",
