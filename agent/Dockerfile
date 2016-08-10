@@ -4,7 +4,7 @@ FROM mhart/alpine-node:4.4.7
 RUN apk add --no-cache bash
 
 # cache required application npm modules for both production and development builds
-ADD package.json .
+ADD ../package.json .
 
 ENV NODE_ENV production
 RUN npm install --loglevel warn && \
@@ -17,7 +17,6 @@ ENV NODE_ENV development
 RUN npm install --loglevel warn && \
   echo "development node module versions:" && \
   npm list || true && \
-  node_modules/.bin/selenium-standalone install && \
   tar -czf /node_modules_dev.tar node_modules && \
   rm -rf node_modules
 
