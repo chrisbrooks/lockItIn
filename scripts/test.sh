@@ -4,11 +4,9 @@ DIRNAME=$(dirname $0)
 
 echo "Test: started"
 
-ORIG=$(pwd)
+packageTasksDir="$DIRNAME/tasks"
 
-cd DIRNAME
-npm i
-npm run test:tc
-cd $ORIG
+$packageTasksDir/install.sh
+$packageTasksDir/test-unit.sh
 
 echo "Test: finished"

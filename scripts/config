@@ -1,0 +1,8 @@
+DIST_DIR="dist"
+
+DOCKER_IMAGE_NAME="dockerregistry-v2.seekinfra.com/advertiser/adcentre-invoice-payment-ui-build-agent"
+
+S3_BUCKET_NAME="seek-advertiser-static-site-494306307743"
+STAGING_BUCKET_PATH="/hirer/payments/staging"
+STAGING_BUCKET_PATH="/hirer/payments/production"
+ASSET_MAX_AGE_SECONDS="2419200" # 28 days
