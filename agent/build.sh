@@ -36,6 +36,8 @@ if [[ $dockerExitStatus -ne 0 ]]; then
   echo ">> Pulling latest image for $DOCKER_IMAGE_NAME for layer caching"
   dockerCatchError pull $DOCKER_IMAGE_NAME:latest
 
+  cp package.json $DIRNAME
+
   docker build --tag $DOCKER_IMAGE_NAME:$dockerImageTag $DIRNAME
   docker tag $DOCKER_IMAGE_NAME:$dockerImageTag $DOCKER_IMAGE_NAME:latest
 
@@ -43,6 +45,8 @@ if [[ $dockerExitStatus -ne 0 ]]; then
   docker push $DOCKER_IMAGE_NAME:$dockerImageTag
   docker push $DOCKER_IMAGE_NAME:latest
 
+  echo ">> Remove package.json from agent path"
+  rm -f $DIRNAME/package.json
 else
   echo ">> Docker build agent version $dockerImageTag exists - skipping create process"
 fi

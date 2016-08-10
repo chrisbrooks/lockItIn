@@ -4,7 +4,7 @@ FROM mhart/alpine-node:4.4.7
 RUN apk add --no-cache bash
 
 # cache required application npm modules for both production and development builds
-ADD ../package.json .
+ADD package.json .
 
 ENV NODE_ENV production
 RUN npm install --loglevel warn && \
