@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-import React from 'react';
-=======
 import styles from './paymentForm.less';
 import React, { PropTypes } from 'react';
 import NumberFormat from 'react-number-format';
