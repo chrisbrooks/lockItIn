@@ -5,8 +5,8 @@ DOCKER_IMAGE_NAME="dockerregistry-v2.seekinfra.com/advertiser/adcentre-invoice-p
 S3_BUCKET_NAME="seek-advertiser-static-site-494306307743"
 STAGING_BUCKET_PATH="/hirer/payments/staging"
 PRODUCTION_BUCKET_PATH="/hirer/payments/production"
-CDN_S3_BUCKET_NAME
-CDN_STAGING_BUCKET_PATH="/hirer/payments/staging"
-CDN_PRODUCTION_BUCKET_PATH="/hirer/payments/production"
+CDN_S3_BUCKET_NAME="seek-cdn"
+CDN_STAGING_BUCKET_PATH="/hirer/talent/payments/staging"
+CDN_PRODUCTION_BUCKET_PATH="/hirer/talent/payments/production"
 
 ASSET_MAX_AGE_SECONDS="2419200" # 28 days
