@@ -53,13 +53,14 @@ elif [[ $environment = "production" ]]; then
     staticBuildTargetS3Path="$CDN_S3_BUCKET_NAME/$CDN_PRODUCTION_BUCKET_PATH/$appBuildNumber"
 else
     exitError "Cannont deploy asset to unknown environment $environment"
+fi
 
 echo "Publishing static assets to S3 bucket $staticBuildTargetS3Path"
 
 # compress and publish assets
-compressAndPushAsset "$DIST_DIR/app-write-review.js" "$staticBuildTargetS3Path/app-write-review.js"
-compressAndPushAsset "$DIST_DIR/app-write-review.css" "$staticBuildTargetS3Path/app-write-review.css"
-compressAndPushAsset "$DIST_DIR/favicon.ico" "$staticBuildTargetS3Path/favicon.ico"
+# compressAndPushAsset "$DIST_DIR/app-write-review.js" "$staticBuildTargetS3Path/app-write-review.js"
+# compressAndPushAsset "$DIST_DIR/app-write-review.css" "$staticBuildTargetS3Path/app-write-review.css"
+# compressAndPushAsset "$DIST_DIR/favicon.ico" "$staticBuildTargetS3Path/favicon.ico"
 
 # success
 exit 0
