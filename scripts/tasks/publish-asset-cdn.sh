@@ -35,6 +35,8 @@ if [[ (-z $AWS_ACCESS_KEY_ID) || (-z $AWS_SECRET_ACCESS_KEY) ]]; then
   exitError "Missing AWS access key / secret access key credentials"
 fi
 
+ls $DIST_DIR
+
 # do expected static assets exist?
 if [[ (! -f "$DIST_DIR/style.css") || (! -f "$DIST_DIR/bundle.js") ]]; then
   exitError "Unable to locate expected build static assets"
@@ -55,9 +57,9 @@ else
 echo "Publishing static assets to S3 bucket $staticBuildTargetS3Path"
 
 # compress and publish assets
-# compressAndPushAsset "$DIST_DIR/app-write-review.js" "$staticBuildTargetS3Path/app-write-review.js"
-# compressAndPushAsset "$DIST_DIR/app-write-review.css" "$staticBuildTargetS3Path/app-write-review.css"
-# compressAndPushAsset "$DIST_DIR/favicon.ico" "$staticBuildTargetS3Path/favicon.ico"
+compressAndPushAsset "$DIST_DIR/app-write-review.js" "$staticBuildTargetS3Path/app-write-review.js"
+compressAndPushAsset "$DIST_DIR/app-write-review.css" "$staticBuildTargetS3Path/app-write-review.css"
+compressAndPushAsset "$DIST_DIR/favicon.ico" "$staticBuildTargetS3Path/favicon.ico"
 
 # success
 exit 0
