@@ -7,7 +7,7 @@ import { chalkError, chalkSuccess, chalkWarning, chalkProcessing } from './chalk
 
 // this ensures React is built in prod mode
 // and that the Babel dev config doesn't apply.
-process.env.NODE_ENV = 'production';
+process.env.NODE_ENV = process.env.NODE_ENV || 'production';
 
 console.log(
     chalkProcessing(

@@ -3,11 +3,3 @@ function exitError {
   echo "Error: $1" >&2
   exit 1
 }
-
-function generateBuildReleasePackageName {
-
-	# $1 = application semver build number
-	# $2 = Git commit SHA1
-
-	echo -n "$1-${2:0:7}"
-}
