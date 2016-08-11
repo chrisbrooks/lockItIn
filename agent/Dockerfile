@@ -4,7 +4,7 @@ FROM mhart/alpine-node:4.4.7
 RUN apk add --no-cache bash
 
 # install AWS_CLI
-mkdir -p /aws && \
+RUN mkdir -p /aws && \
 apk -Uuv add groff less python py-pip && \
 pip install awscli && \
 apk --purge -v del py-pip && \
