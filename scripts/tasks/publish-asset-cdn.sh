@@ -46,9 +46,9 @@ if [[ ! $environment ]]; then
 fi
 
 if [[ $environment = "staging" ]]; then
-    staticBuildTargetS3Path="$CDN_S3_BUCKET_NAME/$CDN_STAGING_BUCKET_PATH/$appBuildNumber"
+    staticBuildTargetS3Path="s3://$CDN_S3_BUCKET_NAME/$CDN_STAGING_BUCKET_PATH/$appBuildNumber"
 elif [[ $environment = "production" ]]; then
-    staticBuildTargetS3Path="$CDN_S3_BUCKET_NAME/$CDN_PRODUCTION_BUCKET_PATH/$appBuildNumber"
+    staticBuildTargetS3Path="s3://$CDN_S3_BUCKET_NAME/$CDN_PRODUCTION_BUCKET_PATH/$appBuildNumber"
 else
     exitError "Cannont deploy asset to unknown environment $environment"
 fi
