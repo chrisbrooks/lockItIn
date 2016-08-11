@@ -2,11 +2,8 @@ import webpack from 'webpack';
 import path from 'path';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 
-// Jackhackattack don't know why this is neeeded but it is... 
-const env = process.env.NODE_ENV || 'production'
-
 const GLOBALS = {
-    'process.env.NODE_ENV': JSON.stringify(env),
+    'process.env.NODE_ENV': JSON.stringify('production'),
     __DEV__: false,
 };
 
