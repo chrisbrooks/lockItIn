@@ -4,7 +4,6 @@ DIRNAME=$(dirname $0)
 AWS_CLI_BIN=$(which aws || true)
 
 function compressAndPushAsset {
-echo "key: $AWS_ACCESS_KEY_ID secret: $AWS_SECRET_ACCESS_KEY"
 
   echo ">> Compressing static asset $1 > $1.gz"
   gzip -c9 $1 > $1.gz
@@ -59,7 +58,7 @@ echo "Publishing static assets to S3 bucket $staticBuildTargetS3Path"
 # compress and publish assets
 for f in $(find $DIST_DIR -type f)
 do
-    compressAndPushAsset "$f" "$staticBuildTargetS3Path/$f"
+    compressAndPushAsset "${f#*/}" "$staticBuildTargetS3Path/$f"
 done
 
 # success
