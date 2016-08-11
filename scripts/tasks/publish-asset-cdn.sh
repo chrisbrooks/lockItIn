@@ -58,7 +58,7 @@ echo "Publishing static assets to S3 bucket $staticBuildTargetS3Path"
 # compress and publish assets
 for f in $(find $DIST_DIR -type f)
 do
-    compressAndPushAsset "${f#*/}" "$staticBuildTargetS3Path/$f"
+    compressAndPushAsset "$f" "$staticBuildTargetS3Path/${f#*/}"
 done
 
 # success
