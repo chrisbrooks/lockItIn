@@ -4,6 +4,7 @@ DIRNAME=$(dirname $0)
 AWS_CLI_BIN=$(which aws || true)
 
 function compressAndPushAsset {
+echo "key: $AWS_ACCESS_KEY_ID secret: $AWS_SECRET_ACCESS_KEY"
 
   echo ">> Compressing static asset $1 > $1.gz"
   gzip -c9 $1 > $1.gz
