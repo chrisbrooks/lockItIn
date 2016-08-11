@@ -3,6 +3,13 @@ FROM mhart/alpine-node:4.4.7
 # alpine does not come with bash :(
 RUN apk add --no-cache bash
 
+# install AWS_CLI
+mkdir -p /aws && \
+apk -Uuv add groff less python py-pip && \
+pip install awscli && \
+apk --purge -v del py-pip && \
+rm /var/cache/apk/*
+
 # cache required application npm modules for both production and development builds
 ADD package.json .
 

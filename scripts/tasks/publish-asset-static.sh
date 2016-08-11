@@ -9,7 +9,7 @@ function compressAndPushAsset {
   gzip -c9 $1 > $1.gz
 
   echo ">> Pushing $1.gz to $2"
-  $AWS_CLI_BIN s3 cp \
+  aws s3 cp \
     --region $AWSRegion \
     --cache-control max-age=$ASSET_MAX_AGE_SECONDS \
     --content-encoding gzip \
@@ -28,11 +28,6 @@ fi
 appBuildNumber=$2
 if [[ ! $appBuildNumber =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
   exitError "Application build number in correct format required as second argument"
-fi
-
-# check for required binaries
-if [[ ! -x $AWS_CLI_BIN ]]; then
-  exitError "AWS CLI tools not installed"
 fi
 
 # validate AWS access key credentials are defined as environment variables
