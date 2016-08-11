@@ -101,8 +101,6 @@ export default {
         require('postcss-local-scope'),
     ],
 
-    configEnvironment: 'production',
-
     externals: {
         'react/addons': true,
         'react/lib/ExecutionEnvironment': true,
