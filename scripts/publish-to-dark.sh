@@ -29,7 +29,7 @@ if [[ -n $DOCKER_BUILD_CONTAINER ]]; then
   $packageTasksDir/environment-setup.sh $environment
 fi
 
-$packageTasksDir/clean.sh $DIST_DIR
+# $packageTasksDir/clean.sh $DIST_DIR
 $packageTasksDir/install.sh
 $packageTasksDir/compile.sh
 
