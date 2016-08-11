@@ -33,7 +33,7 @@ fi
 $packageTasksDir/install.sh
 $packageTasksDir/compile.sh
 
-$packageTasksDir/publish-asset-cdn.sh $AWSRegion $appBuildNumber
+$packageTasksDir/publish-asset-cdn.sh $AWSRegion $appBuildNumber $environment
 #$packageTasksDir/publish-html-s3.sh $AWSRegion $appBuildNumber $environment
 
 echo "Publish: finished"
