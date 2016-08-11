@@ -8,7 +8,7 @@ import historyApiFallback from 'connect-history-api-fallback';
 
 // Run Browsersync
 browserSync({
-    port: 80,
+    port: 8080,
     ui: {
         port: 3001,
     },
