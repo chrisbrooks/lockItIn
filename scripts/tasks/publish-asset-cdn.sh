@@ -56,9 +56,10 @@ fi
 echo "Publishing static assets to S3 bucket $staticBuildTargetS3Path"
 
 # compress and publish assets
-# compressAndPushAsset "$DIST_DIR/app-write-review.js" "$staticBuildTargetS3Path/app-write-review.js"
-# compressAndPushAsset "$DIST_DIR/app-write-review.css" "$staticBuildTargetS3Path/app-write-review.css"
-# compressAndPushAsset "$DIST_DIR/favicon.ico" "$staticBuildTargetS3Path/favicon.ico"
+for f in $(find $DIST_DIR -type f)
+do
+    compressAndPushAsset "$f" "$staticBuildTargetS3Path/$f"
+done
 
 # success
 exit 0
