@@ -25,9 +25,11 @@ if [[ (-z $AWS_ACCESS_KEY_ID) || (-z $AWS_SECRET_ACCESS_KEY) ]]; then
   exitError "Missing AWS access key / secret access key credentials"
 fi
 
+echo "ls -la"
 ls -la
+echo "ls dist/"
 ls dist/
-ls $DIST_DIR
+echo "DIST_DIR $DIST_DIR"
 
 # do expected static assets exist?
 if [[ (! -f "$DIST_DIR/style.css") || (! -f "$DIST_DIR/bundle.js") ]]; then
