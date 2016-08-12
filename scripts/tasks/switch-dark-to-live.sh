@@ -2,6 +2,7 @@
 set -e
 
 DIRNAME=$(dirname $0)
+AWS_CLI_BIN=$(which aws || true)
 
 . "$DIRNAME/../config"
 . "$DIRNAME/../lib"
