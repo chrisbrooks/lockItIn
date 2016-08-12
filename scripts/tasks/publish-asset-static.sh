@@ -1,7 +1,6 @@
 #!/bin/bash -e
 
 DIRNAME=$(dirname $0)
-AWS_CLI_BIN=$(which aws || true)
 
 . "$DIRNAME/../config"
 . "$DIRNAME/../lib"
@@ -37,15 +36,19 @@ fi
 
 if [[ $environment = "staging" ]]; then
     staticBuildTargetS3Path="s3://$S3_BUCKET_NAME/$STAGING_BUCKET_PATH"
+    cdnHTTPPath="http://seek-cdn.com/$CDN_STAGING_BUCKET_PATH"
 elif [[ $environment = "production" ]]; then
     staticBuildTargetS3Path="s3://$S3_BUCKET_NAME/$PRODUCTION_BUCKET_PATH"
+    cdnHTTPPath="http://seek-cdn.com/$CDN_PRODUCTION_BUCKET_PATH"
 else
     exitError "Cannont deploy asset to unknown environment $environment"
 fi
 
 echo "Publishing static assets to S3 bucket $staticBuildTargetS3Path"
 
-#TODO fiddle with index.html to point to CDN assets
+#Fiddle with index.html to point to CDN assets
+sed -i "" "s@bundle.js@$cdnHTTPPath/bundle.js@" $DIST_DIR/index.html
+sed -i "" "s@style.css@$cdnHTTPPath/style.css@" $DIST_DIR/index.html
 
 # compress and publish assets
 
