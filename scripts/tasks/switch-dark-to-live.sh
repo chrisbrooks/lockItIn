@@ -1,13 +1,21 @@
-#!/bin/bash -e
+#!/usr/bin/env bash
+set -e
 
 DIRNAME=$(dirname $0)
-AWS_CLI_BIN=$(which aws || true)
 
 . "$DIRNAME/../config"
 . "$DIRNAME/../lib"
 
 # We need to use max-age to do cachebusting on the static assets
 ASSET_MAX_AGE_SECONDS="30" # 30 secs
+
+function pushAsset {
+  echo ">> Pushing assets from $1 to $2"
+  aws s3 cp \
+    --region "$AWSRegion" \
+    --cache-control max-age=$ASSET_MAX_AGE_SECONDS \
+    "$1" "$2"
+}
 
 # fetch command line arguments
 AWSRegion=$1
@@ -20,19 +28,19 @@ if [[ ! $appBuildNumber =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
   exitError "Application build number in correct format required as second argument"
 fi
 
-# validate AWS access key credentials are defined as environment variables
-if [[ (-z $AWS_ACCESS_KEY_ID) || (-z $AWS_SECRET_ACCESS_KEY) ]]; then
-  exitError "Missing AWS access key / secret access key credentials"
-fi
-
-# do expected static assets exist?
-if [[ (! -f "$DIST_DIR/style.css") || (! -f "$DIST_DIR/bundle.js") ]]; then
-  exitError "Unable to locate expected build static assets"
-fi
-
 environment=$3
 if [[ ! $environment ]]; then
   exitError "Application environment is required as third argument"
+fi
+
+# check for required binaries
+if [[ ! -x $AWS_CLI_BIN ]]; then
+  exitError "AWS CLI tools not installed"
+fi
+
+# validate AWS access key credentials are defined as environment variables
+if [[ (-z $AWS_ACCESS_KEY_ID) || (-z $AWS_SECRET_ACCESS_KEY) ]]; then
+  exitError "Missing AWS access key / secret access key credentials"
 fi
 
 if [[ $environment = "staging" ]]; then
@@ -45,11 +53,8 @@ fi
 
 echo "Publishing static assets to S3 bucket $staticBuildTargetS3Path"
 
-#TODO fiddle with index.html to point to CDN assets
-
 # compress and publish assets
-
-compressAndPushAsset "$DIST_DIR/index.html" "$staticBuildTargetS3Path/index-${appBuildNumber}.html"
+compressAndPushAsset "$staticBuildTargetS3Path/index-$appBuildNumber.html" "$staticBuildTargetS3Path/index.html"
 
 # success
 exit 0
