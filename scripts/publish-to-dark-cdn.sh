@@ -23,6 +23,8 @@ if [[ ! $environment ]]; then
   exitError "Application environment is required as third argument"
 fi
 
+echo "Publishing to environment: $environment"
+
 packageTasksDir="$DIRNAME/tasks"
 
 if [[ -n $DOCKER_BUILD_CONTAINER ]]; then
@@ -34,6 +36,5 @@ $packageTasksDir/install.sh
 $packageTasksDir/compile.sh
 
 $packageTasksDir/publish-asset-cdn.sh $AWSRegion $appBuildNumber $environment
-#$packageTasksDir/publish-html-s3.sh $AWSRegion $appBuildNumber $environment
 
 echo "Publish: finished"

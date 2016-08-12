@@ -8,5 +8,3 @@ PRODUCTION_BUCKET_PATH="hirer/payments/production"
 CDN_S3_BUCKET_NAME="seek-cdn"
 CDN_STAGING_BUCKET_PATH="hirer/payments/staging"
 CDN_PRODUCTION_BUCKET_PATH="hirer/payments/production"
-
-ASSET_MAX_AGE_SECONDS="2419200" # 28 days

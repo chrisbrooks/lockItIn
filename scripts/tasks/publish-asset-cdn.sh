@@ -3,21 +3,11 @@
 DIRNAME=$(dirname $0)
 AWS_CLI_BIN=$(which aws || true)
 
-function compressAndPushAsset {
-
-  echo ">> Compressing static asset $1 > $1.gz"
-  gzip -c9 $1 > $1.gz
-
-  echo ">> Pushing $1.gz to $2"
-  aws s3 cp \
-    --region $AWSRegion \
-    --cache-control max-age=$ASSET_MAX_AGE_SECONDS \
-    --content-encoding gzip \
-    $1.gz $2
-}
-
 . "$DIRNAME/../config"
 . "$DIRNAME/../lib"
+
+# CDN Assets get cachebusted by versioning - keep for as long as possible
+ASSET_MAX_AGE_SECONDS="2419200" # 28 days
 
 # fetch command line arguments
 AWSRegion=$1
@@ -53,7 +43,7 @@ else
     exitError "Cannont deploy asset to unknown environment $environment"
 fi
 
-echo "Publishing static assets to S3 bucket $staticBuildTargetS3Path"
+echo "Publishing CDN assets to S3 bucket $staticBuildTargetS3Path"
 
 # compress and publish assets
 for f in $(find $DIST_DIR -type f)
