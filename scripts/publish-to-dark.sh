@@ -23,6 +23,8 @@ if [[ ! $environment ]]; then
   exitError "Application environment is required as third argument"
 fi
 
+echo "Publishing to environment: $environment"
+
 packageTasksDir="$DIRNAME/tasks"
 
 if [[ -n $DOCKER_BUILD_CONTAINER ]]; then
