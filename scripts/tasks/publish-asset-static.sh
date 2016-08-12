@@ -3,21 +3,11 @@
 DIRNAME=$(dirname $0)
 AWS_CLI_BIN=$(which aws || true)
 
-function compressAndPushAsset {
-
-  echo ">> Compressing static asset $1 > $1.gz"
-  gzip -c9 $1 > $1.gz
-
-  echo ">> Pushing $1.gz to $2"
-  aws s3 cp \
-    --region $AWSRegion \
-    --cache-control max-age=$ASSET_MAX_AGE_SECONDS \
-    --content-encoding gzip \
-    $1.gz $2
-}
-
 . "$DIRNAME/../config"
 . "$DIRNAME/../lib"
+
+# We need to use max-age to do cachebusting on the static assets
+ASSET_MAX_AGE_SECONDS="30" # 30 secs
 
 # fetch command line arguments
 AWSRegion=$1
@@ -36,7 +26,7 @@ if [[ (-z $AWS_ACCESS_KEY_ID) || (-z $AWS_SECRET_ACCESS_KEY) ]]; then
 fi
 
 # do expected static assets exist?
-if [[ (! -f "$DIST_DIR/app-write-review.css") || (! -f "$DIST_DIR/app-write-review.js") ]]; then
+if [[ (! -f "$DIST_DIR/style.css") || (! -f "$DIST_DIR/bundle.js") ]]; then
   exitError "Unable to locate expected build static assets"
 fi
 
@@ -46,18 +36,20 @@ if [[ ! $environment ]]; then
 fi
 
 if [[ $environment = "staging" ]]; then
-    staticBuildTargetS3Path="$S3_BUCKET_NAME/$STAGING_BUCKET_PATH/$appBuildNumber"
+    staticBuildTargetS3Path="s3://$S3_BUCKET_NAME/$STAGING_BUCKET_PATH"
 elif [[ $environment = "production" ]]; then
-    staticBuildTargetS3Path="$S3_BUCKET_NAME/$PRODUCTION_BUCKET_PATH/$appBuildNumber"
+    staticBuildTargetS3Path="s3://$S3_BUCKET_NAME/$PRODUCTION_BUCKET_PATH"
 else
     exitError "Cannont deploy asset to unknown environment $environment"
+fi
 
 echo "Publishing static assets to S3 bucket $staticBuildTargetS3Path"
 
+#TODO fiddle with index.html to point to CDN assets
+
 # compress and publish assets
-# compressAndPushAsset "$DIST_DIR/app-write-review.js" "$staticBuildTargetS3Path/app-write-review.js"
-# compressAndPushAsset "$DIST_DIR/app-write-review.css" "$staticBuildTargetS3Path/app-write-review.css"
-# compressAndPushAsset "$DIST_DIR/favicon.ico" "$staticBuildTargetS3Path/favicon.ico"
+
+compressAndPushAsset "$DIST_DIR/index.html" "$staticBuildTargetS3Path/index-${appBuildNumber}.html"
 
 # success
 exit 0
