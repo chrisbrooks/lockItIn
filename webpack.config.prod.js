@@ -39,8 +39,8 @@ export default {
         new webpack.DefinePlugin(GLOBALS),
         new webpack.NoErrorsPlugin(),
         new ExtractTextPlugin('style.css', { allChunks: true }),
-        new webpack.optimize.DedupePlugin(),
-        new webpack.optimize.UglifyJsPlugin(),
+        //new webpack.optimize.DedupePlugin(),
+        //new webpack.optimize.UglifyJsPlugin(),
     ],
     module: {
         loaders: [
