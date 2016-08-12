@@ -55,7 +55,7 @@ fi
 echo "Publishing static assets to S3 bucket $staticBuildTargetS3Path"
 
 # compress and publish assets
-compressAndPushAsset "$staticBuildTargetS3Path/index-$appBuildNumber.html" "$staticBuildTargetS3Path/index.html"
+pushAsset "$staticBuildTargetS3Path/index-$appBuildNumber.html" "$staticBuildTargetS3Path/index.html"
 
 # success
 exit 0
