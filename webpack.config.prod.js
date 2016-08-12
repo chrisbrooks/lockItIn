@@ -29,7 +29,6 @@ export default {
     output: {
         // Note: Physical files are only output by the production build task `npm run build`.
         path: `${__dirname}/dist`,
-
         filename: 'bundle.js',
     },
     plugins: [
@@ -39,8 +38,9 @@ export default {
         new webpack.DefinePlugin(GLOBALS),
         new webpack.NoErrorsPlugin(),
         new ExtractTextPlugin('style.css', { allChunks: true }),
-        //new webpack.optimize.DedupePlugin(),
-        //new webpack.optimize.UglifyJsPlugin(),
+        new webpack.optimize.DedupePlugin(),
+        new webpack.optimize.UglifyJsPlugin(),
+
     ],
     module: {
         loaders: [
