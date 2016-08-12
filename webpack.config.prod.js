@@ -3,7 +3,7 @@ import path from 'path';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 
 const GLOBALS = {
-    'process.env.NODE_ENV': JSON.stringify('staging'),
+    'process.env.NODE_ENV': JSON.stringify('production'),
     __DEV__: false,
 };
 
@@ -20,9 +20,6 @@ export default {
         // Set up an ES6-ish environment
         'babel-polyfill',
 
-        // hot reload
-        'webpack-hot-middleware/client?reload=true',
-
         // Application
         './app/index',
     ],
@@ -33,9 +30,6 @@ export default {
         // Note: Physical files are only output by the production build task `npm run build`.
         path: `${__dirname}/dist`,
 
-        // Use absolute paths to avoid the way that URLs are resolved by Chrome
-        // when they're parsed from a dynamically loaded CSS blob. Note: Only necessary in Dev.
-        publicPath: '/',
         filename: 'bundle.js',
     },
     plugins: [
@@ -43,12 +37,10 @@ export default {
 
         // Tells React to build in prod mode. https://facebook.github.io/react/downloads.html
         new webpack.DefinePlugin(GLOBALS),
-        new webpack.HotModuleReplacementPlugin(),
         new webpack.NoErrorsPlugin(),
         new ExtractTextPlugin('style.css', { allChunks: true }),
         new webpack.optimize.DedupePlugin(),
         new webpack.optimize.UglifyJsPlugin(),
-
     ],
     module: {
         loaders: [
