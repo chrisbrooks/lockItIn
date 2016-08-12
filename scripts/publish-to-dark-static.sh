@@ -31,8 +31,6 @@ if [[ -n $DOCKER_BUILD_CONTAINER ]]; then
   $packageTasksDir/environment-setup.sh $environment
 fi
 
-echo "Extracting build assets"
-
 if [[ ( -f "dist.tar.gz") ]]; then
     echo "Extracting build assets"
     tar -zxvf dist.tar.gz
