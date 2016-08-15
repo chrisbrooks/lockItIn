@@ -82,7 +82,6 @@ export default {
                 loader: 'file-loader?name=fonts/[name].[ext]&limit=10000&mimetype=image/svg+xml',
             },
             { test: /\.(jpe?g|png|gif)$/i, include: srcPaths, loaders: ['file?name=images/[name].[ext]'] },
-            { test: /\.ico$/, include: srcPaths, loader: 'file-loader?name=images/[name].[ext]' },
             {
                 test: /\.less$/,
                 include: srcPaths,
