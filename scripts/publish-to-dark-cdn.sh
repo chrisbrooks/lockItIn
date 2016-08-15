@@ -23,7 +23,6 @@ echo "Publishing to environment: $AWS_ENVIRONMENT_NAME"
 packageTasksDir="$DIRNAME/tasks"
 
 
-# $packageTasksDir/clean.sh $DIST_DIR
 $packageTasksDir/install.sh
 $packageTasksDir/compile.sh
 
