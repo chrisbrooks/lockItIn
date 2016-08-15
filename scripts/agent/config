@@ -1,4 +1,0 @@
-DOCKER_SOCKET="/var/run/docker.sock"
-DOCKER_IMAGE_NAME="dockerregistry-v2.seekinfra.com/advertiser/adcentre-invoice-payment-ui-build-agent"
-DOCKER_BUILD_AGENT_WORKING_DIR="/var/adcentre-invoice-payment-ui"
-DOCKER_BUILD_AGENT_LOCAL_HOSTNAME="adcentre-invoice-payment-ui.dev"

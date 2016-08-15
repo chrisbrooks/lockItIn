@@ -4,6 +4,7 @@ import ExtractTextPlugin from 'extract-text-webpack-plugin';
 
 const GLOBALS = {
     'process.env.NODE_ENV': JSON.stringify('production'),
+    'process.env.AWS_ENVIRONMENT_NAME': JSON.stringify(process.env.AWS_ENVIRONMENT_NAME),
     __DEV__: false,
 };
 
@@ -20,9 +21,6 @@ export default {
         // Set up an ES6-ish environment
         'babel-polyfill',
 
-        // hot reload
-        'webpack-hot-middleware/client?reload=true',
-
         // Application
         './app/index',
     ],
@@ -32,10 +30,6 @@ export default {
     output: {
         // Note: Physical files are only output by the production build task `npm run build`.
         path: `${__dirname}/dist`,
-
-        // Use absolute paths to avoid the way that URLs are resolved by Chrome
-        // when they're parsed from a dynamically loaded CSS blob. Note: Only necessary in Dev.
-        publicPath: '/',
         filename: 'bundle.js',
     },
     plugins: [
@@ -43,7 +37,6 @@ export default {
 
         // Tells React to build in prod mode. https://facebook.github.io/react/downloads.html
         new webpack.DefinePlugin(GLOBALS),
-        new webpack.HotModuleReplacementPlugin(),
         new webpack.NoErrorsPlugin(),
         new ExtractTextPlugin('style.css', { allChunks: true }),
         new webpack.optimize.DedupePlugin(),
@@ -81,11 +74,15 @@ export default {
             },
             {
                 test: /\.svg(\?v=\d+.\d+.\d+)?$/,
-                include: srcPaths,
+                include: path.resolve(__dirname, "app/static/images"),
+                loader: 'file-loader?name=images/[name].[ext]&limit=10000&mimetype=image/svg+xml',
+            },
+            {
+                test: /\.svg(\?v=\d+.\d+.\d+)?$/,
+                include: path.resolve(__dirname, "app/static/fonts"),
                 loader: 'file-loader?name=fonts/[name].[ext]&limit=10000&mimetype=image/svg+xml',
             },
             { test: /\.(jpe?g|png|gif)$/i, include: srcPaths, loaders: ['file?name=images/[name].[ext]'] },
-            { test: /\.ico$/, include: srcPaths, loader: 'file-loader?name=images/[name].[ext]' },
             {
                 test: /\.less$/,
                 include: srcPaths,
@@ -100,8 +97,6 @@ export default {
         require('autoprefixer'),
         require('postcss-local-scope'),
     ],
-
-    configEnvironment: 'production',
 
     externals: {
         'react/addons': true,

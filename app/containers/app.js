@@ -18,7 +18,6 @@ import PaymentInfo from '../components/paymentInfo/paymentInfo';
 import PaymentForm from '../components/paymentForm/paymentForm';
 import PaymentSuccess from '../components/paymentSuccess/paymentSuccess';
 import { stripeAuPublishableKey, stripeNzPublishableKey } from '../../config.js'; // eslint-disable-line
-
 const validate = require('card-validator');
 
 export class App extends React.Component {

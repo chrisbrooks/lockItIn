@@ -4,10 +4,15 @@ function exitError {
   exit 1
 }
 
-function generateBuildReleasePackageName {
+function compressAndPushAsset {
 
-	# $1 = application semver build number
-	# $2 = Git commit SHA1
+  echo ">> Compressing static asset $1 > $1.gz"
+  gzip -c9 $1 > $1.gz
 
-	echo -n "$1-${2:0:7}"
+  echo ">> Pushing $1.gz to $2"
+  aws s3 cp \
+    --region $AWSRegion \
+    --cache-control max-age=$ASSET_MAX_AGE_SECONDS \
+    --content-encoding gzip \
+    $1.gz $2
 }
