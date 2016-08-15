@@ -104,5 +104,5 @@ export default {
         'react/addons': true,
         'react/lib/ExecutionEnvironment': true,
         'react/lib/ReactContext': true,
-    }
+    },
 };

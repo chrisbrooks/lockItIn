@@ -29,7 +29,6 @@ export default {
     output: {
         // Note: Physical files are only output by the production build task `npm run build`.
         path: `${__dirname}/dist`,
-
         filename: 'bundle.js',
     },
     plugins: [
@@ -39,8 +38,9 @@ export default {
         new webpack.DefinePlugin(GLOBALS),
         new webpack.NoErrorsPlugin(),
         new ExtractTextPlugin('style.css', { allChunks: true }),
-        //new webpack.optimize.DedupePlugin(),
-        //new webpack.optimize.UglifyJsPlugin(),
+        new webpack.optimize.DedupePlugin(),
+        new webpack.optimize.UglifyJsPlugin(),
+
     ],
     module: {
         loaders: [
@@ -73,7 +73,12 @@ export default {
             },
             {
                 test: /\.svg(\?v=\d+.\d+.\d+)?$/,
-                include: srcPaths,
+                include: path.resolve(__dirname, "app/static/images"),
+                loader: 'file-loader?name=images/[name].[ext]&limit=10000&mimetype=image/svg+xml',
+            },
+            {
+                test: /\.svg(\?v=\d+.\d+.\d+)?$/,
+                include: path.resolve(__dirname, "app/static/fonts"),
                 loader: 'file-loader?name=fonts/[name].[ext]&limit=10000&mimetype=image/svg+xml',
             },
             { test: /\.(jpe?g|png|gif)$/i, include: srcPaths, loaders: ['file?name=images/[name].[ext]'] },
