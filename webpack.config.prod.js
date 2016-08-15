@@ -2,8 +2,11 @@ import webpack from 'webpack';
 import path from 'path';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 
+console.log('process.env.AWS_ENVIRONMENT_NAME', process.env.AWS_ENVIRONMENT_NAME)
+
 const GLOBALS = {
     'process.env.NODE_ENV': JSON.stringify('production'),
+    'process.env.AWS_ENVIRONMENT_NAME': process.env.AWS_ENVIRONMENT_NAME,
     __DEV__: false,
 };
 
