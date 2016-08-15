@@ -47,14 +47,18 @@ fs.readFile('app/index.html', 'utf8', (readError, markup) => {
     return readError;
 });
 
-fs.readFile('app/favicon.ico', function (readError, data) {
+fs.readFile('app/favicon.ico', (readError, data) => {
     if (readError) {
         return console.log(chalkError(readError));
     }
-    fs.writeFile('dist/favicon.ico', data, function (writeError) {
+    fs.writeFile('dist/favicon.ico', data, (writeError) => {
         if (writeError) {
             return console.log(chalkError(writeError));
         }
         console.log(chalkSuccess('favicon.ico written to /dist'));
+
+        return writeError;
     });
+
+    return readError;
 });
