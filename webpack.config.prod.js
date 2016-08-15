@@ -6,7 +6,7 @@ console.log('process.env.AWS_ENVIRONMENT_NAME', process.env.AWS_ENVIRONMENT_NAME
 
 const GLOBALS = {
     'process.env.NODE_ENV': JSON.stringify('production'),
-    'process.env.AWS_ENVIRONMENT_NAME': process.env.AWS_ENVIRONMENT_NAME,
+    'process.env.AWS_ENVIRONMENT_NAME': JSON.stringify(process.env.AWS_ENVIRONMENT_NAME),
     __DEV__: false,
 };
 
