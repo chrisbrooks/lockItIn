@@ -18,23 +18,15 @@ if [[ ! $appBuildNumber =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
   exitError "Application build number in correct format required as second argument"
 fi
 
-environment=$3
-if [[ ! $environment ]]; then
-  exitError "Application environment is required as third argument"
-fi
-
-echo "Publishing to environment: $environment"
+echo "Publishing to environment: $AWS_ENVIRONMENT_NAME"
 
 packageTasksDir="$DIRNAME/tasks"
 
-if [[ -n $DOCKER_BUILD_CONTAINER ]]; then
-  $packageTasksDir/environment-setup.sh $environment
-fi
 
 # $packageTasksDir/clean.sh $DIST_DIR
 $packageTasksDir/install.sh
 $packageTasksDir/compile.sh
 
-$packageTasksDir/publish-asset-cdn.sh $AWSRegion $appBuildNumber $environment
+$packageTasksDir/publish-asset-cdn.sh $AWSRegion $appBuildNumber
 
 echo "Publish: finished"

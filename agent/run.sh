@@ -90,6 +90,7 @@ dockerCatchError run \
   --workdir $DOCKER_BUILD_AGENT_WORKING_DIR \
   --env AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID \
   --env AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY \
+  --env AWS_ENVIRONMENT_NAME=$AWS_ENVIRONMENT_NAME \
   $DOCKER_IMAGE_NAME:$dockerImageTag \
   $scriptExecPath "$@"
 

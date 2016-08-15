@@ -30,17 +30,12 @@ if [[ (! -f "$DIST_DIR/style.css") || (! -f "$DIST_DIR/bundle.js") ]]; then
   exitError "Unable to locate expected build static assets"
 fi
 
-environment=$3
-if [[ ! $environment ]]; then
-  exitError "Application environment is required as third argument"
-fi
-
-if [[ $environment = "staging" ]]; then
+if [[ $AWS_ENVIRONMENT_NAME = "staging" ]]; then
     staticBuildTargetS3Path="s3://$CDN_S3_BUCKET_NAME/$CDN_STAGING_BUCKET_PATH/$appBuildNumber"
-elif [[ $environment = "production" ]]; then
+elif [[ $AWS_ENVIRONMENT_NAME = "production" ]]; then
     staticBuildTargetS3Path="s3://$CDN_S3_BUCKET_NAME/$CDN_PRODUCTION_BUCKET_PATH/$appBuildNumber"
 else
-    exitError "Cannont deploy asset to unknown environment $environment"
+    exitError "Cannont deploy asset to unknown environment $AWS_ENVIRONMENT_NAME"
 fi
 
 echo "Publishing CDN assets to S3 bucket $staticBuildTargetS3Path"

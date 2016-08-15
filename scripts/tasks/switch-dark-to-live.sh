@@ -29,11 +29,6 @@ if [[ ! $appBuildNumber =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
   exitError "Application build number in correct format required as second argument"
 fi
 
-environment=$3
-if [[ ! $environment ]]; then
-  exitError "Application environment is required as third argument"
-fi
-
 # check for required binaries
 if [[ ! -x $AWS_CLI_BIN ]]; then
   exitError "AWS CLI tools not installed"
@@ -44,12 +39,12 @@ if [[ (-z $AWS_ACCESS_KEY_ID) || (-z $AWS_SECRET_ACCESS_KEY) ]]; then
   exitError "Missing AWS access key / secret access key credentials"
 fi
 
-if [[ $environment = "staging" ]]; then
+if [[ $AWS_ENVIRONMENT_NAME = "staging" ]]; then
     staticBuildTargetS3Path="s3://$S3_BUCKET_NAME/$STAGING_BUCKET_PATH"
-elif [[ $environment = "production" ]]; then
+elif [[ $AWS_ENVIRONMENT_NAME = "production" ]]; then
     staticBuildTargetS3Path="s3://$S3_BUCKET_NAME/$PRODUCTION_BUCKET_PATH"
 else
-    exitError "Cannont deploy asset to unknown environment $environment"
+    exitError "Cannont deploy asset to unknown environment $AWS_ENVIRONMENT_NAME"
 fi
 
 echo "Publishing static assets to S3 bucket $staticBuildTargetS3Path"
