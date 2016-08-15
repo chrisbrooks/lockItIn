@@ -1,4 +1,5 @@
 DIST_DIR="dist"
+NODE_ENV="production"
 
 DOCKER_IMAGE_NAME="dockerregistry-v2.seekinfra.com/advertiser/adcentre-invoice-payment-ui-build-agent"
 
