@@ -1,7 +1,7 @@
 #!/bin/bash -e
 
 DIRNAME=$(dirname $0)
-
+ 
 . "$DIRNAME/config"
 . "$DIRNAME/lib"
 
