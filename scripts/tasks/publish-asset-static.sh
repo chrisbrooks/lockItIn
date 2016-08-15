@@ -42,6 +42,7 @@ fi
 echo "Publishing static assets to S3 bucket $staticBuildTargetS3Path"
 
 #Fiddle with index.html to point to CDN assets
+sed -i "s@favicon.ico@$cdnHTTPPath/favicon.ico@" $DIST_DIR/index.html
 sed -i "s@bundle.js@$cdnHTTPPath/bundle.js@" $DIST_DIR/index.html
 sed -i "s@style.css@$cdnHTTPPath/style.css@" $DIST_DIR/index.html
 
