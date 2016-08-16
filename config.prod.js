@@ -3,7 +3,6 @@ module.exports = {
     raygunIsEnabled: false,
     raygunApiKey: '',
     paymentUrl: 'http://talent.seek.com.au/api/pay',
-    stripeAuPublishableKey: '',
-    stripeNzPublishableKey: '',
-    analyticsScriptPath: 'https://assets.adobedtm.com/prod.js',
+    stripeAuPublishableKey: 'pk_live_4xJnYi8Fnl0cXoE0EM3mwJFt',
+    stripeNzPublishableKey: 'pk_live_lXounLQg840oL7Ud53RiqF2M',
 };
