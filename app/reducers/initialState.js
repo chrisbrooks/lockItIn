@@ -29,6 +29,7 @@ export default {
         expiryTouched: false,
         cvvValid: false,
         cvvTouched: false,
+        urlQueryValid: false,
     },
     card: {
         cardNumber: null,

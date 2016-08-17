@@ -11,3 +11,7 @@ export function setExpiryValid(expiryValidate) {
 export function setCvvValid(cvvValidate) {
     return { type: types.CVV_VALID, payload: cvvValidate };
 }
+
+export function setUrlQueryValid(queryValid) {
+    return { type: types.URL_QUERY_VALID, payload: queryValid };
+}

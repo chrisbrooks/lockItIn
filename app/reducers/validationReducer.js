@@ -2,6 +2,7 @@ import {
     CARD_NUMBER_VALID,
     EXPIRY_VALID,
     CVV_VALID,
+    URL_QUERY_VALID,
 } from '../actions/actionTypes';
 
 import initialState from './initialState';
@@ -25,6 +26,11 @@ export default function reducer(state = initialState.validation, action) {
             const cvvValid = action.payload.cvvValid;
             const cvvTouched = action.payload.cvvTouched;
             return { ...state, cvvValid, cvvTouched };
+        }
+
+        case URL_QUERY_VALID: {
+            const urlQueryValid = action.payload;
+            return { ...state, urlQueryValid };
         }
 
         default: {

@@ -11,4 +11,5 @@ export const EXPIRY_UPDATED = 'EXPIRY_UPDATED';
 export const EXPIRY_VALID = 'EXPIRY_VALID';
 export const CVV_UPDATED = 'CVV_UPDATED';
 export const CVV_VALID = 'CVV_VALID';
+export const URL_QUERY_VALID = 'URL_QUERY_VALID';
 export const TOGGLE = 'TOGGLE';

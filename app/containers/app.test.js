@@ -26,6 +26,7 @@ describe('<App />', () => {
             expiryTouched: true,
             cvvValid: true,
             cvvTouched: true,
+            urlQueryValid: true,
             cardType: constants.cardType.AMEX,
             toggleHelpBox: null,
             toggle: true,
@@ -52,6 +53,7 @@ describe('<App />', () => {
                 setCardNumberValid: sinon.spy(),
                 setExpiryValid: sinon.spy(),
                 setCvvValid: sinon.spy(),
+                setUrlQueryvalid: sinon.spy(),
             },
             countryActions: {
                 setLocation: sinon.spy(),
@@ -137,6 +139,7 @@ describe('<App />', () => {
             props = {
                 paymentError: false,
                 loading: false,
+                urlQueryValid: true,
             };
             const wrapper = shallow(<App {...props} />);
             expect(wrapper.find('[data-automation="paymentButtonProcessing"]').length).to.equal(0);
@@ -147,6 +150,7 @@ describe('<App />', () => {
             props = {
                 paymentError: false,
                 loading: true,
+                urlQueryValid: true,
             };
             const wrapper = shallow(<App {...props} />);
             expect(wrapper.find('[data-automation="paymentButtonProcessing"]').length).to.equal(1);

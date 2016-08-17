@@ -20,4 +20,10 @@ describe('validation actions', () => {
         const expectedAction = { type: types.CVV_VALID, payload: value };
         expect(validation.setCvvValid(value)).to.eql(expectedAction);
     });
+
+    it('should set urlQuery valid', () => {
+        const value = true;
+        const expectedAction = { type: types.URL_QUERY_VALID, payload: value };
+        expect(validation.setUrlQueryValid(value)).to.eql(expectedAction);
+    });
 });
