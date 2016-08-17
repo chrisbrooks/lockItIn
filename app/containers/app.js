@@ -34,7 +34,6 @@ export class App extends React.Component {
     componentDidMount() {
         this.getLocation();
         this.getUrlParam();
-
     }
 
     onFormChange(name, value) {
@@ -169,31 +168,6 @@ export class App extends React.Component {
         const decodedParameters = queryString.parse(base64Decode);
 
         this.props.urlQueryActions.setUrlQuery(decodedParameters);
-
-        if (this.validateUrlParam(decodedParameters)) {
-            this.props.validationActions.setUrlQueryValid(true);
-        }
-    }
-
-    validateUrlParam(decodedParameters) {
-
-        function stringCheck() {
-
-            for (const i of Object.entries(decodedParameters)) {
-
-                if (i[1] === '') {
-                    return false;
-                }
-            }
-
-            return true;
-        }
-
-        if (stringCheck() && !isNaN(decodedParameters.amount) && /\S+@\S+\.\S+/.test(decodedParameters.email)) {
-            return true;
-        }
-
-        return false;
     }
 
     validateForm() {
@@ -252,114 +226,98 @@ export class App extends React.Component {
 
                 <div className={styles.pageContainer} data-automation="pageContainer" >
 
-                    {this.props.urlQueryValid &&
+                    {!this.props.paymentSuccess &&
 
-                        <div className={styles.pageContainerInner}>
+                        <div className={styles.paymentFormOuterContainer} data-automation="paymentFormOuterContainer">
 
-                            {!this.props.paymentSuccess &&
+                            <div className={styles.paymentFormContainer}>
 
-                                <div className={styles.paymentFormOuterContainer} data-automation="paymentFormOuterContainer">
+                                <h1>Make a payment</h1>
 
-                                    <div className={styles.paymentFormContainer}>
+                                <div className={styles.paymentFormInnerContainer}>
 
-                                        <h1>Make a payment</h1>
+                                    <PaymentForm
+                                        paymentError={this.props.paymentError}
+                                        paymentErrorMessage={this.props.paymentErrorMessage}
+                                        onFormChange={this.onFormChange}
+                                        onFormBlur={this.onFormBlur}
+                                        cardNumber={this.props.cardNumber}
+                                        expiry={this.props.expiry}
+                                        cvv={this.props.cvv}
+                                        cardNumberValid={this.props.cardNumberValid}
+                                        cardNumberTouched={this.props.cardNumberTouched}
+                                        expiryValid={this.props.expiryValid}
+                                        expiryTouched={this.props.expiryTouched}
+                                        cvvValid={this.props.cvvValid}
+                                        cvvTouched={this.props.cvvTouched}
+                                        cardType={this.props.cardType}
+                                        toggle={this.props.toggle}
+                                        toggleHelpBox={this.toggleHelpBox}
+                                    />
 
-                                        <div className={styles.paymentFormInnerContainer}>
-
-                                            <PaymentForm
-                                                paymentError={this.props.paymentError}
-                                                paymentErrorMessage={this.props.paymentErrorMessage}
-                                                onFormChange={this.onFormChange}
-                                                onFormBlur={this.onFormBlur}
-                                                cardNumber={this.props.cardNumber}
-                                                expiry={this.props.expiry}
-                                                cvv={this.props.cvv}
-                                                cardNumberValid={this.props.cardNumberValid}
-                                                cardNumberTouched={this.props.cardNumberTouched}
-                                                expiryValid={this.props.expiryValid}
-                                                expiryTouched={this.props.expiryTouched}
-                                                cvvValid={this.props.cvvValid}
-                                                cvvTouched={this.props.cvvTouched}
-                                                cardType={this.props.cardType}
-                                                toggle={this.props.toggle}
-                                                toggleHelpBox={this.toggleHelpBox}
-                                            />
-
-                                            <PaymentInfo
-                                                customerNumber={this.props.customerNumber}
-                                                invoiceNumber={this.props.invoiceNumber}
-                                                amount={this.props.amount}
-                                                surcharge={this.props.surcharge}
-                                                cardType={this.props.cardType}
-                                            />
-
-                                        </div>
-
-                                    </div>
-
-                                    {!this.props.paymentError &&
-
-                                        <div className={styles.paymentButtonContainer} data-automation="paymentButtonContainer">
-
-                                            {!this.props.loading &&
-
-                                                <button
-                                                    className={styles.paymentButton}
-                                                    onClick={this.onSubmitForm}
-                                                    data-automation="paymentButton"
-                                                >
-                                                    Confirm Payment
-                                                </button>
-                                            }
-
-                                            {this.props.loading &&
-
-                                                <button
-                                                    className={styles.paymentButtonProcessing}
-                                                    onClick={this.onSubmitForm}
-                                                    data-automation="paymentButtonProcessing">
-
-                                                    <Spinner
-                                                        data-automation="spinner"
-                                                        config={{
-                                                            lines: 5,
-                                                            length: 0,
-                                                            width: 7,
-                                                            radius: 7,
-                                                            color: '#fff',
-                                                            left: '-30px',
-                                                            className: 'spinner',
-                                                            position: 'relative',
-                                                            top: '21px',
-                                                        }}
-                                                    />
-                                                    Processing
-                                                </button>
-                                            }
-
-                                        </div>
-                                    }
+                                    <PaymentInfo
+                                        customerNumber={this.props.customerNumber}
+                                        invoiceNumber={this.props.invoiceNumber}
+                                        amount={this.props.amount}
+                                        surcharge={this.props.surcharge}
+                                        cardType={this.props.cardType}
+                                    />
 
                                 </div>
-                            }
 
-                            {this.props.paymentSuccess &&
+                            </div>
 
-                                <PaymentSuccess
-                                    data-automation="paymentSuccess"
-                                    customerNumber={this.props.customerNumber}
-                                    invoiceNumber={this.props.invoiceNumber}
-                                    prn={this.props.prn}
-                                    totalAmount={this.props.totalAmount}
-                                />
+                            {!this.props.paymentError &&
+
+                                <div className={styles.paymentButtonContainer} data-automation="paymentButtonContainer">
+
+                                {!this.props.loading &&
+
+                                    <button className={styles.paymentButton} onClick={this.onSubmitForm} data-automation="paymentButton">
+                                        Confirm Payment
+                                    </button>
+                                }
+
+                                {this.props.loading &&
+
+                                    <button
+                                        className={styles.paymentButtonProcessing}
+                                        onClick={this.onSubmitForm}
+                                        data-automation="paymentButtonProcessing">
+
+                                        <Spinner
+                                            data-automation="spinner"
+                                            config={{
+                                                lines: 5,
+                                                length: 0,
+                                                width: 7,
+                                                radius: 7,
+                                                color: '#fff',
+                                                left: '-30px',
+                                                className: 'spinner',
+                                                position: 'relative',
+                                                top: '21px',
+                                            }}
+                                        />
+                                        Processing
+                                    </button>
+                                }
+
+                                </div>
                             }
 
                         </div>
                     }
 
-                    {!this.props.urlQueryValid &&
+                    {this.props.paymentSuccess &&
 
-                        <div>this is an error</div>
+                        <PaymentSuccess
+                        data-automation="paymentSuccess"
+                        customerNumber={this.props.customerNumber}
+                        invoiceNumber={this.props.invoiceNumber}
+                        prn={this.props.prn}
+                        totalAmount={this.props.totalAmount}
+                        />
                     }
 
                 </div>
@@ -387,7 +345,6 @@ App.propTypes = {
     cardNumberValid: PropTypes.bool,
     expiryValid: PropTypes.bool,
     cvvValid: PropTypes.bool,
-    urlQueryValid: PropTypes.bool,
     cardType: PropTypes.string,
     toggleHelpBox: PropTypes.func,
     toggle: PropTypes.bool,
@@ -423,7 +380,6 @@ App.propTypes = {
         setCvvValid: PropTypes.func,
         setCardNumberValid: PropTypes.func,
         setExpiryValid: PropTypes.func,
-        setUrlQueryValid: PropTypes.func,
     }),
 };
 
@@ -448,7 +404,6 @@ function mapStateToProps(state) {
         expiryTouched: state.validation.expiryTouched,
         cvvValid: state.validation.cvvValid,
         cvvTouched: state.validation.cvvTouched,
-        urlQueryValid: state.validation.urlQueryValid,
         cardType: state.actions.cardType,
         toggle: state.actions.toggle,
         totalAmount: state.actions.totalAmount,

@@ -19,7 +19,6 @@ describe('validation reducer', () => {
             expiryTouched: false,
             cvvValid: false,
             cvvTouched: false,
-            urlQueryValid: false,
         });
     });
 
@@ -38,7 +37,6 @@ describe('validation reducer', () => {
             expiryTouched: false,
             cvvValid: false,
             cvvTouched: false,
-            urlQueryValid: false,
         });
     });
 
@@ -57,7 +55,6 @@ describe('validation reducer', () => {
             expiryTouched: true,
             cvvValid: false,
             cvvTouched: false,
-            urlQueryValid: false,
         });
     });
 
@@ -76,7 +73,6 @@ describe('validation reducer', () => {
             expiryTouched: false,
             cvvValid: true,
             cvvTouched: true,
-            urlQueryValid: false,
         });
     });
 
