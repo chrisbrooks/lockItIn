@@ -35,7 +35,7 @@
         AU: 'Australia',
     };
 
-    export const number = {
+    export const customerServiceNumber = {
         NZ: '0508 733 569',
         AU: '1300 658 700',
     };

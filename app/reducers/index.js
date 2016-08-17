@@ -1,13 +1,15 @@
 import { combineReducers } from 'redux';
-import actions from './reducer';
-import payment from './paymentReducer';
-import validation from './validationReducer';
-import card from './cardReducer';
-import urlQuery from './urlQueryReducer';
-import country from './countryReducer';
+import event from './eventReducer/eventReducer';
+import calculation from './calculationReducer/calculationReducer';
+import payment from './paymentReducer/paymentReducer';
+import validation from './validationReducer/validationReducer';
+import card from './cardReducer/cardReducer';
+import urlQuery from './urlQueryReducer/urlQueryReducer';
+import country from './countryReducer/countryReducer';
 
 const rootReducer = combineReducers({
-    actions,
+    event,
+    calculation,
     payment,
     validation,
     card,

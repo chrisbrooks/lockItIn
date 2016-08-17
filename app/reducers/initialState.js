@@ -1,10 +1,12 @@
 export default {
-    actions: {
+    event: {
+        toggle: false,
+    },
+    calculation: {
         surcharge: 0,
         cardType: '',
         complete: false,
         totalAmount: null,
-        toggle: false,
     },
     country: {
         country: 'Australia',

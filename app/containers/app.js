@@ -7,12 +7,13 @@ import Spinner from 'react-spin';
 import base64 from 'base-64';
 import queryString from 'query-string';
 import * as constants from '../constants';
-import * as actions from '../actions/actions';
-import * as paymentActions from '../actions/paymentActions';
-import * as validationActions from '../actions/validationActions';
-import * as cardActions from '../actions/cardActions';
-import * as urlQueryActions from '../actions/urlQueryActions';
-import * as countryActions from '../actions/countryActions';
+import * as eventActions from '../actions/eventActions/eventActions';
+import * as calculationActions from '../actions/calculationActions/calculationActions';
+import * as paymentActions from '../actions/paymentActions/paymentActions';
+import * as validationActions from '../actions/validationActions/validationActions';
+import * as cardActions from '../actions/cardActions/cardActions';
+import * as urlQueryActions from '../actions/urlQueryActions/urlQueryActions';
+import * as countryActions from '../actions/countryActions/countryActions';
 import Header from '../components/header/header';
 import PaymentInfo from '../components/paymentInfo/paymentInfo';
 import PaymentForm from '../components/paymentForm/paymentForm';
@@ -41,7 +42,7 @@ export class App extends React.Component {
         switch (name) {
             case constants.inputs.CARD_NUMBER: {
                 const surcharge = this.getSurcharge(value);
-                this.props.actions.setSurcharge(surcharge);
+                this.props.calculationActions.setSurcharge(surcharge);
                 this.props.cardActions.setCardNumber(value);
                 break;
             }
@@ -62,7 +63,7 @@ export class App extends React.Component {
         }
 
         const total = this.getTotalAmount(value);
-        this.props.actions.setTotalAmount(total);
+        this.props.calculationActions.setTotalAmount(total);
     }
 
     onFormBlur(name, value, active) {
@@ -210,9 +211,9 @@ export class App extends React.Component {
     toggleHelpBox() {
 
         if (this.props.toggle) {
-            this.props.actions.setToggle(false);
+            this.props.eventActions.setToggle(false);
         } else {
-            this.props.actions.setToggle(true);
+            this.props.eventActions.setToggle(true);
         }
     }
 
@@ -363,10 +364,12 @@ App.propTypes = {
     countryActions: PropTypes.shape({
         setLocation: PropTypes.func,
     }),
-    actions: PropTypes.shape({
-        setToggle: PropTypes.func,
+    calculationActions: PropTypes.shape({
         setSurcharge: PropTypes.func,
         setTotalAmount: PropTypes.func,
+    }),
+    eventActions: PropTypes.shape({
+        setToggle: PropTypes.func,
     }),
     cardActions: PropTypes.shape({
         setCardNumber: PropTypes.func,
@@ -404,16 +407,17 @@ function mapStateToProps(state) {
         expiryTouched: state.validation.expiryTouched,
         cvvValid: state.validation.cvvValid,
         cvvTouched: state.validation.cvvTouched,
-        cardType: state.actions.cardType,
-        toggle: state.actions.toggle,
-        totalAmount: state.actions.totalAmount,
-        surcharge: state.actions.surcharge,
+        cardType: state.calculation.cardType,
+        totalAmount: state.calculation.totalAmount,
+        surcharge: state.calculation.surcharge,
+        toggle: state.event.toggle,
     };
 }
 
 function mapDispatchToProps(dispatch) {
     return {
-        actions: bindActionCreators(actions, dispatch),
+        eventActions: bindActionCreators(eventActions, dispatch),
+        calculationActions: bindActionCreators(calculationActions, dispatch),
         paymentActions: bindActionCreators(paymentActions, dispatch),
         validationActions: bindActionCreators(validationActions, dispatch),
         cardActions: bindActionCreators(cardActions, dispatch),
