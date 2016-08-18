@@ -108,7 +108,7 @@ export function createStripeToken(country, email, prn, cardNumber, cvv, expiry, 
         };
 
         const { paymentUrl } = require('../../../config.js');
-        const chargeUrl = `${paymentUrl}/token/charge`;
+        const chargeUrl = `${paymentUrl}/ChargePayOnline`;
 
         /*eslint-disable */
         Stripe.createToken(stripeData, function (status, response) {
