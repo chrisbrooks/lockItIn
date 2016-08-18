@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import reducer from 'eventReducer';
+import reducer from './eventReducer';
 import initialState from '../initialState';
 import {
     TOGGLE,
@@ -15,10 +15,6 @@ describe('main default reducer', () => {
             type: TOGGLE,
             payload: toggle,
         })).to.eql({
-            surcharge: 0,
-            cardType: '',
-            complete: false,
-            totalAmount: null,
             toggle: true,
         });
     });

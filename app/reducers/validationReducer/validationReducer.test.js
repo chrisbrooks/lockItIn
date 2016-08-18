@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import reducer from 'validationReducer';
+import reducer from './validationReducer';
 import initialState from '../initialState';
 import {
     CARD_NUMBER_VALID,

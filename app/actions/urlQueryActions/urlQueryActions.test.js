@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import * as urlQuery from 'urlQueryActions';
+import * as urlQuery from './urlQueryActions';
 import * as types from '../actionTypes';
 
 describe('url query actions', () => {

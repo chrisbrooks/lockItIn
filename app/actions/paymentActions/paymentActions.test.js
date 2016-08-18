@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import sinon from 'sinon';
-import * as payment from 'paymentActions';
+import * as payment from './paymentActions';
 import * as types from '../actionTypes';
 import * as constants from '../../constants';
 import axios from 'axios';
@@ -119,8 +119,8 @@ describe('createStripeToken', () => {
     const paymentData = {
         prn,
         email,
-        currency: country,
-        amount: totalAmount,
+        country,
+        amount: totalAmount * 100,
         token: 'token',
         customernumber: customerNumber,
     };

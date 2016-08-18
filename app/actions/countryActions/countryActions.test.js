@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import * as country from 'countryActions';
+import * as country from './countryActions';
 import * as types from '../actionTypes';
 
 describe('location actions', () => {

@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import reducer from 'calculationReducer';
+import reducer from './calculationReducer';
 import initialState from '../initialState';
 import {
     TOTAL_AMOUNT,
@@ -17,7 +17,6 @@ describe('main default reducer', () => {
             cardType: '',
             complete: false,
             totalAmount: null,
-            toggle: false,
         });
     });
 
@@ -31,7 +30,6 @@ describe('main default reducer', () => {
             cardType: '',
             complete: false,
             totalAmount: 400,
-            toggle: false,
         });
     });
 
@@ -48,22 +46,6 @@ describe('main default reducer', () => {
             cardType: 'Amex',
             complete: false,
             totalAmount: null,
-            toggle: false,
         });
     });
-
-    it('should return the correct card number validation state', () => {
-        const toggle = true;
-        expect(reducer((state), {
-            type: TOGGLE,
-            payload: toggle,
-        })).to.eql({
-            surcharge: 0,
-            cardType: '',
-            complete: false,
-            totalAmount: null,
-            toggle: true,
-        });
-    });
-
 });

@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import reducer from 'paymentReducer';
+import reducer from './paymentReducer';
 import initialState from '../initialState';
 import {
     LOADING,

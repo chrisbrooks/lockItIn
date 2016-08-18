@@ -37,7 +37,7 @@ describe('<App />', () => {
             prn: 'ffffff456rf',
             loading: true,
             totalAmount: 500,
-            actions: {
+            calculationActions: {
                 setSurcharge: sinon.spy(),
                 setTotalAmount: sinon.spy(),
             },
@@ -290,21 +290,21 @@ describe('<App />', () => {
                 expect(props.cardActions.setCardNumber.called).to.equal(true);
                 expect(props.cardActions.setCardNumber.calledWith(value)).to.equal(true);
 
-                expect(props.actions.setSurcharge.called).to.equal(true);
-                expect(props.actions.setSurcharge.calledWith({
+                expect(props.calculationActions.setSurcharge.called).to.equal(true);
+                expect(props.calculationActions.setSurcharge.calledWith({
                     surcharge: 3.06,
                     cardType: constants.cardType.AMEX,
                 })).to.equal(true);
 
-                expect(props.actions.setTotalAmount.called).to.equal(true);
-                expect(props.actions.setTotalAmount.calledWith(565.3)).to.equal(true);
+                expect(props.calculationActions.setTotalAmount.called).to.equal(true);
+                expect(props.calculationActions.setTotalAmount.calledWith(565.3)).to.equal(true);
             });
 
             it('should set card number,surcharge and total amount when using Visa details', () => {
                 props = {
                     cardNumber: '4747 4747 4747 4747',
                     amount: '500',
-                    actions: {
+                    calculationActions: {
                         setSurcharge: sinon.spy(),
                         setTotalAmount: sinon.spy(),
                     },
@@ -322,14 +322,14 @@ describe('<App />', () => {
                 expect(props.cardActions.setCardNumber.called).to.equal(true);
                 expect(props.cardActions.setCardNumber.calledWith(value)).to.equal(true);
 
-                expect(props.actions.setSurcharge.called).to.equal(true);
-                expect(props.actions.setSurcharge.calledWith({
+                expect(props.calculationActions.setSurcharge.called).to.equal(true);
+                expect(props.calculationActions.setSurcharge.calledWith({
                     surcharge: 0,
                     cardType: constants.cardType.VISA,
                 })).to.equal(true);
 
-                expect(props.actions.setTotalAmount.called).to.equal(true);
-                expect(props.actions.setTotalAmount.calledWith(550)).to.equal(true);
+                expect(props.calculationActions.setTotalAmount.called).to.equal(true);
+                expect(props.calculationActions.setTotalAmount.calledWith(550)).to.equal(true);
 
             });
 
@@ -337,7 +337,7 @@ describe('<App />', () => {
                 props = {
                     cardNumber: '5555 5555 5555 4444',
                     amount: '500',
-                    actions: {
+                    calculationActions: {
                         setSurcharge: sinon.spy(),
                         setTotalAmount: sinon.spy(),
                     },
@@ -354,14 +354,14 @@ describe('<App />', () => {
                 expect(props.cardActions.setCardNumber.called).to.equal(true);
                 expect(props.cardActions.setCardNumber.calledWith(value)).to.equal(true);
 
-                expect(props.actions.setSurcharge.called).to.equal(true);
-                expect(props.actions.setSurcharge.calledWith({
+                expect(props.calculationActions.setSurcharge.called).to.equal(true);
+                expect(props.calculationActions.setSurcharge.calledWith({
                     surcharge: 0,
                     cardType: constants.cardType.MASTERCARD,
                 })).to.equal(true);
 
-                expect(props.actions.setTotalAmount.called).to.equal(true);
-                expect(props.actions.setTotalAmount.calledWith(550)).to.equal(true);
+                expect(props.calculationActions.setTotalAmount.called).to.equal(true);
+                expect(props.calculationActions.setTotalAmount.calledWith(550)).to.equal(true);
 
             });
         });
@@ -374,7 +374,7 @@ describe('<App />', () => {
                     cardActions: {
                         setExpiry: sinon.spy(),
                     },
-                    actions: {
+                    calculationActions: {
                         setTotalAmount: sinon.spy(),
                     },
                 };
@@ -396,7 +396,7 @@ describe('<App />', () => {
                     cardActions: {
                         setCvv: sinon.spy(),
                     },
-                    actions: {
+                    calculationActions: {
                         setTotalAmount: sinon.spy(),
                     },
                 };

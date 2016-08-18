@@ -1,5 +1,5 @@
 import * as constants from '../../constants';
-import * as types from './../actionTypes';
+import * as types from '../actionTypes';
 import Stripe from '../../mocks/stripe/configureStripe'; // eslint-disable-line
 import axios from 'axios';
 
@@ -121,15 +121,15 @@ export function createStripeToken(country, email, prn, cardNumber, cvv, expiry, 
                 const paymentData = {
                     prn,
                     email,
-                    currency: country,
-                    amount: totalAmount,
+                    country,
+                    amount: totalAmount * 100,
                     token: response.id,
                     customernumber: customerNumber,
                 };
 
                 /*eslint-disable */
                 axios.post(chargeUrl, paymentData).then(function (status, result) {
-                    /*eslint-enable */
+                /*eslint-enable */
 
                     dispatch(paymentSuccess(true));
                     dispatch(loading(false));

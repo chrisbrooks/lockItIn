@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import * as validation from 'validationActions';
+import * as validation from './validationActions';
 import * as types from '../actionTypes';
 
 describe('validation actions', () => {
