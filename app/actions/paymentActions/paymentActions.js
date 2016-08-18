@@ -110,9 +110,7 @@ export function createStripeToken(country, email, prn, cardNumber, cvv, expiry, 
         const { paymentUrl } = require('../../../config.js');
         const chargeUrl = `${paymentUrl}`;
 
-        /*eslint-disable */
-        Stripe.createToken(stripeData, function (status, response) {
-        /*eslint-enable */
+        Stripe.createToken(stripeData, (status, response) => {
 
             dispatch(loading(true));
 
@@ -122,21 +120,17 @@ export function createStripeToken(country, email, prn, cardNumber, cvv, expiry, 
                     prn,
                     email,
                     country,
-                    amount: totalAmount * 100, //expecting value without decimal
+                    amount: totalAmount * 100,
                     token: response.id,
                     customernumber: customerNumber,
                 };
 
-                /*eslint-disable */
-                axios.post(chargeUrl, paymentData).then(function (status, result) {
-                /*eslint-enable */
+                axios.post(chargeUrl, paymentData).then(() => {
 
                     dispatch(paymentSuccess(true));
                     dispatch(loading(false));
 
-                    /*eslint-disable */
-                }).catch(function (error) {
-                    /*eslint-enable */
+                }).catch((error) => {
 
                     dispatch(paymentError(error.data));
                     dispatch(loading(false));
