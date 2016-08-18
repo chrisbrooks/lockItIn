@@ -89,7 +89,7 @@ export default {
                 include: srcPaths,
                 exclude: /node_modules\/(?!seek-style-guide)/,
                 loader: ExtractTextPlugin.extract('style',
-                    'css?localIdentName=[name]__[local]___[hash:base64:7]!postcss!less'),
+                    'css?localIdentName=[local]___[hash:base64:7]!postcss!less'),
             },
         ],
     },

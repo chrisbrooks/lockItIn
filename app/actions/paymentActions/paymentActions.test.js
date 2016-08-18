@@ -126,8 +126,19 @@ describe('createStripeToken', () => {
     };
 
     const dispatch = sinon.spy();
-    sinon.spy(axios, 'post');
     sinon.spy(stripeMock, 'createToken');
+
+    /*eslint-disable */
+    beforeEach(function () {
+        sinon.spy(axios, 'post');
+    });
+
+
+    afterEach(function () {
+        axios.post.restore();
+    });
+    /*eslint-enable */
+
 
     it('should set the correct actions', () => {
 
