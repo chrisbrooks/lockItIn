@@ -138,7 +138,6 @@ describe('createStripeToken', () => {
     });
     /*eslint-enable */
 
-
     it('should set the correct actions', () => {
 
         const actionMethod = payment.createStripeToken(country, email, prn, cardNumber, cvv, expiry, totalAmount, customerNumber);
