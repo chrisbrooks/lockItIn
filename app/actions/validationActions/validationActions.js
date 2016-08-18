@@ -1,4 +1,4 @@
-import * as types from './../actionTypes';
+import * as types from '../actionTypes';
 
 export function setCardNumberValid(cardValidate) {
     return { type: types.CARD_NUMBER_VALID, payload: cardValidate };

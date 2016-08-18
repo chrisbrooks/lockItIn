@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import reducer from 'countryReducer';
+import reducer from './countryReducer';
 import initialState from '../initialState';
 import {
     LOCATION,

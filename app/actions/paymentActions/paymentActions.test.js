@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import sinon from 'sinon';
-import * as payment from 'paymentActions';
+import * as payment from './paymentActions';
 import * as types from '../actionTypes';
 import * as constants from '../../constants';
 import axios from 'axios';
@@ -119,15 +119,24 @@ describe('createStripeToken', () => {
     const paymentData = {
         prn,
         email,
-        currency: country,
-        amount: totalAmount,
+        country,
+        amount: totalAmount * 100,
         token: 'token',
         customernumber: customerNumber,
     };
 
     const dispatch = sinon.spy();
-    sinon.spy(axios, 'post');
     sinon.spy(stripeMock, 'createToken');
+
+    /*eslint-disable */
+    beforeEach(function () {
+        sinon.spy(axios, 'post');
+    });
+
+    afterEach(function () {
+        axios.post.restore();
+    });
+    /*eslint-enable */
 
     it('should set the correct actions', () => {
 

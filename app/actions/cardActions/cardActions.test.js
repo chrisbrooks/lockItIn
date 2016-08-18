@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import * as card from 'cardActions';
+import * as card from './cardActions';
 import * as types from '../actionTypes';
 
 describe('card actions', () => {

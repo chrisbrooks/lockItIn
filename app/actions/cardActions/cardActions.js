@@ -1,4 +1,4 @@
-import * as types from './../actionTypes';
+import * as types from '../actionTypes';
 
 export function setCardNumber(value) {
     return { type: types.CARD_NUMBER_UPDATED, payload: value };

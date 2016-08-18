@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import reducer from 'urlQueryReducer';
+import reducer from './urlQueryReducer';
 import initialState from '../initialState';
 import {
     URL_QUERY,
