@@ -122,7 +122,7 @@ export function createStripeToken(country, email, prn, cardNumber, cvv, expiry, 
                     prn,
                     email,
                     country,
-                    amount: totalAmount * 100,
+                    amount: totalAmount * 100, //expecting value without decimal
                     token: response.id,
                     customernumber: customerNumber,
                 };
