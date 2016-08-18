@@ -133,7 +133,6 @@ describe('createStripeToken', () => {
         sinon.spy(axios, 'post');
     });
 
-
     afterEach(function () {
         axios.post.restore();
     });
