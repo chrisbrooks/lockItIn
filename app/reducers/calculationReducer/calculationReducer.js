@@ -1,7 +1,6 @@
 import {
     TOTAL_AMOUNT,
     SURCHARGE_UPDATED,
-    TOGGLE,
 } from '../../actions/actionTypes';
 
 import initialState from './../initialState';
@@ -18,11 +17,6 @@ export default function reducer(state = initialState.calculation, action) {
             const surcharge = action.payload.surcharge;
             const cardType = action.payload.cardType;
             return { ...state, surcharge, cardType };
-        }
-
-        case TOGGLE: {
-            const toggle = action.payload;
-            return { ...state, toggle };
         }
 
         default: {

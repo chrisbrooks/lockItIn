@@ -4,7 +4,6 @@ import initialState from '../initialState';
 import {
     TOTAL_AMOUNT,
     SURCHARGE_UPDATED,
-    TOGGLE,
 } from '../../actions/actionTypes';
 
 describe('main default reducer', () => {
