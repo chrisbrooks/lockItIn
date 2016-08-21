@@ -1,24 +1,18 @@
 import React, { PropTypes } from 'react';
-import Stripe from '../mocks/stripe/configureStripe'; // eslint-disable-line
 import styles from './app.less';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Spinner from 'react-spin';
-import base64 from 'base-64';
-import queryString from 'query-string';
 import * as constants from '../constants';
 import * as eventActions from '../actions/eventActions/eventActions';
 import * as calculationActions from '../actions/calculationActions/calculationActions';
 import * as paymentActions from '../actions/paymentActions/paymentActions';
 import * as validationActions from '../actions/validationActions/validationActions';
 import * as cardActions from '../actions/cardActions/cardActions';
-import * as urlQueryActions from '../actions/urlQueryActions/urlQueryActions';
-import * as countryActions from '../actions/countryActions/countryActions';
 import Header from '../components/header/header';
 import PaymentInfo from '../components/paymentInfo/paymentInfo';
 import PaymentForm from '../components/paymentForm/paymentForm';
 import PaymentSuccess from '../components/paymentSuccess/paymentSuccess';
-import { stripeAuPublishableKey, stripeNzPublishableKey } from '../../config.js'; // eslint-disable-line
 const validate = require('card-validator');
 
 export class App extends React.Component {
@@ -30,11 +24,6 @@ export class App extends React.Component {
         this.onFormBlur = this.onFormBlur.bind(this);
         this.onSubmitForm = this.onSubmitForm.bind(this);
         this.toggleHelpBox = this.toggleHelpBox.bind(this);
-    }
-
-    componentDidMount() {
-        this.getLocation();
-        this.getUrlParam();
     }
 
     onFormChange(name, value) {
@@ -150,27 +139,6 @@ export class App extends React.Component {
         return total;
     }
 
-    getLocation() {
-
-        if (/com.au/.test(window.location.href)) {
-            this.props.countryActions.setLocation(constants.location.AU);
-            Stripe.setPublishableKey(stripeAuPublishableKey); // eslint-disable-line no-undef
-        } else {
-            this.props.countryActions.setLocation(constants.location.NZ);
-            Stripe.setPublishableKey(stripeNzPublishableKey); // eslint-disable-line no-undef
-        }
-    }
-
-    getUrlParam() {
-
-        const url = window.location.href;
-        const parameters = url.substring(url.indexOf('?') + 1);
-        const base64Decode = base64.decode(parameters);
-        const decodedParameters = queryString.parse(base64Decode);
-
-        this.props.urlQueryActions.setUrlQuery(decodedParameters);
-    }
-
     validateForm() {
 
         const {
@@ -272,37 +240,37 @@ export class App extends React.Component {
 
                                 <div className={styles.paymentButtonContainer} data-automation="paymentButtonContainer">
 
-                                {!this.props.loading &&
+                                    {!this.props.loading &&
 
-                                    <button className={styles.paymentButton} onClick={this.onSubmitForm} data-automation="paymentButton">
-                                        Confirm Payment
-                                    </button>
-                                }
+                                        <button className={styles.paymentButton} onClick={this.onSubmitForm} data-automation="paymentButton">
+                                            Confirm Payment
+                                        </button>
+                                    }
 
-                                {this.props.loading &&
+                                    {this.props.loading &&
 
-                                    <button
-                                        className={styles.paymentButtonProcessing}
-                                        onClick={this.onSubmitForm}
-                                        data-automation="paymentButtonProcessing">
+                                        <button
+                                            className={styles.paymentButtonProcessing}
+                                            onClick={this.onSubmitForm}
+                                            data-automation="paymentButtonProcessing">
 
-                                        <Spinner
-                                            data-automation="spinner"
-                                            config={{
-                                                lines: 5,
-                                                length: 0,
-                                                width: 7,
-                                                radius: 7,
-                                                color: '#fff',
-                                                left: '-30px',
-                                                className: 'spinner',
-                                                position: 'relative',
-                                                top: '21px',
-                                            }}
-                                        />
-                                        Processing
-                                    </button>
-                                }
+                                            <Spinner
+                                                data-automation="spinner"
+                                                config={{
+                                                    lines: 5,
+                                                    length: 0,
+                                                    width: 7,
+                                                    radius: 7,
+                                                    color: '#fff',
+                                                    left: '-30px',
+                                                    className: 'spinner',
+                                                    position: 'relative',
+                                                    top: '21px',
+                                                }}
+                                            />
+                                            Processing
+                                        </button>
+                                    }
 
                                 </div>
                             }
@@ -313,11 +281,11 @@ export class App extends React.Component {
                     {this.props.paymentSuccess &&
 
                         <PaymentSuccess
-                        data-automation="paymentSuccess"
-                        customerNumber={this.props.customerNumber}
-                        invoiceNumber={this.props.invoiceNumber}
-                        prn={this.props.prn}
-                        totalAmount={this.props.totalAmount}
+                            data-automation="paymentSuccess"
+                            customerNumber={this.props.customerNumber}
+                            invoiceNumber={this.props.invoiceNumber}
+                            prn={this.props.prn}
+                            totalAmount={this.props.totalAmount}
                         />
                     }
 
@@ -361,9 +329,6 @@ App.propTypes = {
     paymentActions: PropTypes.shape({
         createStripeToken: PropTypes.func,
     }),
-    countryActions: PropTypes.shape({
-        setLocation: PropTypes.func,
-    }),
     calculationActions: PropTypes.shape({
         setSurcharge: PropTypes.func,
         setTotalAmount: PropTypes.func,
@@ -375,9 +340,6 @@ App.propTypes = {
         setCardNumber: PropTypes.func,
         setExpiry: PropTypes.func,
         setCvv: PropTypes.func,
-    }),
-    urlQueryActions: PropTypes.shape({
-        setUrlQuery: PropTypes.func,
     }),
     validationActions: PropTypes.shape({
         setCvvValid: PropTypes.func,
@@ -421,8 +383,6 @@ function mapDispatchToProps(dispatch) {
         paymentActions: bindActionCreators(paymentActions, dispatch),
         validationActions: bindActionCreators(validationActions, dispatch),
         cardActions: bindActionCreators(cardActions, dispatch),
-        urlQueryActions: bindActionCreators(urlQueryActions, dispatch),
-        countryActions: bindActionCreators(countryActions, dispatch),
     };
 }
 
