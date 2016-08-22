@@ -7,7 +7,7 @@ const HelpIcon = ({
     toggle,
     }) => (
     <div className={styles.helpIconContainer}>
-        <i aria-hidden="true" data-icon="&#57384;" className={styles.helpIcon} onClick={toggleHelpBox}></i>
+        <i aria-hidden="true" className={styles.helpIcon} onClick={toggleHelpBox}></i>
         {toggle && <div className={styles.helpIconContentContainer} data-automation="helpIconContentContainer">
             <span className={styles.helpIconArrowLeft}><span className={styles.helpIconArrowLeftInner}></span></span>
             {(cardType === '' || cardType !== 'Amex') && <div className={styles.helpIconContent} data-automation="helpIconContentOtherCards">
@@ -24,9 +24,7 @@ const HelpIcon = ({
                     <div className={styles.helpImageDescriptionAmex}>4 digits on the front of the card</div>
                 </div>
             </div>}
-            <span className={styles.helpIconCloseIcon}>
-                <i aria-hidden="true" data-icon="&#57488;" data-automation="helpIconCloseIcon" onClick={toggleHelpBox}></i>
-            </span>
+            <i aria-hidden="true" className={styles.helpIconCloseIconImage} data-automation="helpIconCloseIcon" onClick={toggleHelpBox}></i>
         </div>}
     </div>
 );

@@ -4,13 +4,19 @@
 
     display: inline-block;
     margin-left:5px;
-    margin-top:-2px;
+    margin-top:-5px;
 
     .helpIcon {
         position: relative;
         color: @sk-pink;
         cursor: pointer;
         z-index: 200;
+        background: url('./images/helpIcon.svg');
+        background-size: 16px;
+        display: inline-block;
+        width: 15px;
+        height: 16px;
+        top: 2px;
     }
 
     .helpIconContentContainer {
@@ -69,18 +75,13 @@
         top: -14px;
     }
 
-    .helpIconCloseIcon {
-        color: @sk-dark-mid-grey;
+    .helpIconCloseIconImage {
+        background: url('./images/closeIcon.svg');
         position: absolute;
-        top: 0;
-        right: 0;
-        padding: @default-spacer;
-        z-index: 20;
-        cursor: pointer;
-
-        &:hover {
-            color: @sk-pink;
-        }
+        right: @default-spacer;
+        top: @default-spacer;
+        cursor:pointer;
+        background-size: 16px;
     }
 
     .helpIconHeading {
@@ -97,7 +98,7 @@
         .helpImage {
             min-width: 143px;
             height: 72px;
-            background: url('../../static/images/ccvExample.png') no-repeat 0 -72px;
+            background: url('./images/ccvExample.png') no-repeat 0 -72px;
         }
 
         .helpImageAmex {
@@ -113,9 +114,4 @@
             margin-top: @default-spacer;
         }
     }
-
-}
-
-.issuerVisa {
-    background:red;
 }

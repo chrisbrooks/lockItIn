@@ -12,11 +12,11 @@ const Header = ({ country }) => (
             <span className={styles.headerNumberContainer}>
                 <a href="/ContactUs" className={styles.headerNumber}>
                     Customer Service
-                </a>&nbsp;
+                </a>
                 <i
                     className={styles.headerIcon}
                     aria-hidden="true"
-                    data-icon="&#57464;" />
+                />
                 <span className={styles.headerNumber} data-automation="headerNumber">
                     {country === constants.location.AU ? constants.customerServiceNumber.AU : constants.customerServiceNumber.NZ}
                 </span>

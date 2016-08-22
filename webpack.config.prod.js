@@ -74,13 +74,8 @@ export default {
             },
             {
                 test: /\.svg(\?v=\d+.\d+.\d+)?$/,
-                include: path.resolve(__dirname, "app/static/images"),
+                include: srcPaths,
                 loader: 'file-loader?name=images/[name].[ext]&limit=10000&mimetype=image/svg+xml',
-            },
-            {
-                test: /\.svg(\?v=\d+.\d+.\d+)?$/,
-                include: path.resolve(__dirname, "app/static/fonts"),
-                loader: 'file-loader?name=fonts/[name].[ext]&limit=10000&mimetype=image/svg+xml',
             },
             { test: /\.(jpe?g|png|gif)$/i, include: srcPaths, loaders: ['file?name=images/[name].[ext]'] },
             {
