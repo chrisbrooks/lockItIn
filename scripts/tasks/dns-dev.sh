@@ -21,7 +21,6 @@ else
   HostFilePath=/etc/hosts
 fi
 
-
 for ((i=0; i < ${#DevHostAu[@]}; i++))
 do
 

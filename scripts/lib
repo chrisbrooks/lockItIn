@@ -1,7 +1,6 @@
 function exitError {
-
-  echo "Error: $1" >&2
-  exit 1
+    echo "Error: $1" >&2
+    exit 1
 }
 
 function compressAndPushAsset {

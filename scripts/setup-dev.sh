@@ -8,6 +8,7 @@ DIRNAME=$(dirname $0)
 packageTasksDir="$DIRNAME/tasks"
 
 echo "Dev setup: started"
+
 $packageTasksDir/dns-dev.sh
 $packageTasksDir/install.sh
 
