@@ -26,12 +26,13 @@
         }
 
         &:before {
-            content: '\E914';
-            color: @sk-status-green;
-            font-size: 5.5rem;
-            font-weight: @sk-font-bold;
-            margin:@default-spacer * 3 auto @default-spacer * 4;
+            background:url('./images/successIcon.svg');
+            margin:@default-spacer * 2 auto @default-spacer * 2;
             display: block;
+            content: '';
+            width: 54px;
+            height: 54px;
+            background-size: 54px;
 
             @media only screen and (min-width: @small-device-max-width) {
                 display: inline-block;

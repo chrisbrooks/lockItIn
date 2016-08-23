@@ -31,9 +31,9 @@ describe('<App />', () => {
             toggle: true,
             customerNumber: '4134987123',
             invoiceNumber: '2232131231',
-            amount: '500',
-            gst: '50',
-            surcharge: 3.06,
+            amount: '500.00',
+            gst: '50.00',
+            surcharge: 12.32,
             email: 'chris@gmail.com',
             prn: 'ffffff456rf',
             loading: true,
@@ -117,8 +117,8 @@ describe('<App />', () => {
             const paymentInfoProps = wrapper.find('PaymentInfo').props();
             expect(paymentInfoProps.customerNumber).to.equal('4134987123');
             expect(paymentInfoProps.invoiceNumber).to.equal('2232131231');
-            expect(paymentInfoProps.amount).to.equal('500');
-            expect(paymentInfoProps.surcharge).to.equal(3.06);
+            expect(paymentInfoProps.amount).to.equal('500.00');
+            expect(paymentInfoProps.surcharge).to.equal(12.32);
             expect(paymentInfoProps.cardType).to.equal('Amex');
         });
 
@@ -299,7 +299,7 @@ describe('<App />', () => {
                 })).to.equal(true);
 
                 expect(props.calculationActions.setTotalAmount.called).to.equal(true);
-                expect(props.calculationActions.setTotalAmount.calledWith('561.60')).to.equal(true);
+                expect(props.calculationActions.setTotalAmount.calledWith('512.32')).to.equal(true);
             });
 
             it('should set card number,surcharge and total amount when using Visa details', () => {
@@ -340,7 +340,7 @@ describe('<App />', () => {
                 props = {
                     country: 'Australia',
                     cardNumber: '5555 5555 5555 4444',
-                    amount: '500',
+                    amount: '500.00',
                     calculationActions: {
                         setSurcharge: sinon.spy(),
                         setTotalAmount: sinon.spy(),

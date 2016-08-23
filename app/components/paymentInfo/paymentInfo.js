@@ -11,8 +11,7 @@ const PaymentInfo = ({
     }) => {
 
     let amountExclGst = (amount - gst).toFixed(2);
-    let surchargeTotal = ((surcharge / 100) * amount).toFixed(2);
-    let total = (Number(surchargeTotal) + Number(amount)).toFixed(2);
+    let total = (Number(surcharge) + Number(amount)).toFixed(2);
 
     return (
         <div className={styles.paymentInfo}>
@@ -40,7 +39,7 @@ const PaymentInfo = ({
                 </div>
                 {surcharge > 0 && <div className={styles.paymentInfoContainer}>
                     <p className={styles.paymentInfoTitle} data-automation="paymentSurchargeTitle">{cardType}</p>
-                    <p className={styles.paymentInfoValue} data-automation="paymentSurcharge"><span>$</span>{surchargeTotal}</p>
+                    <p className={styles.paymentInfoValue} data-automation="paymentSurcharge"><span>$</span>{surcharge}</p>
                 </div>}
                 <div className={styles.paymentInfoContainer}>
                     <p className={styles.paymentInfoTitle}>Total</p>

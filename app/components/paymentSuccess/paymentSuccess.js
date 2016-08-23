@@ -8,8 +8,6 @@ const PaymentSuccess = ({
     totalAmount,
     }) => {
 
-    console.log(totalAmount);
-
     const print = () => {
         window.print();
     };

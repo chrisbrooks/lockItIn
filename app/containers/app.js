@@ -95,17 +95,17 @@ export class App extends React.Component {
         }
     }
 
-    getAmexSurchargePercentage() {
-        let surchargeLogin;
+    getAmexSurchargeAmount() {
+        let surchargeAmount;
         const { country, amount } = this.props;
 
         if (country === 'Australia') {
-            surchargeLogin = (((amount * 0.024) + 0.02) / 0.976).toFixed(2);
-            return Number(surchargeLogin);
+            surchargeAmount = (((amount * 0.024) + 0.02) / 0.976).toFixed(2);
+            return Number(surchargeAmount);
         }
 
-        surchargeLogin = (((Number(amount) * 0.03) + 0.02) / (1 - 0.03)).toFixed(2);
-        return Number(surchargeLogin);
+        surchargeAmount = (((Number(amount) * 0.03) + 0.02) / (1 - 0.03)).toFixed(2);
+        return Number(surchargeAmount);
     }
 
     getSurcharge(cardNumber) {
@@ -114,28 +114,28 @@ export class App extends React.Component {
             mastercard: {
                 name: constants.cardType.MASTERCARD,
                 is_type: /^5[1-5]/,
-                surcharge_percentage: 0,
+                surcharge_amount: 0,
             },
             visa: {
                 name: constants.cardType.VISA,
                 is_type: /^4/,
-                surcharge_percentage: 0,
+                surcharge_amount: 0,
             },
             amex: {
                 name: constants.cardType.AMEX,
                 is_type: /^3[47]/,
-                surcharge_percentage: this.getAmexSurchargePercentage(),
+                surcharge_amount: this.getAmexSurchargeAmount(),
             },
             diners: {
                 name: constants.cardType.DINERS,
                 isType: /^3(?:0[0-5]|[68][0-9])/,
-                surcharge_percentage: 0,
+                surcharge_amount: 0,
             },
         };
 
         for (const issuer of Object.entries(cardIssuers)) {
             if (issuer[1].is_type && issuer[1].is_type.test(cardNumber)) {
-                return { cardType: issuer[1].name, surcharge: issuer[1].surcharge_percentage };
+                return { cardType: issuer[1].name, surcharge: issuer[1].surcharge_amount };
             }
         }
 
@@ -146,9 +146,8 @@ export class App extends React.Component {
 
         const { amount } = this.props;
         const surChargeObject = this.getSurcharge(value);
-        const surcharge = surChargeObject.surcharge;
-        const surChargeTotal = (((surcharge / 100) * amount).toFixed(2));
-        const total = Number(surChargeTotal) + Number(amount);
+        const surcharge = (surChargeObject.surcharge).toFixed(2);
+        const total = Number(surcharge) + Number(amount);
 
         return total.toFixed(2);
     }

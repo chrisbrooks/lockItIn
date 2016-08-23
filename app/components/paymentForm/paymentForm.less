@@ -29,7 +29,22 @@
     }
 
     .cardPaymentError {
-        &:extend(.errorMessage all);
+        display: block;
+        color: @sk-pink;
+        padding: 1px 0 3px 20px;
+
+        &:before {
+            content: '';
+            background:url('./images/errorIcon.svg');
+            margin-left: -20px;
+            margin-right: 4px;
+            top: 2px;
+            width: 16px;
+            height: 16px;
+            background-size: 16px;
+            display: inline-block;
+            position: relative;
+        }
     }
 }
 

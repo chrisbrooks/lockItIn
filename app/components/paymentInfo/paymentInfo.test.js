@@ -9,8 +9,8 @@ describe('<PaymentInfo />', () => {
 
     beforeEach(() => {
         props = {
-            amount: '500',
-            gst: '50',
+            amount: '500.00',
+            gst: '50.00',
             customerNumber: '1122334455',
             invoiceNumber: 'f24jsjkae',
             surcharge: 12.32,
@@ -39,8 +39,8 @@ describe('<PaymentInfo />', () => {
     it('should show the correct figures when cardType is set to Amex', () => {
         const wrapper = shallow(<PaymentInfo {...props} />);
         expect(wrapper.find('[data-automation="paymentSurchargeTitle"]').text()).to.equal('Amex');
-        expect(wrapper.find('[data-automation="paymentSurcharge"]').text()).to.equal('$61.60');
-        expect(wrapper.find('[data-automation="paymentTotal"]').text()).to.equal('$561.60');
+        expect(wrapper.find('[data-automation="paymentSurcharge"]').text()).to.equal('$12.32');
+        expect(wrapper.find('[data-automation="paymentTotal"]').text()).to.equal('$512.32');
     });
 
     it('should show the correct customer and invoice numbers', () => {
