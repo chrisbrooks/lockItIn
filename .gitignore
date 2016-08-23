@@ -30,3 +30,6 @@ dist*
 
 # npm logs
 npm-debug.log
+
+# mountebank logs
+mb.log
