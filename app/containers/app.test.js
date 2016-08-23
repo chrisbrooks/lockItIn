@@ -17,7 +17,7 @@ describe('<App />', () => {
             paymentError: true,
             paymentErrorMessage: 'this is a payment error message',
             onFormChange: sinon.spy(),
-            cardNumber: '3737 373737 37373',
+            cardNumber: '3400 000000 00009',
             expiry: '10/18',
             cvv: '123',
             cardNumberValid: true,
@@ -32,11 +32,12 @@ describe('<App />', () => {
             customerNumber: '4134987123',
             invoiceNumber: '2232131231',
             amount: '500',
+            gst: '50',
             surcharge: 3.06,
             email: 'chris@gmail.com',
             prn: 'ffffff456rf',
             loading: true,
-            totalAmount: 500,
+            totalAmount: '500.00',
             calculationActions: {
                 setSurcharge: sinon.spy(),
                 setTotalAmount: sinon.spy(),
@@ -98,7 +99,7 @@ describe('<App />', () => {
             const paymentFormProps = wrapper.find('PaymentForm').props();
             expect(paymentFormProps.paymentError).to.equal(true);
             expect(paymentFormProps.paymentErrorMessage).to.equal('this is a payment error message');
-            expect(paymentFormProps.cardNumber).to.equal('3737 373737 37373');
+            expect(paymentFormProps.cardNumber).to.equal('3400 000000 00009');
             expect(paymentFormProps.expiry).to.equal('10/18');
             expect(paymentFormProps.cvv).to.equal('123');
             expect(paymentFormProps.cardNumberValid).to.equal(true);
@@ -161,7 +162,7 @@ describe('<App />', () => {
             expect(paymentSuccess.customerNumber).to.equal('4134987123');
             expect(paymentSuccess.invoiceNumber).to.equal('2232131231');
             expect(paymentSuccess.prn).to.equal('ffffff456rf');
-            expect(paymentSuccess.totalAmount).to.equal(500);
+            expect(paymentSuccess.totalAmount).to.equal('500.00');
         });
     });
 
@@ -281,6 +282,7 @@ describe('<App />', () => {
         describe('testing CardNumber input', () => {
 
             it('should set card number,surcharge and total amount when using Amex details', () => {
+
                 const app = new App(props);
                 const name = constants.inputs.CARD_NUMBER;
                 const value = props.cardNumber;
@@ -292,16 +294,17 @@ describe('<App />', () => {
 
                 expect(props.calculationActions.setSurcharge.called).to.equal(true);
                 expect(props.calculationActions.setSurcharge.calledWith({
-                    surcharge: 3.06,
+                    surcharge: 12.32,
                     cardType: constants.cardType.AMEX,
                 })).to.equal(true);
 
                 expect(props.calculationActions.setTotalAmount.called).to.equal(true);
-                expect(props.calculationActions.setTotalAmount.calledWith(565.3)).to.equal(true);
+                expect(props.calculationActions.setTotalAmount.calledWith('561.60')).to.equal(true);
             });
 
             it('should set card number,surcharge and total amount when using Visa details', () => {
                 props = {
+                    country: 'Australia',
                     cardNumber: '4747 4747 4747 4747',
                     amount: '500',
                     calculationActions: {
@@ -329,12 +332,13 @@ describe('<App />', () => {
                 })).to.equal(true);
 
                 expect(props.calculationActions.setTotalAmount.called).to.equal(true);
-                expect(props.calculationActions.setTotalAmount.calledWith(550)).to.equal(true);
+                expect(props.calculationActions.setTotalAmount.calledWith('500.00')).to.equal(true);
 
             });
 
             it('should set card number,surcharge and total amount when using MasterCard details', () => {
                 props = {
+                    country: 'Australia',
                     cardNumber: '5555 5555 5555 4444',
                     amount: '500',
                     calculationActions: {
@@ -361,7 +365,7 @@ describe('<App />', () => {
                 })).to.equal(true);
 
                 expect(props.calculationActions.setTotalAmount.called).to.equal(true);
-                expect(props.calculationActions.setTotalAmount.calledWith(550)).to.equal(true);
+                expect(props.calculationActions.setTotalAmount.calledWith('500.00')).to.equal(true);
 
             });
         });
@@ -420,10 +424,9 @@ describe('<App />', () => {
                     'Australia',
                     'chris@gmail.com',
                     'ffffff456rf',
-                    '3737 373737 37373',
+                    '3400 000000 00009',
                     '123',
-                    '10/18',
-                    500
+                    '10/18'
                 )).to.equal(true);
             });
 

@@ -6,7 +6,7 @@ export default {
         surcharge: 0,
         cardType: '',
         complete: false,
-        totalAmount: null,
+        totalAmount: '',
     },
     country: {
         country: 'Australia',
@@ -17,6 +17,7 @@ export default {
         amount: null,
         prn: null,
         email: null,
+        gst: null,
     },
     payment: {
         loading: false,

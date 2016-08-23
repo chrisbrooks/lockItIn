@@ -145,7 +145,7 @@ const PaymentForm = ({
 };
 
 PaymentForm.propTypes = {
-    surcharge: PropTypes.number,
+    surcharge: PropTypes.string,
     paymentError: PropTypes.bool,
     paymentErrorMessage: PropTypes.string,
     cardNumberTouched: PropTypes.bool,

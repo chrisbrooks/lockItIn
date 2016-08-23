@@ -10,9 +10,10 @@ describe('<PaymentInfo />', () => {
     beforeEach(() => {
         props = {
             amount: '500',
+            gst: '50',
             customerNumber: '1122334455',
             invoiceNumber: 'f24jsjkae',
-            surcharge: 3.06,
+            surcharge: 12.32,
             cardType: 'Amex',
         };
     });
@@ -23,7 +24,7 @@ describe('<PaymentInfo />', () => {
         const wrapper = shallow(<PaymentInfo {...props} />);
         expect(wrapper.find('[data-automation="paymentSurchargeTitle"]').length).to.equal(0);
         expect(wrapper.find('[data-automation="paymentSurcharge"]').length).to.equal(0);
-        expect(wrapper.find('[data-automation="paymentTotal"]').text()).to.equal('$550.00');
+        expect(wrapper.find('[data-automation="paymentTotal"]').text()).to.equal('$500.00');
     });
 
     it('should show the correct figures and not show surcharge when cardType is MasterCard', () => {
@@ -32,14 +33,14 @@ describe('<PaymentInfo />', () => {
         const wrapper = shallow(<PaymentInfo {...props} />);
         expect(wrapper.find('[data-automation="paymentSurchargeTitle"]').length).to.equal(0);
         expect(wrapper.find('[data-automation="paymentSurcharge"]').length).to.equal(0);
-        expect(wrapper.find('[data-automation="paymentTotal"]').text()).to.equal('$550.00');
+        expect(wrapper.find('[data-automation="paymentTotal"]').text()).to.equal('$500.00');
     });
 
     it('should show the correct figures when cardType is set to Amex', () => {
         const wrapper = shallow(<PaymentInfo {...props} />);
         expect(wrapper.find('[data-automation="paymentSurchargeTitle"]').text()).to.equal('Amex');
-        expect(wrapper.find('[data-automation="paymentSurcharge"]').text()).to.equal('$15.30');
-        expect(wrapper.find('[data-automation="paymentTotal"]').text()).to.equal('$565.30');
+        expect(wrapper.find('[data-automation="paymentSurcharge"]').text()).to.equal('$61.60');
+        expect(wrapper.find('[data-automation="paymentTotal"]').text()).to.equal('$561.60');
     });
 
     it('should show the correct customer and invoice numbers', () => {

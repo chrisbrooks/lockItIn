@@ -8,11 +8,11 @@ const PaymentSuccess = ({
     totalAmount,
     }) => {
 
+    console.log(totalAmount);
+
     const print = () => {
         window.print();
     };
-
-    const total = Number(totalAmount).toFixed(2);
 
     return (
         <div className={styles.paymentSuccessPage}>
@@ -33,7 +33,7 @@ const PaymentSuccess = ({
                 </div>
                 <div className={styles.paymentSuccessContainer}>
                     <p className={styles.paymentSuccessTitle}>Total Paid</p>
-                    <p className={styles.paymentSuccessValue} data-automation="paymentAmount">${total}</p>
+                    <p className={styles.paymentSuccessValue} data-automation="paymentAmount">${totalAmount}</p>
                 </div>
             </div>
             <p className={styles.paymentSuccessPrint}>Please <a onClick={print}>print this page</a> for your records</p>
@@ -49,7 +49,7 @@ PaymentSuccess.propTypes = {
     customerNumber: React.PropTypes.string,
     invoiceNumber: React.PropTypes.string,
     prn: React.PropTypes.string,
-    totalAmount: React.PropTypes.number,
+    totalAmount: React.PropTypes.string,
 };
 
 export default PaymentSuccess;

@@ -16,6 +16,7 @@ describe('url query reducer', () => {
             amount: null,
             prn: null,
             email: null,
+            gst: null,
         });
     });
 
@@ -26,6 +27,7 @@ describe('url query reducer', () => {
             amount: '300',
             prn: '76412333wsd',
             email: 'chris@gmail.com',
+            gst: '50',
         };
         expect(reducer((state), {
             type: URL_QUERY,
@@ -36,6 +38,7 @@ describe('url query reducer', () => {
             amount: '300',
             prn: '76412333wsd',
             email: 'chris@gmail.com',
+            gst: '50',
         });
     });
 

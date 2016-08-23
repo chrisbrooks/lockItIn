@@ -51,8 +51,10 @@ export class App extends React.Component {
             }
         }
 
-        const total = this.getTotalAmount(value);
-        this.props.calculationActions.setTotalAmount(total);
+        if (name === constants.inputs.CARD_NUMBER) {
+            const total = this.getTotalAmount(value);
+            this.props.calculationActions.setTotalAmount(total);
+        }
     }
 
     onFormBlur(name, value, active) {
@@ -93,6 +95,19 @@ export class App extends React.Component {
         }
     }
 
+    getAmexSurchargePercentage() {
+        let surchargeLogin;
+        const { country, amount } = this.props;
+
+        if (country === 'Australia') {
+            surchargeLogin = (((amount * 0.024) + 0.02) / 0.976).toFixed(2);
+            return Number(surchargeLogin);
+        }
+
+        surchargeLogin = (((Number(amount) * 0.03) + 0.02) / (1 - 0.03)).toFixed(2);
+        return Number(surchargeLogin);
+    }
+
     getSurcharge(cardNumber) {
 
         const cardIssuers = {
@@ -109,7 +124,7 @@ export class App extends React.Component {
             amex: {
                 name: constants.cardType.AMEX,
                 is_type: /^3[47]/,
-                surcharge_percentage: 3.06,
+                surcharge_percentage: this.getAmexSurchargePercentage(),
             },
             diners: {
                 name: constants.cardType.DINERS,
@@ -132,11 +147,10 @@ export class App extends React.Component {
         const { amount } = this.props;
         const surChargeObject = this.getSurcharge(value);
         const surcharge = surChargeObject.surcharge;
-        const gst = amount * 10 / 100;
-        const surChargeTotal = (surcharge / 100) * amount;
-        const total = gst + surChargeTotal + Number(amount);
+        const surChargeTotal = (((surcharge / 100) * amount).toFixed(2));
+        const total = Number(surChargeTotal) + Number(amount);
 
-        return total;
+        return total.toFixed(2);
     }
 
     validateForm() {
@@ -228,6 +242,7 @@ export class App extends React.Component {
                                         customerNumber={this.props.customerNumber}
                                         invoiceNumber={this.props.invoiceNumber}
                                         amount={this.props.amount}
+                                        gst={this.props.gst}
                                         surcharge={this.props.surcharge}
                                         cardType={this.props.cardType}
                                     />
@@ -320,7 +335,8 @@ App.propTypes = {
     invoiceNumber: PropTypes.string,
     customerNumber: PropTypes.string,
     amount: PropTypes.string,
-    totalAmount: PropTypes.number,
+    gst: PropTypes.string,
+    totalAmount: PropTypes.string,
     loading: PropTypes.bool,
     setToggle: PropTypes.func,
     country: PropTypes.string,
@@ -354,6 +370,7 @@ function mapStateToProps(state) {
         customerNumber: state.urlQuery.customerNumber,
         invoiceNumber: state.urlQuery.invoiceNumber,
         amount: state.urlQuery.amount,
+        gst: state.urlQuery.gst,
         prn: state.urlQuery.prn,
         email: state.urlQuery.email,
         loading: state.payment.loading,

@@ -5,17 +5,14 @@ const PaymentInfo = ({
     invoiceNumber,
     customerNumber,
     amount,
+    gst,
     surcharge,
     cardType,
     }) => {
 
-    let gst = amount * 10 / 100;
-    let surCharge = (surcharge / 100) * Number(amount);
-    let total = (gst + surCharge + Number(amount));
-
-    gst = gst.toFixed(2);
-    surCharge = surCharge.toFixed(2);
-    total = total.toFixed(2);
+    let amountExclGst = (amount - gst).toFixed(2);
+    let surchargeTotal = ((surcharge / 100) * amount).toFixed(2);
+    let total = (Number(surchargeTotal) + Number(amount)).toFixed(2);
 
     return (
         <div className={styles.paymentInfo}>
@@ -30,12 +27,12 @@ const PaymentInfo = ({
             </div>
             <div className={styles.paymentInfoContainer}>
                 <p className={styles.paymentInfoTitle}>Invoice amount</p>
-                <p className={styles.paymentInfoValue}><span>$</span> {amount}</p>
+                <p className={styles.paymentInfoValue}><span>$</span> {amountExclGst}</p>
             </div>
             <div className={styles.paymentInfoTotalContainer}>
                 <div className={styles.paymentInfoContainer}>
                     <p className={styles.paymentInfoTitle}>Subtotal</p>
-                    <p className={styles.paymentInfoValue}><span>$</span> {amount}</p>
+                    <p className={styles.paymentInfoValue}><span>$</span> {amountExclGst}</p>
                 </div>
                 <div className={styles.paymentInfoContainer}>
                     <p className={styles.paymentInfoTitle}>GST</p>
@@ -43,7 +40,7 @@ const PaymentInfo = ({
                 </div>
                 {surcharge > 0 && <div className={styles.paymentInfoContainer}>
                     <p className={styles.paymentInfoTitle} data-automation="paymentSurchargeTitle">{cardType}</p>
-                    <p className={styles.paymentInfoValue} data-automation="paymentSurcharge"><span>$</span>{surCharge}</p>
+                    <p className={styles.paymentInfoValue} data-automation="paymentSurcharge"><span>$</span>{surchargeTotal}</p>
                 </div>}
                 <div className={styles.paymentInfoContainer}>
                     <p className={styles.paymentInfoTitle}>Total</p>
@@ -58,6 +55,7 @@ PaymentInfo.propTypes = {
     invoiceNumber: React.PropTypes.string,
     customerNumber: React.PropTypes.string,
     amount: React.PropTypes.string,
+    gst: React.PropTypes.string,
     surcharge: React.PropTypes.number,
     cardType: React.PropTypes.string,
 };

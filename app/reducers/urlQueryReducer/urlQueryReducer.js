@@ -13,7 +13,8 @@ export default function reducer(state = initialState.urlQuery, action) {
             const amount = action.payload.amount;
             const prn = action.payload.prn;
             const email = action.payload.email;
-            return { ...state, customerNumber, invoiceNumber, amount, prn, email };
+            const gst = action.payload.gst;
+            return { ...state, customerNumber, invoiceNumber, amount, prn, email, gst };
         }
 
         default: {

@@ -11,7 +11,7 @@ describe('<PaymentSuccess />', () => {
         props = {
             customerNumber: '1122334455',
             invoiceNumber: 'f24jsjkae',
-            totalAmount: 300,
+            totalAmount: '300.00',
             prn: 'sdfsd98f7df',
         };
     });

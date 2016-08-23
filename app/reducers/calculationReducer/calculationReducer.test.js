@@ -15,7 +15,7 @@ describe('main default reducer', () => {
             surcharge: 0,
             cardType: '',
             complete: false,
-            totalAmount: null,
+            totalAmount: '',
         });
     });
 
@@ -44,7 +44,7 @@ describe('main default reducer', () => {
             surcharge: 3.3,
             cardType: 'Amex',
             complete: false,
-            totalAmount: null,
+            totalAmount: '',
         });
     });
 });
