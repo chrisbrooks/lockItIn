@@ -5,11 +5,11 @@ DIRNAME=$(dirname $0)
 . "$DIRNAME/config"
 . "$DIRNAME/lib"
 
-packageTasksDir="$DIRNAME/tasks"
+
 
 echo "Dev setup: started"
 
-$packageTasksDir/dns-dev.sh
-$packageTasksDir/install.sh
+$DIRNAME/dns-dev.sh
+$DIRNAME/install.sh
 
 echo "Dev setup: finished"

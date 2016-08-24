@@ -22,10 +22,9 @@ echo "Publishing to environment: $AWS_ENVIRONMENT_NAME"
 
 packageTasksDir="$DIRNAME/tasks"
 
+$DIRNAME/install.sh
+$DIRNAME/compile.sh
 
-$packageTasksDir/install.sh
-$packageTasksDir/compile.sh
-
-$packageTasksDir/publish-asset-cdn.sh $AWSRegion $appBuildNumber
+$DIRNAME/publish-asset-cdn.sh $AWSRegion $appBuildNumber
 
 echo "Publish: finished"

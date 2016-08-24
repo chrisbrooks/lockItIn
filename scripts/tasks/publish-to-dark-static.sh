@@ -1,7 +1,7 @@
 #!/bin/bash -e
 
 DIRNAME=$(dirname $0)
- 
+
 . "$DIRNAME/config"
 . "$DIRNAME/lib"
 
@@ -18,13 +18,11 @@ if [[ ! $appBuildNumber =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
   exitError "Application build number in correct format required as second argument"
 fi
 
-packageTasksDir="$DIRNAME/tasks"
-
 if [[ ( -f "dist.tar.gz") ]]; then
     echo "Extracting build assets"
     tar -zxvf dist.tar.gz
 fi
 
-$packageTasksDir/publish-asset-static.sh $AWSRegion $appBuildNumber
+$DIRNAME/publish-asset-static.sh $AWSRegion $appBuildNumber
 
 echo "Publish: finished"
