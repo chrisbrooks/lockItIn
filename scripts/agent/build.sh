@@ -6,6 +6,8 @@ DIRNAME=$(dirname $0)
 . "$DIRNAME/config"
 . "$DIRNAME/lib"
 
+echo "dsfsdfds $DIRNAME"
+
 # determine app source base directory - check for expected directories to confirm this
 appSourceBaseDir=$(pwd -P)
 if [[ (! -d "$appSourceBaseDir/scripts/agent") ]]; then
