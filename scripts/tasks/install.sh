@@ -2,7 +2,7 @@
 
 DIRNAME=$(dirname $0)
 
-. "$DIRNAME/../lib"
+. "$DIRNAME/lib"
 
 echo "Install: started"
 

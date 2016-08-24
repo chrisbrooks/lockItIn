@@ -5,7 +5,7 @@ DIRNAME=$(dirname $0)
 RED='\033[0;31m'
 NC='\033[0m' # No Color
 
-. "$DIRNAME/../lib"
+. "$DIRNAME/lib"
 
 echo "DNS dev: started"
 

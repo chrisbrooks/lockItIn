@@ -2,8 +2,8 @@
 
 DIRNAME=$(dirname $0)
 
-. "$DIRNAME/../config"
-. "$DIRNAME/../lib"
+. "$DIRNAME/config"
+. "$DIRNAME/lib"
 
 echo "Test unit: started"
 

@@ -4,8 +4,8 @@ set -e
 DIRNAME=$(dirname $0)
 AWS_CLI_BIN=$(which aws || true)
 
-. "$DIRNAME/../config"
-. "$DIRNAME/../lib"
+. "$DIRNAME/config"
+. "$DIRNAME/lib"
 
 # We need to use max-age to do cachebusting on the static assets
 ASSET_MAX_AGE_SECONDS="30" # 30 secs

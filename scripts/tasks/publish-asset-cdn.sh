@@ -3,8 +3,8 @@
 DIRNAME=$(dirname $0)
 AWS_CLI_BIN=$(which aws || true)
 
-. "$DIRNAME/../config"
-. "$DIRNAME/../lib"
+. "$DIRNAME/config"
+. "$DIRNAME/lib"
 
 # CDN Assets get cachebusted by versioning - keep for as long as possible
 ASSET_MAX_AGE_SECONDS="2419200" # 28 days

@@ -3,7 +3,7 @@
 DIRNAME=$(dirname $0)
 
 
-. "$DIRNAME/../lib"
+. "$DIRNAME/lib"
 
 cleanDirectoryPath=$1
 if [[ -z $cleanDirectoryPath ]]; then
