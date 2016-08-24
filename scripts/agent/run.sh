@@ -13,8 +13,8 @@ fi
 
 # determine app source base directory - check for expected directories to confirm this
 appSourceBaseDir=$(pwd -P)
-if [[ (! -d "$appSourceBaseDir/agent") ]]; then
-  exitError "Script $(basename $0) must be run from the root of the project as agent/$(basename $0)"
+if [[ (! -d "$appSourceBaseDir/agent/scripts") ]]; then
+  exitError "Script $(basename $0) must be run from the root of the project as agent/scripts/$(basename $0)"
 fi
 
 scriptExecPath=$1

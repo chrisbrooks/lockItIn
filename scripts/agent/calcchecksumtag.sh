@@ -8,7 +8,7 @@ fi
 
 if [[
 	(! -f package.json) ||
-	(! -f agent/Dockerfile)
+	(! -f agent/scripts/Dockerfile)
 ]]; then
   # unable to locate files to generate checksum
   echo -n ""
@@ -16,6 +16,6 @@ if [[
 fi
 
 # create MD5 checksum based on the contents all all files that detemine the Docker build agent makeup
-cat package.json agent/Dockerfile | \
+cat package.json agent/scripts/Dockerfile | \
   $MD5Bin | \
   grep -Eo "^.{32}"

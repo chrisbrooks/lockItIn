@@ -2,16 +2,13 @@
 
 DIRNAME=$(dirname $0)
 
-
 . "$DIRNAME/config"
 . "$DIRNAME/lib"
-
-echo "dsfsdfds $DIRNAME"
 
 # determine app source base directory - check for expected directories to confirm this
 appSourceBaseDir=$(pwd -P)
 if [[ (! -d "$appSourceBaseDir/scripts/agent") ]]; then
-  exitError "Script $(basename $0) must be run from the root of the project as agent/$(basename $0)"
+  exitError "Script $(basename $0) must be run from the root of the project as agent/scripts/$(basename $0)"
 fi
 
 echo ">> Using docker version"
