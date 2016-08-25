@@ -4,9 +4,14 @@
     padding:@default-spacer * 2 0 0;
 
     @media only screen and (min-width: @small-device-max-width) {
-        padding:0 0 @default-spacer * 4 @default-spacer * 8;
+        padding:0 0 0 @default-spacer * 3;
         width: @default-spacer * 40;
         border-left: 1px solid @sk-light-mid-grey;
+        margin-left: @default-spacer * 3;
+    }
+
+    @media only screen and (min-width: @large-device-min-width) {
+        padding:0 0 @default-spacer * 4 @default-spacer * 8;
         margin-left: @default-spacer * 3;
     }
 

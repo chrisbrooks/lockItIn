@@ -2,11 +2,15 @@
 
 
 .paymentSuccessPage {
-    padding: @default-spacer * 2;
+    padding: @default-spacer * 5 @default-spacer * 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     @media only screen and (min-width: @small-device-max-width) {
-        padding: @default-spacer * 5 @default-spacer * 17;
+        padding: @default-spacer * 8 @default-spacer * 2;
     }
+
 
     .paymentSuccessHeader {
         &:extend(.errorMessage all);
@@ -27,7 +31,7 @@
 
         &:before {
             background:url('./images/successIcon.svg');
-            margin:@default-spacer * 2 auto @default-spacer * 2;
+            margin: 0 auto @default-spacer * 2;
             display: block;
             content: '';
             width: 54px;
@@ -38,6 +42,7 @@
                 display: inline-block;
                 position: relative;
                 top: -@default-spacer * 4;
+                margin-top: @default-spacer * 2;
                 margin-left:-@default-spacer * 6;
                 margin-right: @default-spacer * 2;
                 vertical-align: top;
@@ -68,7 +73,6 @@
                 margin-left: auto;
                 text-align: right;
                 color:@sk-dark-mid-grey;
-                width:@default-spacer * 12;
             }
         }
 
@@ -103,10 +107,11 @@
     .paymentSuccessPrintMobile {
         font-size: @sk-standard-font-size;
         max-width: 400px;
-        margin:0 auto @default-spacer * 3;
+        margin:0 auto;
 
         @media only screen and (min-width: @small-device-max-width) {
             display: none;
+
         }
     }
 }
