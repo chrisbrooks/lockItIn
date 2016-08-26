@@ -457,5 +457,80 @@ describe('<App />', () => {
             });
         });
     });
+
+    describe('testing getAmexSurchargeAmount', () => {
+
+        it('should return the correct amount when Australia is the country', () => {
+            props = {
+                country: 'Australia',
+                amount: '110.00',
+            };
+            const app = new App(props);
+
+            const spy = app.getAmexSurchargeAmount();
+
+            expect(spy).to.equal(2.73);
+            expect(spy).to.not.equal(2.70);
+            expect(spy).to.not.equal(2.7333333);
+        });
+
+        it('should return the correct amount when NewZealand is the country', () => {
+            props = {
+                country: 'NewZealand',
+                amount: '1100000.01',
+            };
+            const app = new App(props);
+
+            const spy = app.getAmexSurchargeAmount();
+
+            expect(spy).to.equal(33436.39);
+            expect(spy).to.not.equal(33436.397777);
+            expect(spy).to.not.equal(33436);
+        });
+
+    });
+
+    describe('testing getSurcharge', () => {
+        it('should return the correct surcharge and card type with a Visa card number', () => {
+            props = {
+                country: 'NewZealand',
+                amount: '1100000.01',
+                calculationActions: {
+                    setSurcharge: sinon.spy(),
+                    setTotalAmount: sinon.spy(),
+                },
+            };
+
+            const cardNumber = '4747 4747 4747 4747';
+            const app = new App(props);
+
+            app.getAmexSurchargeAmount();
+            const surcharge = app.getSurcharge(cardNumber);
+
+            expect(surcharge).to.eql({ surcharge: 0, cardType: 'Visa' });
+        });
+
+        it('should return the correct surcharge and card type with an Amex card number', () => {
+            props = {
+                country: 'NewZealand',
+                amount: '1100000.01',
+                cardNumber: '3782 822463 10005',
+                calculationActions: {
+                    setSurcharge: sinon.spy(),
+                    setTotalAmount: sinon.spy(),
+                },
+            };
+
+            const cardNumber = '3782 822463 10005';
+            const app = new App(props);
+
+            app.getAmexSurchargeAmount();
+            const surcharge = app.getSurcharge(cardNumber);
+
+            expect(surcharge).to.eql({ surcharge: 33436.39, cardType: 'Amex' });
+        });
+
+    });
+
 });
 

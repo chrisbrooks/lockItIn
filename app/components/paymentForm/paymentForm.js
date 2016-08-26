@@ -46,7 +46,7 @@ const PaymentForm = ({
     };
 
     const formatExpiryChange = (val) => {
-        const value = val.substring(0, 2) + (val.length > 1 ? '/' + val.substring(2, 4) : ''); // eslint-disable-line prefer-template
+        const value = val.substring(0, 2) + (val.length > 2 ? '/' + val.substring(2, 4) : ''); // eslint-disable-line prefer-template
         return value;
     };
 

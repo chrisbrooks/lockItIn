@@ -100,11 +100,11 @@ export class App extends React.Component {
         const { country, amount } = this.props;
 
         if (country === 'Australia') {
-            surchargeAmount = (((amount * 0.024) + 0.02) / 0.976).toFixed(2);
+            surchargeAmount = (((amount * 0.024) + 0.02) / (1 - 0.024)).toFixed(2);
             return Number(surchargeAmount);
         }
 
-        surchargeAmount = (((Number(amount) * 0.03) + 0.02) / (1 - 0.03)).toFixed(2);
+        surchargeAmount = (((amount * 0.0295) + 0.02) / (1 - 0.0295)).toFixed(2);
         return Number(surchargeAmount);
     }
 
