@@ -27,11 +27,11 @@ const PaymentSuccess = ({
                         <p className={styles.paymentSuccessValue} data-automation="paymentCustomerNumber">{customerNumber}</p>
                     </div>
                     <div className={styles.paymentSuccessContainer}>
-                        <p className={styles.paymentSuccessTitle}>Payment Reference</p>
+                        <p className={styles.paymentSuccessTitle}>Payment reference</p>
                         <p className={styles.paymentSuccessValue} data-automation="paymentReference">{prn}</p>
                     </div>
                     <div className={styles.paymentSuccessContainer}>
-                        <p className={styles.paymentSuccessTitle}>Total Paid</p>
+                        <p className={styles.paymentSuccessTitle}>Total paid</p>
                         <p className={styles.paymentSuccessValue} data-automation="paymentAmount">${totalAmount}</p>
                     </div>
                 </div>
