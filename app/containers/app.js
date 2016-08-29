@@ -26,23 +26,38 @@ export class App extends React.Component {
         this.toggleHelpBox = this.toggleHelpBox.bind(this);
     }
 
-    onFormChange(name, value) {
+    onFormChange(name, value, active) {
 
         switch (name) {
             case constants.inputs.CARD_NUMBER: {
                 const surcharge = this.getSurcharge(value);
                 this.props.calculationActions.setSurcharge(surcharge);
                 this.props.cardActions.setCardNumber(value);
+
+                if (this.props.cardNumberTouched) {
+                    this.onFormBlur(name, value, active);
+                }
+
                 break;
             }
 
             case constants.inputs.EXPIRY_DATE: {
                 this.props.cardActions.setExpiry(value);
+
+                if (this.props.expiryTouched) {
+                    this.onFormBlur(name, value, active);
+                }
+
                 break;
             }
 
             case constants.inputs.SECURITY_CODE: {
                 this.props.cardActions.setCvv(value);
+
+                if (this.props.cvvTouched) {
+                    this.onFormBlur(name, value, active);
+                }
+
                 break;
             }
 
@@ -83,6 +98,7 @@ export class App extends React.Component {
                 }
 
                 this.props.validationActions.setCvvValid({ cvvValid: cvvValidate, cvvTouched: active });
+
                 break;
             }
 
