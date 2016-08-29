@@ -37,7 +37,7 @@ const PaymentForm = ({
 
     const formChange = (e) => {
         e.preventDefault();
-        onFormChange(e.target.name, e.target.value, true);
+        onFormChange(e.target.name, e.target.value);
 
         const caret = e.target.selectionStart + 1;
         if (e.target.name === constants.inputs.EXPIRY_DATE) {
