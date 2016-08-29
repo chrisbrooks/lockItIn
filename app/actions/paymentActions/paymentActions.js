@@ -107,6 +107,8 @@ export function createStripeToken(country, email, prn, cardNumber, cvv, expiry, 
             amount: totalAmount,
         };
 
+        console.log(stripeData);
+
         const { paymentUrl } = require('../../../config.js');
         const chargeUrl = `${paymentUrl}`;
 
@@ -124,6 +126,8 @@ export function createStripeToken(country, email, prn, cardNumber, cvv, expiry, 
                     token: response.id,
                     customernumber: customerNumber,
                 };
+
+                console.log(paymentData);
 
                 axios.post(chargeUrl, paymentData).then(() => {
 
