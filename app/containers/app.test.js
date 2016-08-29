@@ -244,7 +244,10 @@ describe('<App />', () => {
 
         describe('testing SecurityCode Input', () => {
 
-            it('should set the security code valid', () => {
+            it('should set the security code valid when Visa', () => {
+
+                props.cardNumber = '4242 4242 4242 4242';
+                props.cardType = 'Visa';
 
                 name = constants.inputs.SECURITY_CODE;
                 value = '111';
@@ -258,10 +261,24 @@ describe('<App />', () => {
                 })).to.equal(true);
             });
 
+            it('should set the security code valid when Amex', () => {
+
+                name = constants.inputs.SECURITY_CODE;
+                value = '1111';
+
+                app.onFormBlur(name, value, active);
+
+                expect(props.validationActions.setCvvValid.called).to.equal(true);
+                expect(props.validationActions.setCvvValid.calledWith({
+                    cvvValid: true,
+                    cvvTouched: true,
+                })).to.equal(true);
+            });
+
             it('should not set the security code valid', () => {
 
                 name = constants.inputs.SECURITY_CODE;
-                value = '11';
+                value = '111';
 
                 app.onFormBlur(name, value, active);
 

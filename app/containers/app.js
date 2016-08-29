@@ -74,7 +74,14 @@ export class App extends React.Component {
             }
 
             case constants.inputs.SECURITY_CODE: {
-                const cvvValidate = validate.cvv(value).isValid;
+                let cvvValidate;
+
+                if (this.props.cardType === 'Amex') {
+                    cvvValidate = validate.cvv(value, 4).isValid;
+                } else {
+                    cvvValidate = validate.cvv(value).isValid;
+                }
+
                 this.props.validationActions.setCvvValid({ cvvValid: cvvValidate, cvvTouched: active });
                 break;
             }
