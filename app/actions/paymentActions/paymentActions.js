@@ -125,8 +125,6 @@ export function createStripeToken(country, email, prn, cardNumber, cvv, expiry, 
                     customernumber: customerNumber,
                 };
 
-                console.log(paymentData);
-
                 axios.post(chargeUrl, paymentData).then(() => {
 
                     dispatch(paymentSuccess(true));
