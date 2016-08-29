@@ -113,7 +113,6 @@ describe('createStripeToken', () => {
         number: cardNumber,
         cvc: cvv,
         exp: expiry,
-        amount: totalAmount,
     };
 
     const paymentData = {
