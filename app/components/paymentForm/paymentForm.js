@@ -81,8 +81,12 @@ const PaymentForm = ({
                             onBlur={formValidation}
                             onKeyUp={formChange} />
 
-                        {!cardNumberValid && cardNumberTouched && <div className={styles.cardPaymentError} data-automation="cardPaymentError">
+                        {!cardNumberValid && cardNumberTouched && cardType !== 'Diners' && <div className={styles.cardPaymentError} data-automation="cardPaymentError">
                             {cardNumber === null || cardNumber === '' ? 'Required' : 'Invalid card number'}
+                        </div>}
+
+                        {cardType === 'Diners' && <div className={styles.cardPaymentError} data-automation="cardPaymentError">
+                            Sorry, Dinners Club is not accepted
                         </div>}
                     </div>
 

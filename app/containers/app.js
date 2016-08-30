@@ -151,7 +151,7 @@ export class App extends React.Component {
             },
             diners: {
                 name: constants.cardType.DINERS,
-                isType: /^3(?:0[0-5]|[68][0-9])/,
+                is_type: /^3(?:0[0-5]|[68][0-9])/,
                 surcharge_amount: 0,
             },
         };
