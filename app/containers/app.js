@@ -77,7 +77,15 @@ export class App extends React.Component {
         switch (name) {
 
             case constants.inputs.CARD_NUMBER: {
-                const cardValidate = validate.number(value).isValid;
+
+                let cardValidate;
+
+                if (this.props.cardType === constants.cardType.DINERS) {
+                    cardValidate = false;
+                } else {
+                    cardValidate = validate.number(value).isValid;
+                }
+
                 this.props.validationActions.setCardNumberValid({ cardNumberValid: cardValidate, cardNumberTouched: active });
                 break;
             }
@@ -91,7 +99,7 @@ export class App extends React.Component {
             case constants.inputs.SECURITY_CODE: {
                 let cvvValidate;
 
-                if (this.props.cardType === 'Amex') {
+                if (this.props.cardType === constants.cardType.AMEX) {
                     cvvValidate = validate.cvv(value, 4).isValid;
                 } else {
                     cvvValidate = validate.cvv(value).isValid;
@@ -122,7 +130,7 @@ export class App extends React.Component {
         let surchargeAmount;
         const { country, amount } = this.props;
 
-        if (country === 'Australia') {
+        if (country === constants.location.AU) {
             surchargeAmount = (((amount * 0.024) + 0.02) / (1 - 0.024)).toFixed(2);
             return Number(surchargeAmount);
         }
