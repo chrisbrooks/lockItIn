@@ -106,8 +106,15 @@ export function createStripeToken(country, email, prn, cardNumber, cvv, expiry, 
             exp: expiry,
         };
 
-        const { paymentUrl } = require('../../../config.js');
-        const chargeUrl = `${paymentUrl}`;
+        let chargeUrl;
+
+        if (country === 'NewZealand') {
+            const { paymentUrlNz } = require('../../../config.js');
+            chargeUrl = `${paymentUrlNz}`;
+        } else {
+            const { paymentUrlAu } = require('../../../config.js');
+            chargeUrl = `${paymentUrlAu}`;
+        }
 
         Stripe.createToken(stripeData, (status, response) => {
 
