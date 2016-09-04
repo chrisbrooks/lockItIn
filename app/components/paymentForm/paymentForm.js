@@ -62,7 +62,7 @@ const PaymentForm = ({
                     <i className={masterCardSelected} aria-label={constants.cardType.MASTERCARD}></i>
                     <i className={amexSelected} aria-label={constants.cardType.AMEX}></i>
 
-                    <span className={styles.issuerSurcharge}>+ 3.06%</span>
+                    <span className={styles.issuerSurcharge}>Fees apply</span>
                 </div>
 
                 <form autoComplete="on">
