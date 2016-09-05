@@ -8,9 +8,7 @@ const PaymentSuccess = ({
     totalAmount,
     }) => {
 
-    const print = () => {
-        window.print();
-    };
+    const printPage = window.print;
 
     return (
         <div className={styles.paymentSuccessPage}>
@@ -27,7 +25,7 @@ const PaymentSuccess = ({
                         <p className={styles.paymentSuccessValue} data-automation="paymentCustomerNumber">{customerNumber}</p>
                     </div>
                     <div className={styles.paymentSuccessContainer}>
-                        <p className={styles.paymentSuccessTitle}>Payment reference</p>
+                        <p className={styles.paymentSuccessTitle}>Payment eference</p>
                         <p className={styles.paymentSuccessValue} data-automation="paymentReference">{prn}</p>
                     </div>
                     <div className={styles.paymentSuccessContainer}>
@@ -35,7 +33,7 @@ const PaymentSuccess = ({
                         <p className={styles.paymentSuccessValue} data-automation="paymentAmount">${totalAmount}</p>
                     </div>
                 </div>
-                <p className={styles.paymentSuccessPrint}>Please <a onClick={print}>print this page</a> for your records</p>
+                <p className={styles.paymentSuccessPrint}>Please <a onClick={printPage}>print this page</a> for your records</p>
                 <p className={styles.paymentSuccessPrintMobile}>A receipt has been sent to the billing address associated with this invoice.</p>
             </div>
         </div>

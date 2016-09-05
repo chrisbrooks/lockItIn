@@ -10,8 +10,8 @@ const PaymentInfo = ({
     cardType,
     }) => {
 
-    let amountExclGst = (amount - gst).toFixed(2);
-    let total = (Number(surcharge) + Number(amount)).toFixed(2);
+    const amountExclGst = (amount - gst).toFixed(2);
+    const total = (Number(surcharge) + Number(amount)).toFixed(2);
 
     return (
         <div className={styles.paymentInfo}>

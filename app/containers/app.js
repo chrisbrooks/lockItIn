@@ -370,8 +370,6 @@ App.propTypes = {
     loading: PropTypes.bool,
     setToggle: PropTypes.func,
     country: PropTypes.string,
-
-    // Action creators
     paymentActions: PropTypes.shape({
         createStripeToken: PropTypes.func,
     }),

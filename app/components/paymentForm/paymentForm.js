@@ -50,100 +50,118 @@ const PaymentForm = ({
         return value;
     };
 
-    return (
-        <div className={styles.creditCardPayment}>
-            {!paymentError && <div data-automation="paymentForm">
-                <h2 className={styles.paymentHeader}>Credit card details</h2>
-                <p className={styles.acceptText}>We accept</p>
+    const errors = (
+        <div className={styles.paymentError} data-automation="paymentError">
+            <h2 data-automation="paymentErrorMessage">{paymentErrorMessage}</h2>
+            <p>Refresh the page to try again or come back later.</p>
+        </div>
+    );
 
-                <div className={styles.issuerContainer} data-automation="issuerContainer">
+    const form = (
+        <div data-automation="paymentForm">
+            <h2 className={styles.paymentHeader}>Credit card details</h2>
+            <p className={styles.acceptText}>We accept</p>
 
-                    <i className={visaSelected} aria-label={constants.cardType.VISA}></i>
-                    <i className={masterCardSelected} aria-label={constants.cardType.MASTERCARD}></i>
-                    <i className={amexSelected} aria-label={constants.cardType.AMEX}></i>
+            <div className={styles.issuerContainer} data-automation="issuerContainer">
 
-                    <span className={styles.issuerSurcharge}>Fees apply</span>
+                <i className={visaSelected} aria-label={constants.cardType.VISA}></i>
+                <i className={masterCardSelected} aria-label={constants.cardType.MASTERCARD}></i>
+                <i className={amexSelected} aria-label={constants.cardType.AMEX}></i>
+
+                <span className={styles.issuerSurcharge}>Fees apply</span>
+            </div>
+
+            <form autoComplete="on">
+                <div className={styles.cardNumberContainer}>
+
+                    <label
+                        htmlFor={constants.inputs.CARD_NUMBER}
+                        className={styles.cardNumberLabel}>Card number
+                    </label>
+
+                    <NumberFormat
+                        data-automation="cardNumberInput"
+                        displayType={'input'}
+                        format={cardNumberLength}
+                        name={constants.inputs.CARD_NUMBER}
+                        className={styles.cardNumberInput}
+                        onBlur={formValidation}
+                        onKeyUp={formChange}
+                    />
+
+                    {!cardNumberValid && cardNumberTouched && cardType !== 'Diners' &&
+                        <div className={styles.cardPaymentError} data-automation="cardPaymentError">
+                            {cardNumber === null || cardNumber === '' ? 'Required' : 'Invalid card number'}
+                        </div>
+                    }
+
+                    {cardType === 'Diners' &&
+                        <div className={styles.cardPaymentError} data-automation="cardPaymentError">
+                        Sorry, Dinners Club is not accepted
+                        </div>
+                    }
+
                 </div>
 
-                <form autoComplete="on">
-                    <div className={styles.cardNumberContainer}>
+                <div className={styles.expiryContainer}>
 
-                        <label
-                            htmlFor={constants.inputs.CARD_NUMBER}
-                            className={styles.cardNumberLabel}>Card number
-                        </label>
-                        <NumberFormat
-                            data-automation="cardNumberInput"
-                            displayType={'input'}
-                            format={cardNumberLength}
-                            name={constants.inputs.CARD_NUMBER}
-                            className={styles.cardNumberInput}
-                            onBlur={formValidation}
-                            onKeyUp={formChange} />
-
-                        {!cardNumberValid && cardNumberTouched && cardType !== 'Diners' && <div className={styles.cardPaymentError} data-automation="cardPaymentError">
-                            {cardNumber === null || cardNumber === '' ? 'Required' : 'Invalid card number'}
-                        </div>}
-
-                        {cardType === 'Diners' && <div className={styles.cardPaymentError} data-automation="cardPaymentError">
-                            Sorry, Dinners Club is not accepted
-                        </div>}
-                    </div>
-
-                    <div className={styles.expiryContainer}>
-
-                        <label
+                    <label
                         htmlFor={constants.inputs.EXPIRY_DATE}
                         className={styles.expiryLabel}>Expiry
-                        </label>
+                    </label>
 
-                        <NumberFormat
-                            data-automation="expiryDateInput"
-                            id={constants.inputs.EXPIRY_DATE}
-                            format={formatExpiryChange}
-                            name={constants.inputs.EXPIRY_DATE}
-                            placeholder="MM/YY"
-                            className={styles.expiryInput}
-                            onBlur={formValidation}
-                            onKeyUp={formChange} />
+                    <NumberFormat
+                        data-automation="expiryDateInput"
+                        id={constants.inputs.EXPIRY_DATE}
+                        format={formatExpiryChange}
+                        name={constants.inputs.EXPIRY_DATE}
+                        placeholder="MM/YY"
+                        className={styles.expiryInput}
+                        onBlur={formValidation}
+                        onKeyUp={formChange}
+                    />
 
-                        {!expiryValid && expiryTouched && <div className={styles.cardPaymentError} data-automation="expiryPaymentError">
+                    {!expiryValid && expiryTouched &&
+                        <div className={styles.cardPaymentError} data-automation="expiryPaymentError">
                             {expiry === null || expiry === '' ? 'Required' : 'Invalid'}
-                        </div>}
-                    </div>
+                        </div>
+                    }
 
-                    <div className={styles.securityCodeContainer}>
+                </div>
 
-                        <label
+                <div className={styles.securityCodeContainer}>
+
+                    <label
                         htmlFor={constants.inputs.SECURITY_CODE}
                         className={styles.securityCodeLabel}>CCV
-                        </label>
+                    </label>
 
-                        <HelpIcon cardType={cardType} toggleHelpBox={toggleHelpBox} toggle={toggle} />
+                    <HelpIcon cardType={cardType} toggleHelpBox={toggleHelpBox} toggle={toggle} />
 
-                        <input
-                            data-automation="securityCodeInput"
-                            maxLength={cvvLength}
-                            name={constants.inputs.SECURITY_CODE}
-                            autoComplete="off"
-                            className={styles.securityCodeInput}
-                            onBlur={formValidation}
-                            onKeyUp={formChange} />
+                    <input
+                        data-automation="securityCodeInput"
+                        maxLength={cvvLength}
+                        name={constants.inputs.SECURITY_CODE}
+                        autoComplete="off"
+                        className={styles.securityCodeInput}
+                        onBlur={formValidation}
+                        onKeyUp={formChange}
+                    />
 
-                        {!cvvValid && cvvTouched && <div className={styles.cardPaymentError} data-automation="cvvPaymentError">
+                    {!cvvValid && cvvTouched &&
+                        <div className={styles.cardPaymentError} data-automation="cvvPaymentError">
                             {cvv === null || cvv === '' ? 'Required' : 'Invalid'}
-                        </div>}
-                    </div>
+                        </div>
+                    }
 
+                </div>
+            </form>
+        </div>
+    );
 
-                </form>
-            </div>}
-
-            {paymentError && <div className={styles.paymentError} data-automation="paymentError">
-                <h2 data-automation="paymentErrorMessage">{paymentErrorMessage}</h2>
-                <p>Refresh the page to try again or come back later.</p>
-            </div>}
-
+    return (
+        <div className={styles.creditCardPayment}>
+            {paymentError ? errors : form}
         </div>
     );
 };
