@@ -14,6 +14,10 @@ describe('<PaymentSuccess />', () => {
             totalAmount: '300.00',
             prn: 'sdfsd98f7df',
         };
+
+        global.window = {
+            print: {},
+        };
     });
 
     it('should show the correct figures on the success page', () => {

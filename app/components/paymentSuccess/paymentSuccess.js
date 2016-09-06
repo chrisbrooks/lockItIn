@@ -10,12 +10,29 @@ const PaymentSuccess = ({
 
     const printPage = window.print;
 
+    const date = () => {
+        const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June',
+            'July', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec',
+        ];
+
+        const today = new Date();
+        const dd = today.getDate();
+        const mm = monthNames[today.getMonth() + 1];
+        const yyyy = today.getFullYear();
+
+        return dd + ' ' + mm + ' ' + yyyy; // eslint-disable-line prefer-template
+    };
+
     return (
         <div className={styles.paymentSuccessPage}>
             <div className={styles.paymentSuccessPageInner}>
                 <h1 className={styles.paymentSuccessHeader}>Thanks. Your payment was successful.</h1>
                 <div className={styles.paymentSuccess}>
                     <h2 className={styles.paymentSuccessSubHeader}>Your payment information</h2>
+                    <div className={styles.paymentSuccessContainer}>
+                        <p className={styles.paymentSuccessTitle}>Date</p>
+                        <p className={styles.paymentSuccessValue} data-automation="paymentInvoiceDate">{date}</p>
+                    </div>
                     <div className={styles.paymentSuccessContainer}>
                         <p className={styles.paymentSuccessTitle}>Invoice number</p>
                         <p className={styles.paymentSuccessValue} data-automation="paymentInvoiceNumber">{invoiceNumber}</p>
@@ -25,7 +42,7 @@ const PaymentSuccess = ({
                         <p className={styles.paymentSuccessValue} data-automation="paymentCustomerNumber">{customerNumber}</p>
                     </div>
                     <div className={styles.paymentSuccessContainer}>
-                        <p className={styles.paymentSuccessTitle}>Payment eference</p>
+                        <p className={styles.paymentSuccessTitle}>Payment reference</p>
                         <p className={styles.paymentSuccessValue} data-automation="paymentReference">{prn}</p>
                     </div>
                     <div className={styles.paymentSuccessContainer}>
