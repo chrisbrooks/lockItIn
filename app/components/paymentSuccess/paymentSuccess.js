@@ -31,7 +31,7 @@ const PaymentSuccess = ({
                     <h2 className={styles.paymentSuccessSubHeader}>Your payment information</h2>
                     <div className={styles.paymentSuccessContainer}>
                         <p className={styles.paymentSuccessTitle}>Date</p>
-                        <p className={styles.paymentSuccessValue} data-automation="paymentInvoiceDate">{date}</p>
+                        <p className={styles.paymentSuccessValue} data-automation="paymentInvoiceDate">{date()}</p>
                     </div>
                     <div className={styles.paymentSuccessContainer}>
                         <p className={styles.paymentSuccessTitle}>Invoice number</p>
