@@ -1,0 +1,20 @@
+{
+    "predicates": [
+        {
+            "contains": {
+                "body": "\"token\":\"token\""
+            }
+        }
+    ],
+    "responses": [
+        {
+            "is": {
+                "statusCode": 200,
+                "headers": {
+                    <% include headers.ejs %>
+                },
+                "body": "Payment succeeded."
+            }
+        }
+    ]
+}

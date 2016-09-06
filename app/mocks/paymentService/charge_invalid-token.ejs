@@ -1,0 +1,20 @@
+{
+    "predicates": [
+        {
+            "contains": {
+                "body": "\"token\":\"invalid_token\""
+            }
+        }
+    ],
+    "responses": [
+        {
+            "is": {
+                "statusCode": 400,
+                "headers": {
+                    <% include headers.ejs %>
+                },
+                "body": "Invalid token."
+            }
+        }
+    ]
+}
