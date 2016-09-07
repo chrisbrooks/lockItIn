@@ -22,23 +22,9 @@
     "jquery": true,
     "mocha": true
   },
-  "settings": {
-    "import/parser": "babel-eslint",
-    "import/ignore": [
-      "node_modules",
-      ".(scss|less|css)$"
-    ]
-  },
   "rules": {
-    "max-len": [
-        1,
-        {"code": 150}
-    ],
-    "padded-blocks": 0,
-    "import/no-unresolved": 0,
-    "global-require": 0,
     "quotes": 0,
-    "indent": [2, 4, {"SwitchCase": 1}],
+    "indent": [2,4],
     "no-console": 1,
     "no-debugger": 1,
     "no-var": 1,
@@ -66,7 +52,6 @@
         ]
       }
     ],
-    "react/jsx-indent": [2, 4],
     "react/jsx-boolean-value": 0,
     "react/jsx-closing-bracket-location": 0,
     "react/jsx-curly-spacing": 1,

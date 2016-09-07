@@ -7,8 +7,7 @@
 
 // This assures the .babelrc dev config (which includes
 // hot module reloading code) doesn't apply for tests.
-// Setting NODE_ENV to test instead of production because
-// setting it to production will suppress error messaging
+// Setting NODE_ENV to test instead of production because setting it to production will suppress error messaging
 // and propType validation warnings.
 process.env.NODE_ENV = 'test';
 
