@@ -13,6 +13,7 @@ const Header = ({ country }) => (
                 <a href="/ContactUs" className={styles.headerNumber}>
                     Customer Service
                 </a>
+
                 <i
                     className={styles.headerIcon}
                     aria-hidden="true"
