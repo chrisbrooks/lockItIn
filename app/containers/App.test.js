@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { expect } from 'chai';
 import sinon from 'sinon';
-import { App } from './app';
+import { App } from './App';
 import * as constants from '../constants';
 
 describe('<App />', () => {

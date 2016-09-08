@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import styles from './app.less';
+import styles from './App.less';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Spinner from 'react-spin';
