@@ -51,7 +51,6 @@ const PaymentSuccess = ({
                     </div>
                 </div>
                 <p className={styles.paymentSuccessPrint}>Please <a onClick={printPage}>print this page</a> for your records</p>
-                <p className={styles.paymentSuccessPrintMobile}>A receipt has been sent to the billing address associated with this invoice.</p>
             </div>
         </div>
     );
