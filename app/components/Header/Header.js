@@ -1,4 +1,4 @@
-import styles from './header.less';
+import styles from './Header.less';
 import React from 'react';
 import * as constants from '../../constants';
 
@@ -13,7 +13,6 @@ const Header = ({ country }) => (
                 <a href="/ContactUs" className={styles.headerNumber}>
                     Customer Service
                 </a>
-
                 <i
                     className={styles.headerIcon}
                     aria-hidden="true"

@@ -1,4 +1,4 @@
-import styles from './paymentSuccess.less';
+import styles from './PaymentSuccess.less';
 import React from 'react';
 
 const PaymentSuccess = ({

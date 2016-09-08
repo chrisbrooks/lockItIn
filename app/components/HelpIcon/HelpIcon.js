@@ -1,4 +1,4 @@
-import styles from './helpIcon.less';
+import styles from './HelpIcon.less';
 import React, { PropTypes } from 'react';
 
 const HelpIcon = ({
