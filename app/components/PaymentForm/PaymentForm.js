@@ -64,9 +64,9 @@ const PaymentForm = ({
 
             <div className={styles.issuerContainer} data-automation="issuerContainer">
 
-                <i aria-label={constants.cardType.VISA}></i>
-                <i aria-label={constants.cardType.MASTERCARD}></i>
-                <i aria-label={constants.cardType.AMEX}></i>
+                <i className={visaSelected} aria-label={constants.cardType.VISA}></i>
+                <i className={masterCardSelected} aria-label={constants.cardType.MASTERCARD}></i>
+                <i className={amexSelected} aria-label={constants.cardType.AMEX}></i>
 
                 <span className={styles.issuerSurcharge}>Fees apply</span>
             </div>
