@@ -17,7 +17,16 @@ const validate = require('card-validator');
 
 export class App extends React.Component {
 
-    onFormChange = (name, value, active) => {
+    constructor(props) {
+        super(props);
+
+        this.onFormChange = this.onFormChange.bind(this);
+        this.onFormBlur = this.onFormBlur.bind(this);
+        this.onSubmitForm = this.onSubmitForm.bind(this);
+        this.toggleHelpBox = this.toggleHelpBox.bind(this);
+    }
+
+    onFormChange(name, value, active) {
 
         switch (name) {
             case constants.inputs.CARD_NUMBER: {
@@ -63,7 +72,7 @@ export class App extends React.Component {
         }
     }
 
-    onFormBlur = (name, value, active) => {
+    onFormBlur(name, value, active) {
 
         switch (name) {
 
@@ -107,7 +116,7 @@ export class App extends React.Component {
         }
     }
 
-    onSubmitForm = () => {
+    onSubmitForm() {
 
         const formIsValid = this.validateForm();
         const { country, email, prn, cardNumber, cvv, expiry, totalAmount, customerNumber } = this.props;
@@ -117,7 +126,7 @@ export class App extends React.Component {
         }
     }
 
-    getAmexSurchargeAmount = () => {
+    getAmexSurchargeAmount() {
         let surchargeAmount;
         const { country, amount } = this.props;
 
@@ -130,7 +139,7 @@ export class App extends React.Component {
         return Number(surchargeAmount);
     }
 
-    getSurcharge = (cardNumber) => {
+    getSurcharge(cardNumber) {
 
         const cardIssuers = {
             mastercard: {
@@ -164,7 +173,7 @@ export class App extends React.Component {
         return { surcharge: 0, cardType: '' };
     }
 
-    getTotalAmount = (value) => {
+    getTotalAmount(value) {
 
         const { amount } = this.props;
         const surChargeObject = this.getSurcharge(value);
@@ -174,7 +183,7 @@ export class App extends React.Component {
         return total.toFixed(2);
     }
 
-    validateForm = () => {
+    validateForm() {
 
         const {
             cardNumberValid,
@@ -211,7 +220,7 @@ export class App extends React.Component {
         return formIsValid;
     }
 
-    toggleHelpBox = () => {
+    toggleHelpBox() {
 
         if (this.props.toggle) {
             this.props.eventActions.setToggle(false);
