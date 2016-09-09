@@ -70,47 +70,47 @@
     background: url('../helpIcon/images/creditCardIssuer.png') no-repeat;
 }
 
-
-.visaSelected {
-    color:blue;
-}
-
-.visaSelectedNew {
-    color:red;
-}
-
 .issuerContainer {
     margin-bottom: (@default-spacer * 5);
     width: @default-spacer * 18;
+}
 
-    .issuerSurcharge {
-        font-size: @sk-tiny-font-size;
-        color: @sk-dark-mid-grey;
-        position: relative;
-        left: 104px;
-        top: 0;
-    }
+.issuerSurcharge {
+    font-size: @sk-tiny-font-size;
+    color: @sk-dark-mid-grey;
+    position: relative;
+    left: 104px;
+    top: 0;
+}
 
-    i {
-        &:first-child {
-            &:extend(.issuer);
-            background-position: -53px 0;
-        }
+.issuerVisa {
+    &:extend(.issuer);
+    background-position: -53px 0;
+}
 
-        &:nth-child(2) {
-            &:extend(.issuer);
-            background-position: 0 0;
-        }
+.notIssuerVisa {
+    &:extend(.issuerVisa);
+    opacity: 0.2;
+}
 
-        &:nth-child(3) {
-            &:extend(.issuer);
-            background-position: -106px 0;
-        }
-    }
+.issuerMasterCard {
+    &:extend(.issuer);
+    background-position: 0 0;
+}
 
-    .issuerOther {
-        opacity: 0.2;
-    }
+.notIssuerMasterCard {
+    &:extend(.issuerMasterCard);
+    opacity: 0.2;
+}
+
+.issuerAmex {
+    &:extend(.issuer);
+    background-position: -106px 0;
+}
+
+.notIssuerAmex {
+    &:extend(.issuerAmex);
+    opacity: 0.2;
 }
 
 /* card number */

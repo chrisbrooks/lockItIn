@@ -26,9 +26,9 @@ const PaymentForm = ({
     const cardNumberLength = cardType === constants.cardType.AMEX ? '#### ###### #####' : '#### #### #### ####';
     const cvvLength = cardType === constants.cardType.AMEX ? '4' : '3';
 
-    const visaSelected = cardType !== constants.cardType.VISA && cardType !== '' ? styles.issuerOther : styles.issuerVisa;
-    const masterCardSelected = cardType !== constants.cardType.MASTERCARD && cardType !== '' ? styles.issuerOther : styles.issuerMasterCard;
-    const amexSelected = cardType !== constants.cardType.AMEX && cardType !== '' ? styles.issuerOther : styles.issuerAmex;
+    const visaSelected = cardType !== constants.cardType.VISA && cardType !== '' ? styles.notIssuerVisa : styles.issuerVisa;
+    const masterCardSelected = cardType !== constants.cardType.MASTERCARD && cardType !== '' ? styles.notIssuerMasterCard : styles.issuerMasterCard;
+    const amexSelected = cardType !== constants.cardType.AMEX && cardType !== '' ? styles.notIssuerAmex : styles.issuerAmex;
 
     const formValidation = (e) => {
         e.preventDefault();
