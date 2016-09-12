@@ -17,7 +17,7 @@ const PaymentSuccess = ({
 
         const today = new Date();
         const dd = today.getDate();
-        const mm = monthNames[today.getMonth() + 1];
+        const mm = monthNames[today.getMonth()];
         const yyyy = today.getFullYear();
 
         return dd + ' ' + mm + ' ' + yyyy; // eslint-disable-line prefer-template
