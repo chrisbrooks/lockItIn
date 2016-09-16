@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { expect } from 'chai';
 import sinon from 'sinon';
-import HelpIcon from './helpIcon';
+import HelpIcon from './HelpIcon';
 
 describe('<HelpIcon />', () => {
 

@@ -1,4 +1,4 @@
-import styles from './header.less';
+import styles from './Header.less';
 import React from 'react';
 import * as constants from '../../constants';
 

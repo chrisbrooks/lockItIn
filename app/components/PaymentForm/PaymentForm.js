@@ -1,7 +1,7 @@
-import styles from './paymentForm.less';
+import styles from './PaymentForm.less';
 import React, { PropTypes } from 'react';
 import NumberFormat from 'react-number-format';
-import HelpIcon from '../helpIcon/helpIcon';
+import HelpIcon from '../HelpIcon/HelpIcon';
 import * as constants from '../../constants';
 
 const PaymentForm = ({

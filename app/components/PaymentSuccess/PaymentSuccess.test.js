@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { expect } from 'chai';
-import PaymentSuccess from './paymentSuccess';
+import PaymentSuccess from './PaymentSuccess';
 
 describe('<PaymentSuccess />', () => {
 

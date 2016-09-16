@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import styles from './app.less';
+import styles from './App.less';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Spinner from 'react-spin';
@@ -9,10 +9,10 @@ import * as calculationActions from '../actions/calculationActions/calculationAc
 import * as paymentActions from '../actions/paymentActions/paymentActions';
 import * as validationActions from '../actions/validationActions/validationActions';
 import * as cardActions from '../actions/cardActions/cardActions';
-import Header from '../components/header/header';
-import PaymentInfo from '../components/paymentInfo/paymentInfo';
-import PaymentForm from '../components/paymentForm/paymentForm';
-import PaymentSuccess from '../components/paymentSuccess/paymentSuccess';
+import Header from '../components/Header/Header';
+import PaymentInfo from '../components/paymentInfo/PaymentInfo';
+import PaymentForm from '../components/PaymentForm/PaymentForm';
+import PaymentSuccess from '../components/PaymentSuccess/PaymentSuccess';
 const validate = require('card-validator');
 
 export class App extends React.Component {
