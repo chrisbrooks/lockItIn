@@ -1,0 +1,154 @@
+import * as constants from '../../constants';
+import * as types from '../actionTypes';
+import Stripe from '../../mocks/stripe/configureStripe'; // eslint-disable-line
+import axios from 'axios';
+
+export function loading(value) {
+    return { type: types.LOADING, payload: value };
+}
+
+export function paymentSuccess(value) {
+    return { type: types.PAYMENT_SUCCESS, payload: value };
+}
+
+export function paymentError(error) {
+
+    switch (error) {
+
+        case constants.errors.DECLINED: {
+            return {
+                type: types.PAYMENT_ERROR,
+                payload: {
+                    paymentError: true,
+                    paymentErrorMessage: constants.errorMessages.DECLINED,
+                },
+            };
+        }
+
+        case constants.errors.DECLINED_FRAUDULENT: {
+            return {
+                type: types.PAYMENT_ERROR,
+                payload: {
+                    paymentError: true,
+                    paymentErrorMessage: constants.errorMessages.DECLINED_FRAUDULENT,
+                },
+            };
+        }
+
+        case constants.errors.DECLINED_EXPIRED: {
+            return {
+                type: types.PAYMENT_ERROR,
+                payload: {
+                    paymentError: true,
+                    paymentErrorMessage: constants.errorMessages.DECLINED_EXPIRED,
+                },
+            };
+        }
+
+        case constants.errors.DECLINED_INCORRECT_CVC: {
+            return {
+                type: types.PAYMENT_ERROR,
+                payload: {
+                    paymentError: true,
+                    paymentErrorMessage: constants.errorMessages.DECLINED_INCORRECT_CVC,
+                },
+            };
+        }
+
+        case constants.errors.INVALID_AMOUNT: {
+            return {
+                type: types.PAYMENT_ERROR,
+                payload: {
+                    paymentError: true,
+                    paymentErrorMessage: constants.errorMessages.DECLINED,
+                },
+            };
+        }
+
+        case constants.errors.INVALID_TOKEN: {
+            return {
+                type: types.PAYMENT_ERROR,
+                payload: {
+                    paymentError: true,
+                    paymentErrorMessage: constants.errorMessages.DECLINED,
+                },
+            };
+        }
+
+        case constants.errors.UNSUPPORTED: {
+            return {
+                type: types.PAYMENT_ERROR,
+                payload: {
+                    paymentError: true,
+                    paymentErrorMessage: constants.errorMessages.UNSUPPORTED,
+                },
+            };
+        }
+
+        default: {
+            return {
+                type: types.PAYMENT_ERROR,
+                payload: {
+                    paymentError: true,
+                    paymentErrorMessage: constants.errorMessages.PROCESSING_ERROR,
+                },
+            };
+        }
+    }
+}
+
+export function createStripeToken(country, email, prn, cardNumber, cvv, expiry, totalAmount, customerNumber) {
+    return dispatch => {
+
+        const stripeData = {
+            number: cardNumber,
+            cvc: cvv,
+            exp: expiry,
+        };
+
+        let chargeUrl;
+
+        if (country === 'NewZealand') {
+            const { paymentUrlNz } = require('../../../config.js');
+            chargeUrl = `${paymentUrlNz}`;
+        } else {
+            const { paymentUrlAu } = require('../../../config.js');
+            chargeUrl = `${paymentUrlAu}`;
+        }
+
+        Stripe.createToken(stripeData, (status, response) => {
+
+            dispatch(loading(true));
+
+            if (status === 200) {
+
+                const paymentData = {
+                    prn,
+                    email,
+                    country,
+                    amount: totalAmount * 100,
+                    token: response.id,
+                    customernumber: customerNumber,
+                };
+
+                axios.post(chargeUrl, paymentData).then(() => {
+
+                    dispatch(paymentSuccess(true));
+                    dispatch(loading(false));
+
+                }).catch((error) => {
+
+                    dispatch(paymentError(error.data));
+                    dispatch(loading(false));
+
+                });
+
+            } else {
+
+                dispatch(paymentError(constants.errorMessages.PROCESSING_ERROR));
+                dispatch(loading(false));
+            }
+
+        });
+    };
+}

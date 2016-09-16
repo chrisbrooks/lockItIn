@@ -1,36 +1,37 @@
 /* eslint-disable import/default */
 
-/*import './styles/styles.less';
-import './favicon.ico';*/
-
 import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
-import { Router, browserHistory } from 'react-router';
-import routes from './routes';
 import configureStore from './store/configureStore';
-//import { environment, raygunIsEnabled, raygunApiKey } from '../config';
+import App from './containers/app'; // eslint-disable-line
 
+const {
+    environment,
+    raygunIsEnabled,
+    raygunApiKey,
+} = require('../config.js');
 
 const store = configureStore();
 
-/*if (raygunIsEnabled) {
-    /!* global Raygun *!/
+
+if (raygunIsEnabled) {
+    /* global Raygun */
     require('raygun4js');
     Raygun
         .init(raygunApiKey, {
-            ignoreAjaxAbort: true
+            ignoreAjaxAbort: true,
         })
-        .setVersion(version)
+        // .setVersion(version)
         .attach()
         .withTags([
             `environment:${environment}`,
-            'client'
+            'client',
         ]);
-}*/
+}
 
 render(
     <Provider store={store}>
-        <Router history={browserHistory} routes={routes}/>
+        <App />
     </Provider>, document.getElementById('app')
 );

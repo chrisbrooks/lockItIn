@@ -1,3 +1,5 @@
+/* eslint-disable import/default */
+
 // This file configures the development web server
 // which supports hot reloading and synchronized testing.
 
@@ -15,6 +17,9 @@ const bundler = webpack(config);
 
 // Run Browsersync and use middleware for Hot Module Replacement
 browserSync({
+    open: 'external',
+    host: 'talent.pay.seek.com.au.dev',
+
     server: {
         baseDir: 'app',
 

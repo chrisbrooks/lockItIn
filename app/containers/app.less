@@ -1,0 +1,29 @@
+@import "../static/less/styles";
+
+.pageContainer {
+    background:@sk-off-white;
+
+    @media only screen and (min-width: @small-device-max-width) {
+        max-width: @main-content-max-width;
+        margin:@default-spacer * 4;
+        border:1px solid @sk-light-mid-grey;
+    }
+
+    @media only screen and (min-width: @large-device-min-width) {
+        margin:@default-spacer * 8 auto;
+    }
+}
+
+.paymentFormContainer {
+    padding: @default-spacer * 4 @default-spacer * 2;
+
+    @media only screen and (min-width: @small-device-max-width) {
+        padding: @default-spacer * 4 @default-spacer * 3 @default-spacer * 7;
+    }
+}
+
+.paymentFormInnerContainer {
+    @media only screen and (min-width: @small-device-max-width) {
+        display: flex;
+    }
+}
