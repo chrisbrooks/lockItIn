@@ -14,7 +14,6 @@ const {
 
 const store = configureStore();
 
-
 if (raygunIsEnabled) {
     /* global Raygun */
     require('raygun4js');
