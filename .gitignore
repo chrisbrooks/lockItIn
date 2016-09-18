@@ -17,7 +17,7 @@ coverage
 node_modules
 
 # dist
-dist*
+dist/
 
 # Webstorm metadata
 .idea
@@ -29,4 +29,4 @@ dist*
 .DS_Store
 
 # npm logs
-npm-debug.log
+npm-debug.log*
