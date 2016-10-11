@@ -5,5 +5,5 @@ module.exports = {
     paymentUrlAu: 'https://talent.seek.com.au.staging/api/paymentservice/ChargePayOnline',
     paymentUrlNz: 'https://talent.seek.co.nz.staging/api/paymentservice/ChargePayOnline',
     stripeAuPublishableKey: 'pk_test_BgjSlFxxesmRQfLEusmL62I4',
-    stripeNzPublishableKey: 'pk_test_DyIHZnE1y6PEsmvIRst7ZK1X',
+    stripeNzPublishableKey: 'sk_test_G7k7oKq1Zb7zCJhuH55MG1yY',
 };

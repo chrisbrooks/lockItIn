@@ -5,5 +5,5 @@ module.exports = {
     paymentUrlAu: 'http://localhost:2626/token/charge',
     paymentUrlNz: 'http://localhost:2626/token/charge',
     stripeAuPublishableKey: 'pk_test_BgjSlFxxesmRQfLEusmL62I4',
-    stripeNzPublishableKey: 'pk_test_DyIHZnE1y6PEsmvIRst7ZK1X',
+    stripeNzPublishableKey: 'sk_test_G7k7oKq1Zb7zCJhuH55MG1yY',
 };
