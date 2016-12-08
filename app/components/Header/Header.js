@@ -7,7 +7,6 @@ const Header = ({ country }) => (
         <div className={styles.headerInnerContainer}>
             <a href="/" className={styles.headerLogoContainer}>
                 <span className={styles.headerLogo}></span>
-                <span className={styles.headerLogoText}>employer</span>
             </a>
             <span className={styles.headerNumberContainer}>
                 <a href="/ContactUs" className={styles.headerNumber}>

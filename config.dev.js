@@ -2,8 +2,7 @@ module.exports = {
     environment: 'development',
     raygunIsEnabled: false,
     raygunApiKey: '',
-    paymentUrlAu: 'http://localhost:2626/token/charge',
-    paymentUrlNz: 'http://localhost:2626/token/charge',
-    stripeAuPublishableKey: 'pk_test_BgjSlFxxesmRQfLEusmL62I4',
-    stripeNzPublishableKey: 'pk_test_okMiZ2AVjfpw3PqMYlzNSFOT',
+    dateChangeUrl: 'https://d6bfrsob50.execute-api.ap-southeast-2.amazonaws.com/dev/updateTime',
+    getCandidatesUrl: 'https://d6bfrsob50.execute-api.ap-southeast-2.amazonaws.com/dev/getAllInterviewList',
+    sendReminderUrl: 'https://d6bfrsob50.execute-api.ap-southeast-2.amazonaws.com/dev/sendReminder',
 };

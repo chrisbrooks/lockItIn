@@ -1,0 +1,201 @@
+@import (reference) "../../static/less/styles";
+
+.candidateInfo {
+
+    margin: 0;
+    width:100%;
+
+    @media only screen and (min-width: @medium-device-max-width) {
+        padding: 0 @default-spacer * 4 0;
+        width:100%;
+    }
+}
+
+.candidateList {
+    margin: 0;
+    position: relative;
+    list-style-type: none;
+    margin-bottom: @default-spacer * 2;
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+
+    @media only screen and (min-width: @medium-device-max-width) {
+        display: flex;
+    }
+}
+
+.candidateContentContainer {
+    padding: @default-spacer * 3;
+    border: 1px solid @sk-light-grey;
+    background: #f1f1f1;
+    width: 100%;
+
+    @media only screen and (min-width: @medium-device-max-width) {
+        width: 75%;
+    }
+}
+
+.candidateContent {
+    margin: 0 auto @default-spacer * 2;
+    text-align: center;
+}
+
+.candidateName {
+    text-transform: uppercase;
+    color: @sk-link-text;
+    margin-bottom: @default-spacer * 2;
+}
+
+.candidateEmail {
+
+    margin-bottom: @default-spacer;
+    span {
+        color: @sk-dark-mid-grey;
+    }
+}
+
+.candidatePhone {
+    margin-bottom: @default-spacer;
+
+    span {
+        color: @sk-dark-mid-grey;
+    }
+}
+
+.candidatePosition {
+    span {
+        color: @sk-dark-mid-grey;
+    }
+}
+
+.setTimeButton {
+    background: @sk-pink;
+    border-radius: @sk-border-radius;
+    color: @sk-white;
+    padding: 0 @default-spacer * 2;
+    display: flex;
+    align-items: center;
+    height: @default-spacer * 5;
+}
+
+.sendReminder {
+    padding: 10px;
+    background: #ccc;
+    display: inline-block;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    border-radius: 2px;
+    font-size: 12px;
+}
+
+.statusContainer {
+    display: flex;
+    align-items: center;
+    background: #eee;
+    padding: 9px 0 18px 0;
+    width:100%;
+    order:2;
+
+    @media only screen and (min-width: @medium-device-max-width) {
+        width: 25%;
+        padding: 27px;
+    }
+}
+
+.statusContent {
+    text-align: center;
+    margin:0 auto;
+    width: @default-spacer * 8;
+}
+
+.acceptedStatus, .declinedStatus, .noResponseStatus, .notSentStatus {
+    border-radius: 50%;
+    width:@default-spacer * 7;
+    height: @default-spacer * 7;
+    margin: 0 auto @default-spacer;
+}
+
+.noResponseStatus {
+    background: url('./images/notResponded.svg');
+    background-size: @default-spacer * 7;;
+}
+
+.acceptedStatus {
+    background: url('./images/Accepted.svg');
+    background-size: @default-spacer * 7;;
+}
+
+.declinedStatus {
+    background: url('./images/Declined.svg');
+    background-size: @default-spacer * 7;;
+}
+
+.notSentStatus {
+    background: url('./images/notSent.svg');
+    background-size: @default-spacer * 7;;
+}
+
+
+.dateTimeContent {
+    @media only screen and (min-width: @small-device-max-width) {
+        display: flex;
+        justify-content: center;
+    }
+}
+
+.saveTime {
+    background: pink;
+    height: @default-spacer * 5;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    background: @sk-pink;
+    padding: 0 @default-spacer * 4;
+    border-radius: @sk-border-radius;
+    color: @sk-white;
+    width: 100%;
+    cursor: pointer;
+
+    @media only screen and (min-width: @small-device-max-width) {
+        width: 200px;
+
+        margin-left: @default-spacer * 2;
+    }
+}
+
+.dateContent {
+
+    @media only screen and (min-width: @small-device-max-width) {
+        display: flex;
+    }
+}
+
+.overlay {
+    position: absolute;
+    left:0;
+    top:0;
+    width:100%;
+    height:100%;
+    background: rgba(0,0,0,0.8);
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.errorText {
+    color: @sk-white;
+    font-size: @sk-nav-and-title-font;
+    font-weight: @sk-font-light;
+}
+
+.errorLogo {
+    &:extend(.declinedStatus all);
+}
+
+.errorLogoSuccess {
+    &:extend(.acceptedStatus all);
+}

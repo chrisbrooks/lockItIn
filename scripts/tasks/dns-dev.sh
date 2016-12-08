@@ -9,7 +9,7 @@ NC='\033[0m' # No Color
 
 echo "DNS dev: started"
 
-DevHostAu=(talent.pay.seek.com.au.dev talent.pay.seek.co.nz.dev)
+DevHostAu=(lock.it.in.seek.com.au.dev lock.it.in.seek.co.nz.dev)
 DevIpAu=127.0.0.1
 
 HostFilePath=""
